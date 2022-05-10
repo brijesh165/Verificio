@@ -1,0 +1,73 @@
+<div class="registration">
+    <div class="registrationHeader">
+        <span class="title">verifico</span>
+    </div>
+
+    <div nz-col nzSpan="12" nzXs="24" nzSm="24" nzMd="18" nzLg="12" nzXl="10" style="background-color: white;">
+        <div style="background: #fff;padding:20px;">
+            <nz-card style="width:100%" [nzBordered]="false">
+                <nz-card-meta class="cardMeta" nzTitle="Create An Account"
+                    nzDescription="Let’s get you started with your account creation, this won’t take long">
+                </nz-card-meta>
+
+                <form nz-form nzLayout="vertical" [formGroup]="registrationForm" class="login-form"
+                    (ngSubmit)="submitForm()">
+
+                    <!-- Email -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="email">Email Address</nz-form-label>
+                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email adddress.">
+                            <nz-input-group>
+                                <input type="text" nz-input formControlName="email"
+                                    placeholder="Enter email address here" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <!-- Password -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="password">Password</nz-form-label>
+                        <nz-form-control [nzSpan]="null" nzErrorTip="Password must be of atleast 6 characters.">
+                            <nz-input-group>
+                                <input type="password" nz-input formControlName="password"
+                                    placeholder="Enter password" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <!-- plans -->
+                    <nz-form-item>
+                        <nz-form-label nzFor="plan" nzRequired>Select Plans</nz-form-label>
+                        <nz-form-control nzErrorTip="Please select your plan!">
+                            <nz-select id="plan" formControlName="plan" nzPlaceHolder="Select plan"
+                                (ngModelChange)="planChange($event)">
+                                <nz-option nzValue="premium" nzLabel="Premium"></nz-option>
+                                <nz-option nzValue="essentials" nzLabel="Essentials"></nz-option>
+                                <nz-option nzValue="standards" nzLabel="Standards"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <!-- acknowledge -->
+                    <nz-form-item>
+                        <label nz-checkbox> I acknowledge that I have read and hereby accept the terms and conditions in
+                            verificio and its <span class="ackTxt">third party partners, Terms of Use, and Privacy
+                                Policy.</span></label>
+                    </nz-form-item>
+
+                    <!-- button -->
+                    <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzBlock class="btn">Create Account</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+
+                <br>
+                <div style="text-align:center">
+                    Already have an account? <a class="signIn" (click)="onLogin()">Sign In</a>
+                </div>
+            </nz-card>
+        </div>
+    </div>
+</div>

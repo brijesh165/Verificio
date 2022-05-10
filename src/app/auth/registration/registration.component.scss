@@ -1,0 +1,57 @@
+.registration {
+    background-color: #EFF3FB;
+    min-height: calc(100vh);
+    min-width: calc(100vw - 10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+    .cardMeta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        gap: 30px;
+
+        width: 712px;
+        height: 697px;
+
+        background: #FFFFFF;
+        border-radius: 5px;
+    }
+
+    .btn {
+        min-height: 55px;
+        font-size: 18px;
+        font-weight: 600;
+        background: #29B475;
+        border: none;
+    }
+
+    .diabledBtn {
+        min-height: 55px;
+        font-size: 18px;
+        font-weight: 600;
+        background: #29B475;
+        opacity: 0.22;
+        border: none;
+    }
+
+    .ackTxt {
+        color: #29B475;
+    }
+
+    .signIn {
+        color: #29B475;
+    }
+}
