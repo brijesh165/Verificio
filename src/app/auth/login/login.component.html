@@ -1,24 +1,21 @@
-<div class="registration">
+<div class="login">
     <div class="registrationHeader">
         <span class="title">verifico</span>
     </div>
 
     <div nz-col nzSpan="12" nzXs="24" nzSm="24" nzMd="18" nzLg="12" nzXl="10" style="background-color: white;">
-        <div style="background: #fff;padding:20px;">
+        <div style="background: #fff; padding:20px;">
             <nz-card style="width:100%" [nzBordered]="false">
-                <nz-card-meta class="cardMeta" nzTitle="Create An Account"
-                    nzDescription="Let’s get you started with your account creation, this won’t take long">
-                </nz-card-meta>
+                <nz-card-meta class="cardMeta" nzTitle="Log In" nzDescription=""></nz-card-meta>
 
-                <form nz-form nzLayout="vertical" [formGroup]="registrationForm" class="login-form"
-                    (ngSubmit)="submitForm()">
+                <form nz-form nzLayout="vertical" [formGroup]="loginForm" (ngSubmit)="submitForm()">
 
                     <!-- Email -->
                     <nz-form-item>
                         <nz-form-label [nzSpan]="null" nzFor="email">Email Address</nz-form-label>
                         <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email adddress.">
                             <nz-input-group nzSize="large">
-                                <input type="text" nz-input formControlName="email"
+                                <input type="text" nz-input nzSize="large" formControlName="email"
                                     placeholder="Enter email address here" />
                             </nz-input-group>
                         </nz-form-control>
@@ -29,7 +26,7 @@
                         <nz-form-label [nzSpan]="null" nzFor="password">Password</nz-form-label>
                         <nz-form-control [nzSpan]="null" nzErrorTip="Password must be of atleast 6 characters.">
                             <nz-input-group nzSize="large">
-                                <input type="password" nz-input formControlName="password"
+                                <input type="password" nz-input nzSize="large" formControlName="password"
                                     placeholder="Enter password" />
                             </nz-input-group>
 
@@ -44,37 +41,24 @@
                         </nz-form-control>
                     </nz-form-item>
 
-                    <!-- plans -->
-                    <nz-form-item>
-                        <nz-form-label nzFor="plan">Select Plans</nz-form-label>
-                        <nz-form-control nzErrorTip="Please select your plan!">
-                            <nz-select id="plan" nzSize="large" formControlName="plan" nzPlaceHolder="Select plan"
-                                (ngModelChange)="planChange($event)">
-                                <nz-option nzValue="premium" nzLabel="Premium"></nz-option>
-                                <nz-option nzValue="essentials" nzLabel="Essentials"></nz-option>
-                                <nz-option nzValue="standards" nzLabel="Standards"></nz-option>
-                            </nz-select>
-                        </nz-form-control>
-                    </nz-form-item>
-
                     <!-- acknowledge -->
-                    <nz-form-item>
-                        <label nz-checkbox> I acknowledge that I have read and hereby accept the terms and conditions in
-                            verificio and its <span class="ackTxt">third party partners, Terms of Use, and Privacy
-                                Policy.</span></label>
+                    <nz-form-item
+                        style="display: flex; flex-direction: row !important; align-items: center; justify-content: space-between;">
+                        <label nz-checkbox>Remember Me</label>
+                        <div class="forget" (click)="onForgetPassword()">Forget Password</div>
                     </nz-form-item>
 
                     <!-- button -->
                     <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
                         <nz-form-control>
-                            <button nz-button nzType="primary" nzBlock class="btn">Create Account</button>
+                            <button nz-button nzType="primary" nzBlock class="btn">Login</button>
                         </nz-form-control>
                     </nz-form-item>
                 </form>
 
                 <br>
                 <div style="text-align:center">
-                    Already have an account? <a class="signIn" (click)="onLogin()">Sign In</a>
+                    Don't have an account? <a class="signIn" (click)="onSignUp()">Sign Up</a>
                 </div>
             </nz-card>
         </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -8,9 +9,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegistrationComponent implements OnInit {
 
-  registrationForm: FormGroup;
+  registrationForm: any = FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -30,5 +31,6 @@ export class RegistrationComponent implements OnInit {
 
   onLogin(): void {
     console.log("On Login")
+    this.router.navigateByUrl("/auth")
   }
 }
