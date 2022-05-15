@@ -1,0 +1,40 @@
+<nz-layout class="layout">
+    <nz-sider>
+        <div class="logo"></div>
+        <ul nz-menu nzTheme="dark" nzMode="inline">
+            <li nz-menu-item routerLink="/app/dashboard">
+                <i nz-icon nzType="file"></i>
+                <span>Dashboard</span>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="video-camera"></i>
+                <span>All Staff</span>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="upload"></i>
+                <span>Subscriptions</span>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="bar-chart"></i>
+                <span>Survey</span>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="cloud-o"></i>
+                <span>Search</span>
+            </li>
+            <li nz-menu-item>
+                <i nz-icon nzType="appstore-o"></i>
+                <span>Settings</span>
+            </li>
+        </ul>
+    </nz-sider>
+    <nz-layout class="right-layout">
+        <nz-header></nz-header>
+        <nz-content>
+            <div class="inner-content">
+                <router-outlet></router-outlet>
+            </div>
+        </nz-content>
+        <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
+    </nz-layout>
+</nz-layout>
