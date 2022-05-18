@@ -1,0 +1,93 @@
+.settingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: #333333;
+
+        margin: 10px 0px;
+    }
+
+    .listContainer {
+        border-top: 10px solid #3BE5BF;
+        background: #FFFFFF;
+        border-radius: 5px;
+        padding: 20px;
+
+        .listItem {
+            margin: 5px;
+            padding: 10px;
+            background: rgba(229, 229, 229, 0.1);
+            border: 1px solid #D4E1E8;
+
+            .notificationType {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 19px;
+                color: #343A40;
+            }
+
+            .notificationStatus {
+                margin-right: 10px;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 17px;
+                color: #343A40;
+            }
+        }
+    }
+
+    .passwordContainer {
+        border-top: 10px solid #3BE5BF;
+        background: #FFFFFF;
+        border-radius: 5px;
+        padding: 20px;
+        width: 640px;
+
+        .saveBtn {
+            min-height: 55px;
+            font-size: 18px;
+            font-weight: 600;
+            background: #29B475;
+            border: none;
+        }
+    }
+
+    .pInfoContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        border-top: 10px solid #3BE5BF;
+        background: #FFFFFF;
+        border-radius: 5px;
+        padding: 20px;
+        width: 640px;
+
+        .subTitle {
+            text-align: left !important;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 20px;
+            color: rgba(52, 58, 64, 0.4)
+        }
+
+        .rowStyle {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+
+            .editBtn {
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 20px;
+                color: #29B475;
+            }
+        }
+    }
+}

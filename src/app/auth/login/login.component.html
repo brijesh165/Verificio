@@ -12,11 +12,11 @@
 
                     <!-- Email -->
                     <nz-form-item>
-                        <nz-form-label [nzSpan]="null" nzFor="email">Email Address</nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email adddress.">
+                        <nz-form-label [nzSpan]="null" nzFor="userName">User Name</nz-form-label>
+                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid user name.">
                             <nz-input-group nzSize="large">
-                                <input type="text" nz-input nzSize="large" formControlName="email"
-                                    placeholder="Enter email address here" />
+                                <input type="text" nz-input nzSize="large" formControlName="userName"
+                                    placeholder="Enter user name here" />
                             </nz-input-group>
                         </nz-form-control>
                     </nz-form-item>
@@ -51,7 +51,8 @@
                     <!-- button -->
                     <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
                         <nz-form-control>
-                            <button nz-button nzType="primary" nzBlock class="btn">Login</button>
+                            <button type="submit" nz-button nzType="primary" nzBlock class="btn"
+                                [disabled]="!loginForm.valid">Login</button>
                         </nz-form-control>
                     </nz-form-item>
                 </form>

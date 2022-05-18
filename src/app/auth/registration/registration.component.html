@@ -17,8 +17,7 @@
 
 
                 <div *ngIf="activedStep === 0">
-                    <form nz-form nzLayout="vertical" [formGroup]="registrationForm" class="login-form"
-                        (ngSubmit)="submitForm()">
+                    <form nz-form nzLayout="vertical" [formGroup]="registrationForm" class="login-form">
 
                         <div nz-row [nzGutter]="12">
                             <!-- first name -->
@@ -47,6 +46,17 @@
                                 </nz-form-item>
                             </div>
                         </div>
+
+                        <!-- Username -->
+                        <nz-form-item>
+                            <nz-form-label nzFor="userName">User Name</nz-form-label>
+                            <nz-form-control nzErrorTip="Enter valid username.">
+                                <nz-input-group nzSize="large">
+                                    <input type="text" nz-input formControlName="userName"
+                                        placeholder="Enter user name here" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
 
                         <!-- Email -->
                         <nz-form-item>
@@ -91,6 +101,7 @@
                             </nz-form-item>
                             <ng-template #addOnBeforeTemplate>
                                 <nz-select formControlName="phoneNumberPrefix">
+                                    <nz-option nzLabel="+91" nzValue="+91"></nz-option>
                                     <nz-option nzLabel="+86" nzValue="+86"></nz-option>
                                     <nz-option nzLabel="+87" nzValue="+87"></nz-option>
                                 </nz-select>
@@ -98,7 +109,7 @@
                         </div>
 
                         <!-- plans -->
-                        <nz-form-item>
+                        <!-- <nz-form-item>
                             <nz-form-label nzFor="plan">Select Plans</nz-form-label>
                             <nz-form-control nzErrorTip="Please select your plan!">
                                 <nz-select id="plan" nzSize="large" formControlName="plan" nzPlaceHolder="Select plan"
@@ -108,29 +119,22 @@
                                     <nz-option nzValue="standards" nzLabel="Standards"></nz-option>
                                 </nz-select>
                             </nz-form-control>
-                        </nz-form-item>
+                        </nz-form-item> -->
 
                         <!-- acknowledge -->
                         <nz-form-item>
-                            <label nz-checkbox> I acknowledge that I have read and hereby accept the terms and
+                            <label nz-checkbox formControlName="regAck"> I acknowledge that I have read and hereby
+                                accept the terms and
                                 conditions in
                                 verificio and its <span class="ackTxt">third party partners, Terms of Use, and Privacy
                                     Policy.</span></label>
                         </nz-form-item>
-
-                        <!-- button -->
-                        <!-- <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
-                            <nz-form-control>
-                                <button nz-button nzType="primary" nzBlock class="btn">Create Account</button>
-                            </nz-form-control>
-                        </nz-form-item> -->
                     </form>
                 </div>
 
 
                 <div *ngIf="activedStep === 1">
-                    <form nz-form nzLayout="vertical" [formGroup]="organizationForm" class="login-form"
-                        (ngSubmit)="submitForm()">
+                    <form nz-form nzLayout="vertical" [formGroup]="organizationForm" class="login-form">
 
                         <!-- Company Name -->
                         <nz-form-item>
@@ -196,7 +200,8 @@
 
                         <!-- acknowledge -->
                         <nz-form-item>
-                            <label nz-checkbox> I acknowledge that I have read and hereby accept the terms and
+                            <label nz-checkbox formControlName="orgAck"> I acknowledge that I have read and hereby
+                                accept the terms and
                                 conditions in
                                 verificio and its <span class="ackTxt">third party partners, Terms of Use, and Privacy
                                     Policy.</span></label>
@@ -213,22 +218,18 @@
                 </div>
 
                 <div class="steps-action-1" *ngIf="activedStep === 0">
-                    <!-- <button nz-button class="backBtn" nzType="primary" (click)="pre()" *ngIf="activedStep > 0">
-                        <span>Previous</span>
-                    </button> -->
-                    <button nz-button class="nxtBtn" nzType="primary" (click)="next()" *ngIf="activedStep < 1">
+                    <button nz-button class="nxtBtn" nzType="primary" [disabled]="!registrationForm.valid"
+                        (click)="next()" *ngIf="activedStep < 1">
                         <span>Next</span>
                     </button>
-                    <!-- <button nz-button class="nxtBtn" nzType="primary" (click)="done()" *ngIf="activedStep === 1">
-                        <span>Done</span>
-                    </button> -->
                 </div>
 
                 <div class="steps-action-2" *ngIf="activedStep === 1">
                     <button nz-button class="backBtn" nzType="primary" (click)="pre()" *ngIf="activedStep > 0">
                         <span>Previous</span>
                     </button>
-                    <button nz-button class="nxtBtn" nzType="primary" (click)="done()" *ngIf="activedStep === 1">
+                    <button type="submit" nz-button class="nxtBtn" nzType="primary" (click)="done()"
+                        [disabled]="!organizationForm.valid" *ngIf="activedStep === 1">
                         <span>Done</span>
                     </button>
                 </div>

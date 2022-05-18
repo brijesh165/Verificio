@@ -1,7 +1,30 @@
 .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     height: 32px;
-    background: rgba(255, 255, 255, 0.2);
     margin: 16px;
+
+    .title {
+        font-size: 18.712px;
+        font-weight: 700;
+        line-height: 28px;
+        color: #FFFFFF;
+    }
+}
+
+.menuItem {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    color: #AEB9DE;
+}
+
+.ant-menu-item-selected {
+    background: #4A6998 !important;
+    border-radius: 0px 25px 25px 0px;
+    border-left: 7px solid #3BE5BF;
 }
 
 .layout {
@@ -21,6 +44,29 @@ nz-sider {
 
 .right-layout {
     margin-left: 200px;
+
+    .profileSection {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: inherit;
+        min-width: 275px;
+
+        .userImg {
+            height: 30px;
+            width: 30px;
+            margin-right: 10px;
+            border-radius: 50%;
+            background: #000;
+        }
+
+        .username {
+            font-size: 19.9452px;
+            font-weight: 500;
+            line-height: 24px;
+            color: #343A40;
+        }
+    }
 }
 
 nz-header {
@@ -35,7 +81,6 @@ nz-content {
 
 .inner-content {
     padding: 24px;
-    background: #E5E5E5;
     text-align: center;
 }
 

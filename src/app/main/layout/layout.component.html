@@ -1,40 +1,60 @@
 <nz-layout class="layout">
     <nz-sider>
-        <div class="logo"></div>
-        <ul nz-menu nzTheme="dark" nzMode="inline">
-            <li nz-menu-item routerLink="/app/dashboard">
-                <i nz-icon nzType="file"></i>
-                <span>Dashboard</span>
+        <div class="logo">
+            <span class="title">verificio</span>
+        </div>
+        <ul nz-menu nzTheme="light" nzMode="inline" style="background: #132574; border: 1px solid #132574;">
+            <li nz-menu-item routerLink="/app/dashboard" [nzMatchRouter]="true">
+                <i nz-icon nzType="bank" style="color: #AEB9DE"></i>
+                <span class="menuItem">Dashboard</span>
             </li>
-            <li nz-menu-item>
-                <i nz-icon nzType="video-camera"></i>
-                <span>All Staff</span>
+            <li nz-menu-item [nzMatchRouter]>
+                <i nz-icon nzType="user" style="color: #AEB9DE"></i>
+                <span class="menuItem">All Staff</span>
             </li>
-            <li nz-menu-item>
-                <i nz-icon nzType="upload"></i>
-                <span>Subscriptions</span>
+            <li nz-menu-item [nzMatchRouter]>
+                <i nz-icon nzType="check-square" style="color: #AEB9DE"></i>
+                <span class="menuItem">Subscriptions</span>
             </li>
-            <li nz-menu-item>
-                <i nz-icon nzType="bar-chart"></i>
-                <span>Survey</span>
+            <li nz-menu-item [nzMatchRouter]>
+                <i nz-icon nzType="file-zip" style="color: #AEB9DE"></i>
+                <span class="menuItem">Survey</span>
             </li>
-            <li nz-menu-item>
-                <i nz-icon nzType="cloud-o"></i>
-                <span>Search</span>
+            <li nz-menu-item [nzMatchRouter]>
+                <i nz-icon nzType="search" style="color: #AEB9DE"></i>
+                <span class="menuItem">Search</span>
             </li>
-            <li nz-menu-item>
-                <i nz-icon nzType="appstore-o"></i>
-                <span>Settings</span>
+            <li nz-menu-item routerLink="/app/setting" [nzMatchRouter]="true">
+                <i nz-icon nzType="setting" style="color: #AEB9DE"></i>
+                <span class="menuItem">Settings</span>
             </li>
         </ul>
     </nz-sider>
     <nz-layout class="right-layout">
-        <nz-header></nz-header>
+        <nz-header>
+            <div style="float: right;" class="profileSection">
+                <i nz-icon nzType="bell" nzTheme="outline" style="font-size: 24px;"></i>
+                <div style="display: flex; align-items: center;">
+                    <div class="userImg"></div>
+                    <span class="username">Olanrewaju</span>
+
+                    <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight">
+                        <i nz-icon nzType="down" nzTheme="outline"></i>
+                    </button>
+                </div>
+
+                <nz-dropdown-menu #menu1="nzDropdownMenu">
+                    <ul nz-menu>
+                        <li (click)="onlogout()" nz-menu-item>Logout</li>
+                    </ul>
+                </nz-dropdown-menu>
+                <!-- <i nz-icon nzType="down" nzTheme="outline"></i> -->
+            </div>
+        </nz-header>
         <nz-content>
             <div class="inner-content">
                 <router-outlet></router-outlet>
             </div>
         </nz-content>
-        <nz-footer>Ant Design ©2020 Implement By Angular</nz-footer>
     </nz-layout>
 </nz-layout>
