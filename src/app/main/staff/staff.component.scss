@@ -1,0 +1,65 @@
+.settingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: #333333;
+
+        margin: 10px 0px;
+    }
+
+    .btnDiv {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 100%;
+        margin-bottom: 10px;
+
+        .btn {
+            min-height: 40px;
+            background: #29B475;
+            border-radius: 5px;
+            border: #29B475;
+        }
+    }
+
+    .searchInput {
+        background: #F5F7FF;
+    }
+}
+
+.btn {
+    min-height: 40px;
+    background: #29B475;
+    border-radius: 5px;
+    border: #29B475;
+    padding: 10px 20px;
+}
+
+.txt1 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #27AE60;
+}
+
+.txt2 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    color: #343A40;
+}
+
+.txt3 {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: rgba(87, 99, 137, 0.7);
+}

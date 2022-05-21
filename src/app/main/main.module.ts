@@ -7,6 +7,7 @@ import { MainRoutingModule } from './main-routing.module';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
+import { StaffComponent } from './staff/staff.component';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -20,12 +21,17 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     DashboardComponent,
-    SettingsComponent
+    SettingsComponent,
+    StaffComponent
   ],
   imports: [
     CommonModule,
@@ -45,6 +51,10 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
     NzInputModule,
     NzButtonModule,
     NzDropDownModule,
+    NzTableModule,
+    NzModalModule,
+    NzSelectModule,
+    NzCheckboxModule,
   ]
 })
 export class MainModule { }

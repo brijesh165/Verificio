@@ -1,0 +1,215 @@
+<div class="settingContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/app/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">Settings</div>
+
+    <div class="btnDiv">
+        <button nz-button nzType="primary" class="btn" (click)="onAddNew()">Add New</button>
+    </div>
+
+    <div style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
+        <div style="display: flex; min-width: 75%;">
+            <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
+                <!-- Bulk Action -->
+                <nz-form-item>
+                    <nz-select formControlName="action" nzPlaceHolder="Bulk Action" nzSize="large">
+                        <nz-option nzValue="delete" nzLabel="Delete"></nz-option>
+                    </nz-select>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <button nz-button nzType="primary" class="btn" style="width: min-content;"
+                        (click)="onBulkAction()">Apply</button>
+                </nz-form-item>
+            </form>
+
+            <form nz-form nzLayout="inline" [formGroup]="changeRoleForm">
+                <!-- Role Action -->
+                <nz-form-item>
+                    <nz-select formControlName="role" nzPlaceHolder="Change role" nzSize="large">
+                        <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
+                        <nz-option nzValue="employee" nzLabel="Employee"></nz-option>
+                    </nz-select>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <button nz-button nzType="primary" class="btn" style="width: min-content;"
+                        (click)="onBulkAction()">Apply</button>
+                </nz-form-item>
+            </form>
+        </div>
+
+        <nz-input-group [nzSuffix]="suffixIconSearch" class="searchInput">
+            <input type="text" nz-input placeholder="input search text" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+        </ng-template>
+    </div>
+
+
+    <div style="width: 100%; margin-top: 20px;">
+        <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="tableData"
+            (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+            <thead>
+                <tr>
+                    <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
+                        (nzCheckedChange)="onAllChecked($event)">
+                    </th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Profile</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of rowSelectionTable.data">
+                    <td [nzChecked]="setOfCheckedId.has(data._id)" [nzDisabled]="data.disabled"
+                        (nzCheckedChange)="onItemChecked(data._id, $event)"></td>
+                    <td>{{ data.firstName }} {{ data.lastName }}</td>
+                    <td>{{ data.email }}</td>
+                    <td>{{ data.designation }}</td>
+                    <td>
+                        <img src="data.companyId" alt="profile" />
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+
+
+    <nz-modal [(nzVisible)]="isVisible" (nzOnCancel)="handleCancel()" [nzFooter]=null>
+        <ng-container *nzModalContent>
+            <form nz-form nzLayout="vertical" [formGroup]="newEmployeeForm">
+                <!-- First Name -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="firstName">First Name</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid first name.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input nzSize="large" formControlName="firstName"
+                                placeholder="Enter your first name" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Last Name -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="lastName">Last Name</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid last name.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input nzSize="large" formControlName="lastName"
+                                placeholder="Enter your last name" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Designation -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="designation">Designation</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid designation.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input nzSize="large" formControlName="designation"
+                                placeholder="Enter your designation" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Email -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="email">Email address</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input nzSize="large" formControlName="email"
+                                placeholder="Enter your email" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Role -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="role">Select Role</nz-form-label>
+                    <nz-select formControlName="role" nzPlaceHolder="Select role">
+                        <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
+                        <nz-option nzValue="employee" nzLabel="Employee"></nz-option>
+                    </nz-select>
+                </nz-form-item>
+
+                <!-- Permission -->
+                <nz-form-item *ngIf="newEmployeeForm.value.role === 'employee'">
+                    <nz-form-label [nzSpan]="null" nzFor="permission">Select Permission</nz-form-label>
+                    <nz-checkbox-group formControlName="permission"></nz-checkbox-group>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <button nz-button nzType="primary" [disabled]="!newEmployeeForm.valid" class="btn"
+                        style="width: min-content;" (click)="onAddNewUser()">Add User</button>
+                </nz-form-item>
+            </form>
+        </ng-container>
+    </nz-modal>
+
+    <nz-modal [(nzVisible)]="successModal" [nzClosable]="false" [nzFooter]=null>
+        <ng-container *nzModalContent>
+            <div>
+                <p class="txt1">SUCCESS</p>
+            </div>
+
+            <div
+                style="display: flex; flex-direction: column;align-items: center; justify-content: center; margin-bottom: 20px;">
+                <p class="txt2">User account has been created</p>
+                <p class="txt3">You can send a suspention email now</p>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <button nz-button class="btn" nzType="primary" (click)="onSuccessOk('success')">
+                    <span>Ok</span>
+                </button>
+            </div>
+        </ng-container>
+    </nz-modal>
+
+    <nz-modal [nzWidth]="444" [(nzVisible)]="deactivateModal" [nzClosable]="false" [nzFooter]=null nzCentered>
+        <ng-container *nzModalContent>
+            <div
+                style="display: flex; flex-direction: column;align-items: center; justify-content: center; margin-bottom: 20px;">
+                <p class="txt2">Are you sure you want to deactivate ?</p>
+                <p class="txt3">You are about to take a serious action. Be careful before you deactivate this account
+                </p>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: space-around;">
+                <button nz-button nzType="default" nzDanger style="border-radius: 5px;" (click)="onDeactivateCancel()">
+                    <span>Cancel</span>
+                </button>
+                <button nz-button nzType="primary" nzDanger style="border-radius: 5px;" (click)="onDeactivateYes()">
+                    <span>Yes</span>
+                </button>
+            </div>
+        </ng-container>
+    </nz-modal>
+
+    <nz-modal [(nzVisible)]="deactivateSuccessModal" [nzClosable]="false" [nzFooter]=null>
+        <ng-container *nzModalContent>
+            <div>
+                <p class="txt1">SUCCESS</p>
+            </div>
+
+            <div
+                style="display: flex; flex-direction: column;align-items: center; justify-content: center; margin-bottom: 20px;">
+                <p class="txt2">User account has been deactivated</p>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <button nz-button class="btn" nzType="primary" (click)="onSuccessOk('deactivate')">
+                    <span>Ok</span>
+                </button>
+            </div>
+        </ng-container>
+    </nz-modal>
+</div>

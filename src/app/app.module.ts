@@ -10,6 +10,10 @@ import { AppComponent } from './app.component';
 import { JwtInterceptor } from './services/jwt-interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
+import en from '@angular/common/locales/en';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +31,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,
     multi: true,
-  }],
+  }, { provide: NZ_I18N, useValue: en_US }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
