@@ -31,4 +31,20 @@ export class DataService {
     return this.http.post(this.baseUrl + "user/employees/archive", params);
   }
 
+  reportTypeList() {
+    return this.http.get(this.baseUrl + "report/type/all");
+  }
+
+  createReport(params: any) {
+    return this.http.post(this.baseUrl + "report/type/create", params);
+  }
+
+  updateReport(params: any) {
+    return this.http.post(this.baseUrl + "report/type/update", params);
+  }
+
+  archiveReport(params: any) {
+    return this.http.post(this.baseUrl + "report/type/delete", params)
+  }
+
 }

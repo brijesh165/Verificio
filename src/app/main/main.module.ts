@@ -25,13 +25,15 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     DashboardComponent,
     SettingsComponent,
-    StaffComponent
+    StaffComponent,
+    ReportComponent
   ],
   imports: [
     CommonModule,

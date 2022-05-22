@@ -16,6 +16,7 @@ import {
     BellOutline,
     ArrowLeftOutline,
     EditOutline,
+    BookOutline,
 } from '@ant-design/icons-angular/icons';
 
 const icons = [MenuFoldOutline, MenuUnfoldOutline, DashboardOutline, FormOutline, BankOutline,
@@ -25,7 +26,7 @@ const icons = [MenuFoldOutline, MenuUnfoldOutline, DashboardOutline, FormOutline
     SearchOutline,
     SettingOutline,
     DownOutline, BellOutline,
-    ArrowLeftOutline, EditOutline,];
+    ArrowLeftOutline, EditOutline, BookOutline,];
 
 @NgModule({
     imports: [NzIconModule],

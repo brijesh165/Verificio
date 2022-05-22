@@ -1,0 +1,66 @@
+.reportContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: #333333;
+
+        margin: 10px 0px;
+    }
+
+    .preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 65%;
+
+        .title {
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 25px;
+            color: #002A6A;
+        }
+
+        .previewContainer {
+            min-width: 484px;
+            background: #fff;
+
+            border-top: 7px solid #3BE5BF;
+
+            .previewItem {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+
+                padding: 20px 10px;
+
+                .previewTitle {
+                    font-size: 14px;
+                    font-weight: 700;
+                    line-height: 19px;
+                    color: #002A6A;
+                }
+            }
+        }
+    }
+}
+
+.btn {
+    min-height: 40px;
+    background: #29B475;
+    border-radius: 5px;
+    border: #29B475;
+    padding: 10px 20px;
+}
+
+.backBtn {
+    min-height: 40px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-right: 10px;
+}
