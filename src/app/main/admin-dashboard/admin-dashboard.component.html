@@ -1,0 +1,75 @@
+<div class="title">Overview</div>
+
+<div class="btnDiv">
+    <button nzType="primary" class="btn">Add New</button>
+</div>
+
+<div class="dashboardCards">
+    <nz-card style="width:316px; height: 142px; border-radius: 10px;" [nzBordered]="false">
+        <div nz-row style="height: 100px;">
+            <div nz-col nzSpan="16" class="cardCol1">
+                <div class="infoDivForCol1">
+                    <span class="counter">100</span>
+                    <span class="counterInfo">All Reports</span>
+                </div>
+            </div>
+            <div nz-col nzSpan="8" class="card1Col2">
+                <div class="imgDiv"></div>
+            </div>
+        </div>
+    </nz-card>
+
+    <nz-card style="width:316px; height: 142px; border-radius: 10px;" [nzBordered]="false">
+        <div nz-row style="height: 100px;">
+            <div nz-col nzSpan="16" class="cardCol2">
+                <div class="infoDivForCol1">
+                    <span class="counter">20</span>
+                    <span class="counterInfo">Rejected</span>
+                </div>
+            </div>
+            <div nz-col nzSpan="8" class="card2Col2">
+                <div class="imgDiv"></div>
+            </div>
+        </div>
+    </nz-card>
+
+    <nz-card style="width:316px; height: 142px; border-radius: 10px;" [nzBordered]="false">
+        <div nz-row style="height: 100px;">
+            <div nz-col nzSpan="16" class="cardCol3">
+                <div class="infoDivForCol1">
+                    <span class="counter">20</span>
+                    <span class="counterInfo">Pending</span>
+                </div>
+            </div>
+            <div nz-col nzSpan="8" class="card3Col2">
+                <div class="imgDiv"></div>
+            </div>
+        </div>
+    </nz-card>
+</div>
+
+<div class="dashboardTable">
+    <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="reportsTable"
+        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        <thead>
+            <tr>
+                <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)">
+                </th>
+                <th>Title</th>
+                <th>User</th>
+                <th>Report Category</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of rowSelectionTable.data">
+                <td [nzChecked]="setOfCheckedId.has(data._id)" [nzDisabled]="data.disabled"
+                    (nzCheckedChange)="onItemChecked(data._id, $event)"></td>
+                <td>{{ data.title }}</td>
+                <td>{{ data.firstName }} {{ data.lastName }}</td>
+                <td>{{ data.category }}</td>
+                <td>{{ data.status }}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

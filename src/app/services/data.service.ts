@@ -35,6 +35,10 @@ export class DataService {
     return this.http.get(this.baseUrl + "report/type/all");
   }
 
+  listReport() {
+    return this.http.get(this.baseUrl + "report/company/list");
+  }
+
   createReport(params: any) {
     return this.http.post(this.baseUrl + "report/type/create", params);
   }
@@ -46,5 +50,4 @@ export class DataService {
   archiveReport(params: any) {
     return this.http.post(this.baseUrl + "report/type/delete", params)
   }
-
-}
+} 

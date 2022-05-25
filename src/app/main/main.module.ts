@@ -8,6 +8,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StaffComponent } from './staff/staff.component';
+import { ReportComponent } from './report/report.component';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -25,7 +26,9 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { ReportComponent } from './report/report.component';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { ReportComponent } from './report/report.component';
     DashboardComponent,
     SettingsComponent,
     StaffComponent,
-    ReportComponent
+    ReportComponent,
+    AdminDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -57,6 +61,7 @@ import { ReportComponent } from './report/report.component';
     NzModalModule,
     NzSelectModule,
     NzCheckboxModule,
+    NzUploadModule,
   ]
 })
 export class MainModule { }

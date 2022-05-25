@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { NzUploadChangeParam, NzUploadFile, NzUploadXHRArgs } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-settings',
@@ -38,6 +39,7 @@ export class SettingsComponent implements OnInit {
   ]
   changePasswordForm: any = FormGroup;
   profileForm: any = FormGroup;
+  uploadFileName: any = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService) { }
 
@@ -77,6 +79,29 @@ export class SettingsComponent implements OnInit {
       .subscribe((response: any) => {
         console.log("Response: ", response);
       })
+  }
+
+  handleUpload = (item: any): any => {
+    const formData = new FormData();
+    formData.append(item.name, item.file as any, this.uploadFileName);
+    this.authService.uploadProfilePicture(formData)
+      .subscribe((res: any) => {
+        console.log("Response: ", res);
+      })
+    // this.http.post('https://jsonplaceholder.typicode.com/posts/', formData).subscribe(
+    //   res => {
+    //     console.log("success", res.id);
+    //     item.onSuccess(item.file);
+    //   },
+    //   (err) => {
+    //     item.onError(err, item.file);
+    //   }
+    // );
+  }
+
+  beforeUpload = (file: NzUploadFile): any => {
+    this.uploadFileName = file.name;
+    return true;
   }
 
   submitProfileForm(): void {

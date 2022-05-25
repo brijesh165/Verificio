@@ -34,4 +34,8 @@ export class AuthService {
   changePassword(params: any) {
     return this.http.post(this.baseUrl + "user/change-password", params);
   }
+
+  uploadProfilePicture(params: any) {
+    return this.http.post(this.baseUrl + "", params);
+  }
 }
