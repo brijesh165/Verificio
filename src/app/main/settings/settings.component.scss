@@ -82,11 +82,20 @@
             justify-content: space-around;
 
 
+            .profileImg {
+                height: 80px;
+                width: 80px;
+
+                border-radius: 50%;
+            }
+
             .editBtn {
                 font-size: 14px;
                 font-weight: 600;
                 line-height: 20px;
                 color: #29B475;
+
+                cursor: pointer;
             }
         }
     }

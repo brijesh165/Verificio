@@ -36,6 +36,9 @@ export class AuthService {
   }
 
   uploadProfilePicture(params: any) {
-    return this.http.post(this.baseUrl + "", params);
+    let headers: any = new HttpHeaders();
+    headers = headers.append("Content-Type", "multipart/form-data");
+
+    return this.http.post(this.baseUrl + "user/profile/picture", params, headers);
   }
 }

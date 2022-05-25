@@ -15,10 +15,11 @@
 }
 
 .btn {
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
-    color: #29B475;
+    min-height: 40px;
+    background: #29B475;
+    border-radius: 5px;
+    border: #29B475;
+    padding: 10px 20px;
 }
 
 .dashboardCards {

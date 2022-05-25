@@ -27,6 +27,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 
@@ -62,6 +63,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     NzSelectModule,
     NzCheckboxModule,
     NzUploadModule,
+    NzAvatarModule,
   ]
 })
 export class MainModule { }

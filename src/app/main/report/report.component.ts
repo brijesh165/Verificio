@@ -11,24 +11,34 @@ export class ReportComponent implements OnInit {
 
   reportForm: any = FormGroup;
   reportTypeList: any = [];
+  userList: any = [];
   showPreview: any = false;
   constructor(private fb: FormBuilder, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.reportForm = this.fb.group({
-      email: [null, [Validators.required, Validators.email]],
+      // email: [null, [Validators.required, Validators.email]],
       staff: [null, [Validators.required]],
       category: [null, [Validators.required]],
       reportMsg: [null]
     });
 
+    this.getEmployeeList();
     this.getReportTypeList();
+  }
+
+  getEmployeeList() {
+    this.dataService.listEmployee()
+      .subscribe((res: any) => {
+        const list = res.data.map((item: any) => { return { "label": `${item.firstName} ${item.lastName}`, "value": item._id } });
+        this.userList = list;
+      })
   }
 
   getReportTypeList() {
     this.dataService.reportTypeList()
       .subscribe((res: any) => {
-        const list = res.data.map((item: any) => { return { "label": item.name, "value": item.name } });
+        const list = res.data.map((item: any) => { return { "label": item.name, "value": item._id } });
         this.reportTypeList = list;
       })
   }

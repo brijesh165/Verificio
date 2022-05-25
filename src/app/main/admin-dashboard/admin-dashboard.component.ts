@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
@@ -13,13 +14,17 @@ export class AdminDashboardComponent implements OnInit {
   indeterminate = false;
   setOfCheckedId = new Set<number>();
 
-  constructor(private dataService: DataService) { }
+  constructor(private router: Router, private dataService: DataService) { }
 
   ngOnInit(): void {
     this.dataService.listReport()
       .subscribe((res: any) => {
         this.reportsTable = res.data;
       })
+  }
+
+  onAddNew(): void {
+    this.router.navigateByUrl('/app/report');
   }
 
   onCurrentPageDataChange(event: any) {

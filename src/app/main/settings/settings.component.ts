@@ -82,8 +82,9 @@ export class SettingsComponent implements OnInit {
   }
 
   handleUpload = (item: any): any => {
+    console.log("Item: ", item);
     const formData = new FormData();
-    formData.append(item.name, item.file as any, this.uploadFileName);
+    formData.append("item", item.file);
     this.authService.uploadProfilePicture(formData)
       .subscribe((res: any) => {
         console.log("Response: ", res);

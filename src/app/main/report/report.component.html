@@ -12,7 +12,7 @@
     <form nz-form nzLayout="vertical" [formGroup]="reportForm" style="width: 30%; text-align: left"
         *ngIf="!showPreview">
         <!-- Email -->
-        <nz-form-item>
+        <!-- <nz-form-item>
             <nz-form-label [nzSpan]="null" nzFor="email">Email Address of Employee</nz-form-label>
             <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email address.">
                 <nz-input-group nzSize="large">
@@ -20,14 +20,13 @@
                         placeholder="Enter employee's email address" />
                 </nz-input-group>
             </nz-form-control>
-        </nz-form-item>
+        </nz-form-item> -->
 
         <nz-form-item>
-            <nz-form-label [nzSpan]="null" nzFor="staff">Or select from staff List</nz-form-label>
+            <nz-form-label [nzSpan]="null" nzFor="staff">Select from staff List</nz-form-label>
             <nz-select nzPlaceHolder="Select" formControlName="staff">
-                <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
-                <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
-                <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+                <nz-option *ngFor="let o of userList" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+
             </nz-select>
         </nz-form-item>
 

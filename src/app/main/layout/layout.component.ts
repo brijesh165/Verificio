@@ -8,9 +8,13 @@ import { Router } from '@angular/router';
 })
 export class LayoutComponent implements OnInit {
 
+  userInitials: any = "";
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    let userInfo = JSON.parse(localStorage.getItem("user") || '{}');
+    this.userInitials = userInfo.firstName.charAt(0).toUpperCase() + "" + userInfo.lastName.charAt(0).toUpperCase();
+    console.log("Initial: ", this.userInitials)
   }
 
   onlogout(): void {

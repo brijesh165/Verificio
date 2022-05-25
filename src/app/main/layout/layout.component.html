@@ -37,9 +37,9 @@
     <nz-layout class="right-layout">
         <nz-header>
             <div style="float: right;" class="profileSection">
-                <i nz-icon nzType="bell" nzTheme="outline" style="font-size: 24px;"></i>
+                <!-- <i nz-icon nzType="bell" nzTheme="outline" style="font-size: 24px;"></i> -->
                 <div style="display: flex; align-items: center;">
-                    <div class="userImg"></div>
+                    <nz-avatar [nzText]="userInitials" style="margin-right: 5px;"></nz-avatar>
                     <span class="username">Olanrewaju</span>
 
                     <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight">

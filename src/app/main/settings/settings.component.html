@@ -98,9 +98,12 @@
                     <div nz-row class="rowStyle">
                         <div nz-col nzSpan="12" style="text-align: left;">
                             <!-- <button nz-button nzType="text">Change image</button> -->
-                            <nz-upload [nzCustomRequest]="handleUpload" [nzBeforeUpload]="beforeUpload">
-                                <button class="btn">Click to Upload</button>
-                            </nz-upload>
+                            <div style="display: flex; flex-direction: column">
+                                <img src="" alt="profile" class="profileImg" />
+                                <nz-upload [nzCustomRequest]="handleUpload" [nzBeforeUpload]="beforeUpload">
+                                    <button nz-button nzType="link" class="btn">Click to Upload</button>
+                                </nz-upload>
+                            </div>
                         </div>
                         <div nz-col nzSpan="12" style="text-align: right;">
                             <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; margin-right: 7px;"></i>
