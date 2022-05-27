@@ -38,8 +38,8 @@
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-label [nzSpan]="null" nzFor="category">Write a report(optional)</nz-form-label>
-            <textarea nz-input placeholder="Write a report(optional)"
+            <nz-form-label [nzSpan]="null" nzFor="reportMsg">Write a report(optional)</nz-form-label>
+            <textarea nz-input formControlName="reportMsg" placeholder="Write a report(optional)"
                 [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
         </nz-form-item>
 

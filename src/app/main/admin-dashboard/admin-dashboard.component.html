@@ -6,7 +6,7 @@
 
 <div class="dashboardCards">
     <nz-card style="width:316px; height: 142px; border-radius: 10px;" [nzBordered]="false">
-        <div nz-row style="height: 100px;">
+        <div nz-row>
             <div nz-col nzSpan="16" class="cardCol1">
                 <div class="infoDivForCol1">
                     <span class="counter">100</span>
@@ -65,10 +65,10 @@
             <tr *ngFor="let data of rowSelectionTable.data">
                 <td [nzChecked]="setOfCheckedId.has(data._id)" [nzDisabled]="data.disabled"
                     (nzCheckedChange)="onItemChecked(data._id, $event)"></td>
-                <td>{{ data.title }}</td>
-                <td>{{ data.firstName }} {{ data.lastName }}</td>
-                <td>{{ data.category }}</td>
-                <td>{{ data.status }}</td>
+                <td>{{ data.description }}</td>
+                <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
+                <td>{{ data.reportType.name }}</td>
+                <td>{{ data.isApproved ? "Accepted" : !data.isApproved ? "Rejected" : "Pending" }}</td>
             </tr>
         </tbody>
     </nz-table>

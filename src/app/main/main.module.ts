@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StaffComponent } from './staff/staff.component';
 import { ReportComponent } from './report/report.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -28,7 +29,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
-import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
     NzCheckboxModule,
     NzUploadModule,
     NzAvatarModule,
+    NzDatePickerModule,
   ]
 })
 export class MainModule { }

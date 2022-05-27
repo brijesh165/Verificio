@@ -1,3 +1,7 @@
+.ant-input-group-addon:first-child {
+    border: none !important;
+}
+
 .settingContainer {
     display: flex;
     flex-direction: column;
@@ -97,6 +101,17 @@
 
                 cursor: pointer;
             }
+        }
+
+        .btn {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            color: #fff;
+            background-color: #29B475;
+            border-radius: 5px;
+
+            cursor: pointer;
         }
     }
 }

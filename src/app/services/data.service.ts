@@ -19,8 +19,20 @@ export class DataService {
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
   });
 
+  getEmployeeDetailsById(params: any) {
+    return this.http.get(this.baseUrl + `user/employees/${params}`);
+  }
+
+  updateProfile(params: any) {
+    return this.http.post(this.baseUrl + "user/profile", params);
+  }
+
   createEmployee(params: any) {
     return this.http.post(this.baseUrl + "user/employees/create", params)
+  }
+
+  updateEmployee(params: any) {
+    return this.http.put(this.baseUrl + `user/employees/${params.id}`, params.body)
   }
 
   listEmployee() {
@@ -40,7 +52,7 @@ export class DataService {
   }
 
   createReport(params: any) {
-    return this.http.post(this.baseUrl + "report/type/create", params);
+    return this.http.post(this.baseUrl + "report/create", params);
   }
 
   updateReport(params: any) {

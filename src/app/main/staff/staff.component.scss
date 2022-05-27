@@ -30,6 +30,15 @@
     .searchInput {
         background: #F5F7FF;
     }
+
+    .profileImg {
+        max-width: 40px;
+        max-height: 40px;
+        border-radius: 50%;
+        margin-right: 5px;
+
+        border: 1px solid black;
+    }
 }
 
 .btn {

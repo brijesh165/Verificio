@@ -37,12 +37,20 @@
 
                     <!-- Current Password -->
                     <nz-form-item>
-                        <nz-form-label [nzSpan]="null" nzFor="currPassword">Current Password</nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid password.">
-                            <nz-input-group nzSize="large">
+                        <nz-form-label nzFor="currPassword">Current Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Enter valid password.">
+                            <!-- <nz-input-group nzSize="large">
                                 <input type="password" nz-input nzSize="large" formControlName="currPassword"
                                     placeholder="Enter your current password" />
+                            </nz-input-group> -->
+                            <nz-input-group [nzSuffix]="suffixTemplate">
+                                <input [type]="passwordVisible ? 'text' : 'password'" nz-input
+                                    placeholder="Enter your current password" formControlName="currPassword" />
                             </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
                         </nz-form-control>
                     </nz-form-item>
 
@@ -50,10 +58,18 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="null" nzFor="newPassword">New Password</nz-form-label>
                         <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid password.">
-                            <nz-input-group nzSize="large">
+                            <!-- <nz-input-group nzSize="large">
                                 <input type="password" nz-input nzSize="large" formControlName="newPassword"
                                     placeholder="Enter a new password" />
+                            </nz-input-group> -->
+                            <nz-input-group [nzSuffix]="suffixTemplate">
+                                <input [type]="passwordVisible ? 'text' : 'password'" nz-input
+                                    placeholder="Enter a new password" formControlName="newPassword" />
                             </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
                         </nz-form-control>
                     </nz-form-item>
 
@@ -67,13 +83,22 @@
 
                     <!-- Re enter Password -->
                     <nz-form-item>
-                        <nz-form-label [nzSpan]="null" nzFor="newPassword">Re-enter Password</nz-form-label>
+                        <nz-form-label [nzSpan]="null" nzFor="reNewPassword">Re-enter Password</nz-form-label>
                         <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid password.">
-                            <nz-input-group nzSize="large">
+                            <!-- <nz-input-group nzSize="large">
                                 <input type="password" nz-input nzSize="large" formControlName="newPassword"
                                     placeholder="Re-type your password" />
+                            </nz-input-group> -->
+                            <nz-input-group [nzSuffix]="suffixTemplate">
+                                <input [type]="passwordVisible ? 'text' : 'password'" nz-input
+                                    placeholder="Enter a new password" formControlName="reNewPassword" />
                             </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
                         </nz-form-control>
+
                     </nz-form-item>
 
                     <nz-form-item>
@@ -99,15 +124,20 @@
                         <div nz-col nzSpan="12" style="text-align: left;">
                             <!-- <button nz-button nzType="text">Change image</button> -->
                             <div style="display: flex; flex-direction: column">
-                                <img src="" alt="profile" class="profileImg" />
-                                <nz-upload [nzCustomRequest]="handleUpload" [nzBeforeUpload]="beforeUpload">
-                                    <button nz-button nzType="link" class="btn">Click to Upload</button>
+                                <img [src]="profileImagePath" alt="profile" class="profileImg" />
+                                <nz-upload [nzCustomRequest]="handleUpload" [nzShowUploadList]="false"
+                                    [nzBeforeUpload]="beforeUpload">
+                                    <button nz-button nzType="link">Click to Upload</button>
                                 </nz-upload>
                             </div>
                         </div>
                         <div nz-col nzSpan="12" style="text-align: right;">
-                            <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; margin-right: 7px;"></i>
-                            <span class="editBtn">Edit Profile</span>
+                            <button nz-button nzType="link" class="editBtn" style="color: #29B475;"
+                                (click)="handleEdit()">
+                                <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; "></i> Edit
+                                Profile</button>
+                            <!-- <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; margin-right: 7px;"></i>
+                            <span class="editBtn">Edit Profile</span> -->
                         </div>
                     </div>
 
@@ -165,13 +195,20 @@
                                     <nz-form-label [nzSpan]="null" nzFor="phone"
                                         style="text-align: right; padding: 0px;">Phone Number
                                     </nz-form-label>
-                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid phone number.">
-                                        <nz-input-group nzSize="large">
-                                            <input type="text" nz-input nzBorderless formControlName="phone"
-                                                placeholder="Enter your phone number" style="padding: 6.5px 0px" />
+                                    <nz-form-control nzErrorTip="Please enter your phone number!">
+                                        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" nzSize="large">
+                                            <input formControlName="phone" nzBorderless id="phoneNumber" nz-input
+                                                nzSize="large" />
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
+                                <ng-template #addOnBeforeTemplate>
+                                    <nz-select formControlName="phoneNumberPrefix" nzBorderless>
+                                        <nz-option nzLabel="+91" nzValue="+91"></nz-option>
+                                        <nz-option nzLabel="+86" nzValue="+86"></nz-option>
+                                        <nz-option nzLabel="+87" nzValue="+87"></nz-option>
+                                    </nz-select>
+                                </ng-template>
                             </div>
                         </div>
 
@@ -246,8 +283,9 @@
                                         Birth</nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid date.">
                                         <nz-input-group nzSize="large">
-                                            <input type="text" nz-input nzBorderless formControlName="dateOfBirth"
-                                                placeholder="Enter your email address" style="padding: 6.5px 0px" />
+                                            <nz-date-picker formControlName="dateOfBirth" nzBorderless></nz-date-picker>
+                                            <!-- <input type="text" nz-input nzBorderless formControlName="dateOfBirth"
+                                                placeholder="Enter your email address" style="padding: 6.5px 0px" /> -->
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -260,13 +298,26 @@
                                     </nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid gender.">
                                         <nz-input-group nzSize="large">
-                                            <input type="text" nz-input nzBorderless formControlName="gender"
-                                                placeholder="Enter your gender" style="padding: 6.5px 0px" />
+                                            <nz-select formControlName="gender" nzBorderless>
+                                                <nz-option nzLabel="male" nzValue="Male"></nz-option>
+                                                <nz-option nzLabel="female" nzValue="Female"></nz-option>
+                                            </nz-select>
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
                             </div>
                         </div>
+
+                        <div nz-row class="rowStyle" style="margin-top: 20px; justify-content: flex-start;">
+                            <nz-form-item *ngIf="!isEdit">
+                                <nz-form-control>
+                                    <button type="submit" nz-button nzType="primary" class="btn"
+                                        [disabled]="!profileForm.valid">Save
+                                        Changes</button>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
                     </form>
                 </div>
             </div>

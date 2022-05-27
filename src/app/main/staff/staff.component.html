@@ -29,8 +29,7 @@
                 </nz-form-item>
             </form>
 
-            <form nz-form nzLayout="inline" [formGroup]="changeRoleForm">
-                <!-- Role Action -->
+            <!-- <form nz-form nzLayout="inline" [formGroup]="changeRoleForm">
                 <nz-form-item>
                     <nz-select formControlName="role" nzPlaceHolder="Change role" nzSize="large">
                         <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
@@ -42,7 +41,7 @@
                     <button nz-button nzType="primary" class="btn" style="width: min-content;"
                         (click)="onBulkAction()">Apply</button>
                 </nz-form-item>
-            </form>
+            </form> -->
         </div>
 
         <nz-input-group [nzSuffix]="suffixIconSearch" class="searchInput">
@@ -64,19 +63,29 @@
                     </th>
                     <th>Full Name</th>
                     <th>Email</th>
-                    <th>Role</th>
-                    <th>Profile</th>
+                    <th>Designation</th>
+                    <!-- <th>Profile</th> -->
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of rowSelectionTable.data">
                     <td [nzChecked]="setOfCheckedId.has(data._id)" [nzDisabled]="data.disabled"
                         (nzCheckedChange)="onItemChecked(data._id, $event)"></td>
-                    <td>{{ data.firstName }} {{ data.lastName }}</td>
+                    <td>
+                        <nz-avatar nzIcon="user" [nzSrc]="'http://54.157.195.180/' + data.profilePicture"
+                            style="margin-right: 5px;"></nz-avatar>
+                        {{ data.firstName}} {{ data.lastName }}
+                    </td>
                     <td>{{ data.email }}</td>
                     <td>{{ data.designation }}</td>
+                    <!-- <td>
+                        <img [src]="'http://54.157.195.180/' + data.profilePicture" alt="profile" />
+                    </td> -->
                     <td>
-                        <img src="data.companyId" alt="profile" />
+                        <div class="btnDiv">
+                            <button nz-button nzType="primary" class="btn" (click)="onEdit(data._id)">Edit</button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -141,14 +150,15 @@
                 </nz-form-item>
 
                 <!-- Permission -->
-                <nz-form-item *ngIf="newEmployeeForm.value.role === 'employee'">
+                <nz-form-item *ngIf="newEmployeeForm.value.role == 'employee'">
                     <nz-form-label [nzSpan]="null" nzFor="permission">Select Permission</nz-form-label>
                     <nz-checkbox-group formControlName="permission"></nz-checkbox-group>
                 </nz-form-item>
 
                 <nz-form-item>
                     <button nz-button nzType="primary" [disabled]="!newEmployeeForm.valid" class="btn"
-                        style="width: min-content;" (click)="onAddNewUser()">Add User</button>
+                        style="width: min-content;" (click)="onAddNewUser()">
+                        {{ isEdit == true ? 'Edit User' : 'Add User' }}</button>
                 </nz-form-item>
             </form>
         </ng-container>

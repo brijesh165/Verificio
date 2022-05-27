@@ -44,7 +44,6 @@ export class ReportComponent implements OnInit {
   }
 
   onReportSubmit() {
-    console.log("Report Submit");
     this.showPreview = true;
   }
 
@@ -54,10 +53,9 @@ export class ReportComponent implements OnInit {
 
   onPreviewReportSubmit() {
     const params = {
-      email: this.reportForm.value.email,
-      staff: this.reportForm.value.staff,
-      name: this.reportForm.value.category,
-      reportMsg: this.reportForm.value.reportMsg
+      userId: this.reportForm.value.staff,
+      description: this.reportForm.value.reportMsg,
+      reportTypeId: this.reportForm.value.category,
     }
 
     this.dataService.createReport(params)
