@@ -203,14 +203,14 @@
                                     </nz-form-label>
                                     <nz-form-control nzErrorTip="Please enter your phone number!">
                                         <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" nzSize="large">
-                                            <input formControlName="phone" nzBorderless id="phoneNumber" nz-input
-                                                nzSize="large" />
+                                            <input formControlName="phone" placeholder="Enter phone number" nzBorderless
+                                                id="phoneNumber" nz-input nzSize="large" />
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
                                 <ng-template #addOnBeforeTemplate>
-                                    <nz-select nzPlaceholder="Country Code" formControlName="phoneNumberPrefix"
-                                        nzBorderless>
+                                    <nz-select nzPlaceholder="Country Code" nzPlaceHolder="code"
+                                        formControlName="phoneNumberPrefix" nzBorderless>
                                         <nz-option nzLabel="+91" nzValue="+91"></nz-option>
                                         <nz-option nzLabel="+86" nzValue="+86"></nz-option>
                                         <nz-option nzLabel="+87" nzValue="+87"></nz-option>

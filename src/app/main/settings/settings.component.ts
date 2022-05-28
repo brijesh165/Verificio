@@ -63,7 +63,7 @@ export class SettingsComponent implements OnInit {
       lastName: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       email: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       phoneNumberPrefix: ['+91', [Validators.required]],
-      phone: [{ value: null, disabled: this.isEdit }, [Validators.required]],
+      phone: [{ value: null, disabled: this.isEdit }, [Validators.required, Validators.maxLength(10)]],
       address: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       state: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       stateOfOrigin: [{ value: null, disabled: this.isEdit }, [Validators.required]],
@@ -79,8 +79,6 @@ export class SettingsComponent implements OnInit {
     let userInfo = JSON.parse(localStorage.getItem("user") || '{}');
     this.authService.me()
       .subscribe((res: any) => {
-        console.log("Employee Details: ", res.data);
-
         if (res.data.changedData != null) {
           this.isChangesPending = true;
         }
@@ -117,7 +115,6 @@ export class SettingsComponent implements OnInit {
 
       this.authService.changePassword(params)
         .subscribe((res: any) => {
-          console.log("Response: ", res);
           if (res.status === "success") {
             this.message.create('success', res.message);
           } else if (res.status === "error") {
@@ -128,7 +125,6 @@ export class SettingsComponent implements OnInit {
   }
 
   handleUpload = (item: any): any => {
-    console.log("Item: ", item);
     const formData = new FormData();
     formData.append("image", item.file);
     this.authService.uploadProfilePicture(formData)
@@ -140,15 +136,6 @@ export class SettingsComponent implements OnInit {
           this.message.create('error', res.message);
         }
       })
-    // this.http.post('https://jsonplaceholder.typicode.com/posts/', formData).subscribe(
-    //   res => {
-    //     console.log("success", res.id);
-    //     item.onSuccess(item.file);
-    //   },
-    //   (err) => {
-    //     item.onError(err, item.file);
-    //   }
-    // );
   }
 
   beforeUpload = (file: NzUploadFile): any => {
@@ -157,7 +144,6 @@ export class SettingsComponent implements OnInit {
   }
 
   submitProfileForm(): void {
-    console.log("Profile Form Submitted");
     const params = {
       "firstName": this.profileForm.value.firstName,
       "lastName": this.profileForm.value.lastName,
@@ -176,8 +162,8 @@ export class SettingsComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.status === "success") {
           this.message.create('success', res.message);
+          this.handleEdit();
           this.getEmployeeDetails();
-          this.isEdit = true;
         } else if (res.status === "error") {
           this.message.create('error', res.message);
         }
@@ -185,7 +171,6 @@ export class SettingsComponent implements OnInit {
   }
 
   handleEdit(): void {
-    console.log("Edit Profile");
     this.isEdit = !this.isEdit;
     if (!this.isEdit) {
       this.profileForm.controls['firstName'].enable();
