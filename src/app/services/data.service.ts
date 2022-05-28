@@ -55,6 +55,10 @@ export class DataService {
     return this.http.post(this.baseUrl + "report/create", params);
   }
 
+  reportAction(params: any) {
+    return this.http.post(this.baseUrl + "report/approve", params);
+  }
+
   updateReport(params: any) {
     return this.http.post(this.baseUrl + "report/type/update", params);
   }

@@ -73,19 +73,14 @@
                         <nz-form-item>
                             <nz-form-label nzFor="password">Password</nz-form-label>
                             <nz-form-control nzErrorTip="Password must be of atleast 6 characters.">
-                                <nz-input-group nzSize="large">
-                                    <input type="password" nz-input formControlName="password"
-                                        placeholder="Enter password" />
+                                <nz-input-group [nzSuffix]="suffixTemplate" nzSize="large">
+                                    <input [type]="passwordVisible ? 'text' : 'password'" nz-input
+                                        placeholder="Enter your password" formControlName="password" />
                                 </nz-input-group>
-
-                                <!-- <nz-input-group [nzSuffix]="suffixTemplate">
-                                <input [type]="passwordVisible ? 'text' : 'password'" nz-input
-                                    placeholder="input password" [(ngModel)]="password" />
-                            </nz-input-group>
-                            <ng-template #suffixTemplate>
-                                <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-                                    (click)="passwordVisible = !passwordVisible"></i>
-                            </ng-template> -->
+                                <ng-template #suffixTemplate>
+                                    <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                        (click)="passwordVisible = !passwordVisible"></i>
+                                </ng-template>
                             </nz-form-control>
                         </nz-form-item>
 
@@ -252,27 +247,6 @@
                     <div style="display: flex; align-items: center; justify-content: center;">
                         <button nz-button class="modalDoneBtn" nzType="primary" (click)="onOtpDone()">
                             <span>Done</span>
-                        </button>
-                    </div>
-                </ng-container>
-            </nz-modal>
-
-            <nz-modal [nzWidth]="379" [(nzVisible)]="isSuccessModalVisible" [nzClosable]="false" [nzFooter]=null>
-                <ng-container *nzModalContent>
-                    <div>
-                        <p class="txt1">SUCCESS</p>
-                    </div>
-
-
-                    <div
-                        style="display: flex; flex-direction: column;align-items: center; justify-content: center; margin-bottom: 20px;">
-                        <p class="txt2">Thank you for your registration</p>
-                        <p class="txt3">you can now login to proceed</p>
-                    </div>
-
-                    <div style="display: flex; align-items: center; justify-content: center;">
-                        <button nz-button class="modalDoneBtn" nzType="primary" (click)="onLogin()">
-                            <span>Log In</span>
                         </button>
                     </div>
                 </ng-container>

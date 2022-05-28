@@ -17,6 +17,10 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
+
+
 
 import { NgOtpInputModule } from 'ng-otp-input';
 
@@ -43,6 +47,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     NzButtonModule,
     NzStepsModule,
     NzModalModule,
+    NzIconModule,
+    NzNotificationModule,
   ]
 })
 export class AuthModule { }

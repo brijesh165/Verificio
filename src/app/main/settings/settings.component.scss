@@ -53,11 +53,12 @@
         width: 640px;
 
         .saveBtn {
-            min-height: 55px;
+            min-height: 40px;
             font-size: 18px;
-            font-weight: 600;
+            // font-weight: 600;
             background: #29B475;
             border: none;
+            border-radius: 5px;
         }
     }
 

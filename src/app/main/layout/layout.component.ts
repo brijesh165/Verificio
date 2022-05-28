@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-layout',
@@ -9,11 +10,12 @@ import { Router } from '@angular/router';
 export class LayoutComponent implements OnInit {
 
   userInitials: any = "";
+  authenticatedUser: User;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
-    let userInfo = JSON.parse(localStorage.getItem("user") || '{}');
-    this.userInitials = userInfo.firstName.charAt(0).toUpperCase() + "" + userInfo.lastName.charAt(0).toUpperCase();
+    this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'));
+    this.userInitials = this.authenticatedUser.firstName.charAt(0).toUpperCase() + "" + this.authenticatedUser.lastName.charAt(0).toUpperCase();
     console.log("Initial: ", this.userInitials)
   }
 

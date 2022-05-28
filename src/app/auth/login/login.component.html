@@ -25,19 +25,14 @@
                     <nz-form-item>
                         <nz-form-label [nzSpan]="null" nzFor="password">Password</nz-form-label>
                         <nz-form-control [nzSpan]="null" nzErrorTip="Password must be of atleast 6 characters.">
-                            <nz-input-group nzSize="large">
-                                <input type="password" nz-input nzSize="large" formControlName="password"
-                                    placeholder="Enter password" />
-                            </nz-input-group>
-
-                            <!-- <nz-input-group [nzSuffix]="suffixTemplate">
+                            <nz-input-group [nzSuffix]="suffixTemplate" nzSize="large">
                                 <input [type]="passwordVisible ? 'text' : 'password'" nz-input
-                                    placeholder="input password" [(ngModel)]="password" />
+                                    placeholder="Enter your password" formControlName="password" />
                             </nz-input-group>
                             <ng-template #suffixTemplate>
                                 <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
                                     (click)="passwordVisible = !passwordVisible"></i>
-                            </ng-template> -->
+                            </ng-template>
                         </nz-form-control>
                     </nz-form-item>
 

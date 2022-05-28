@@ -8,8 +8,9 @@ import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StaffComponent } from './staff/staff.component';
-import { ReportComponent } from './report/report.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ListReportComponent } from './reports/list-report/list-report.component';
+import { CreateReportComponent } from './reports/create-report/create-report.component';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -30,6 +31,10 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzResultModule } from 'ng-zorro-antd/result';
+import { ModelsComponent } from './models/models.component';
+
 
 
 @NgModule({
@@ -38,8 +43,10 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     DashboardComponent,
     SettingsComponent,
     StaffComponent,
-    ReportComponent,
-    AdminDashboardComponent
+    AdminDashboardComponent,
+    CreateReportComponent,
+    ListReportComponent,
+    ModelsComponent
   ],
   imports: [
     CommonModule,
@@ -66,6 +73,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
     NzUploadModule,
     NzAvatarModule,
     NzDatePickerModule,
+    NzMessageModule,
+    NzResultModule,
   ]
 })
 export class MainModule { }

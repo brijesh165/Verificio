@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/services/data.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -9,48 +9,15 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class AdminDashboardComponent implements OnInit {
 
-  reportsTable: any = [];
-  checked = false;
-  indeterminate = false;
-  setOfCheckedId = new Set<number>();
+  authenticatedUser: User;
 
-  constructor(private router: Router, private dataService: DataService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.dataService.listReport()
-      .subscribe((res: any) => {
-        this.reportsTable = res.data;
-      })
+    this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'))
   }
 
   onAddNew(): void {
-    this.router.navigateByUrl('/app/report');
-  }
-
-  onCurrentPageDataChange(event: any) {
-    console.log("Event: ", event);
-  }
-
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
-
-  refreshCheckedStatus(): void {
-    this.checked = this.reportsTable.every((item: any) => this.setOfCheckedId.has(item._id));
-    this.indeterminate = this.reportsTable.some((item: any) => this.setOfCheckedId.has(item._id)) && !this.checked;
-  }
-
-  onAllChecked(value: boolean): void {
-    this.reportsTable.forEach((item: any) => this.updateCheckedSet(item._id, value));
-    this.refreshCheckedStatus();
-  }
-
-  onItemChecked(id: number, checked: boolean) {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
+    this.router.navigateByUrl('/app/create-report');
   }
 }

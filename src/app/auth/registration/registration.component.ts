@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ModelsComponent } from 'src/app/main/models/models.component';
+
 
 @Component({
   selector: 'app-registration',
@@ -17,10 +21,11 @@ export class RegistrationComponent implements OnInit {
   otp: any = "";
 
   isModalVisible: any = false;
-  isSuccessModalVisible: any = false;
+  passwordVisible = false;
 
   constructor(private fb: FormBuilder, private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService, private notification: NzNotificationService,
+    private modalService: NzModalService) { }
 
   ngOnInit(): void {
     this.registrationForm = this.fb.group({
@@ -53,9 +58,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   done(): void {
-    console.log('Registration Form: ', this.registrationForm.value);
-    console.log('Organization Form: ', this.organizationForm.value);
-
     if (this.registrationForm.valid && this.organizationForm.valid) {
       const params = {
         "firstName": this.registrationForm.value.firstName,
@@ -75,6 +77,11 @@ export class RegistrationComponent implements OnInit {
         .subscribe((response: any) => {
           console.log("Response: ", response);
           if (response.status === "success") {
+            this.notification.create(
+              'success',
+              response.message,
+              ''
+            );
             this.otp_id = response.data;
             this.isModalVisible = true;
           }
@@ -87,12 +94,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   onOtpChange(event: any): void {
-    console.log("Event: ", event);
     this.otp = event;
   }
 
   onLogin(): void {
-    console.log("On Login")
     this.router.navigateByUrl("/auth")
   }
 
@@ -104,8 +109,27 @@ export class RegistrationComponent implements OnInit {
     this.authService.verifyOtp(params)
       .subscribe((response: any) => {
         if (response.status === "success") {
-          this.isModalVisible = false;
-          this.isSuccessModalVisible = true;
+          // this.notification.create('success', response.message, '');
+          const drawerRef = this.modalService.create<ModelsComponent>({
+            nzTitle: '',
+            nzContent: ModelsComponent,
+            nzWidth: 444,
+            nzFooter: null,
+            nzComponentParams: {
+              modelType: "registration",
+              modelTitle: "Thank you for your registration",
+              modelSubTitle: "you can now login to proceed"
+            }
+          });
+
+          drawerRef.afterClose.subscribe((data: any) => {
+            if (data === true) {
+              this.isModalVisible = false;
+              this.router.navigateByUrl("/auth");
+            }
+          })
+        } else if (response.status === "error") {
+          this.notification.create('error', response.message, '');
         }
       })
   }

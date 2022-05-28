@@ -1,0 +1,54 @@
+<div style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; min-width: 75%;">
+        <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
+            <!-- Bulk Action -->
+            <nz-form-item>
+                <nz-select formControlName="action" nzPlaceHolder="Bulk Action" nzSize="large">
+                    <!-- <nz-option nzValue="delete" nzLabel="Delete"
+                        *ngIf="authenticatedUser.hasCompanyPermission('delete_report')"></nz-option> -->
+                    <nz-option nzValue="approve" nzLabel="Approve"
+                        *ngIf="authenticatedUser.hasCompanyPermission('approve_report')"></nz-option>
+                    <nz-option nzValue="reject" nzLabel="Reject"
+                        *ngIf="authenticatedUser.hasCompanyPermission('reject_report')"></nz-option>
+                </nz-select>
+            </nz-form-item>
+
+            <nz-form-item>
+                <button nz-button nzType="primary" class="btn" style="width: min-content;"
+                    (click)="onBulkAction()">Apply</button>
+            </nz-form-item>
+        </form>
+    </div>
+
+    <nz-input-group [nzSuffix]="suffixIconSearch" class="searchInput">
+        <input type="text" nz-input placeholder="input search text" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+    </ng-template>
+</div>
+
+<div class="dashboardTable">
+    <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="reportsTable"
+        (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+        <thead>
+            <tr>
+                <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)">
+                </th>
+                <th>Title</th>
+                <th>User</th>
+                <th>Report Category</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let data of rowSelectionTable.data">
+                <td [nzChecked]="setOfCheckedId.has(data._id)" (nzCheckedChange)="onItemChecked(data._id, $event)"></td>
+                <td>{{ data.description }}</td>
+                <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
+                <td>{{ data.reportType.name }}</td>
+                <td>{{ data.getFormattedStatus()}}</td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

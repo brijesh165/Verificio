@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from 'src/app/models/User';
 import { DataService } from 'src/app/services/data.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { ModelsComponent } from '../models/models.component';
+
 
 @Component({
   selector: 'app-staff',
@@ -13,9 +18,6 @@ export class StaffComponent implements OnInit {
   checked = false;
   indeterminate = false;
   isVisible = false;
-  successModal = false;
-  deactivateModal = false;
-  deactivateSuccessModal = false;
 
   isEdit: any = false;
   editId: any = "";
@@ -25,20 +27,27 @@ export class StaffComponent implements OnInit {
   bulkActionForm: any = FormGroup;
   changeRoleForm: any = FormGroup;
 
-  permissions: any = [{ label: 'Add User', value: 'add_user' },
-  { label: 'Delete User', value: 'delete_user' },
-  { label: 'Deactivate User', value: 'deactivate_user' },
-  { label: 'Pay Subscription', value: 'pay_subscription' },
-  { label: 'Approve Report', value: 'approve_report' },
-  { label: 'Create Report', value: 'create_report' },
-  { label: 'Reject Report', value: 'reject_report' },
-  { label: 'Create Survey', value: 'create_survey' },
-  { label: 'View All Report', value: 'view_all_report' },
-  { label: 'Rate Company', value: 'rate_company' },];
+  authenticatedUser: User;
 
-  constructor(private dataService: DataService, private fb: FormBuilder) { }
+  permissions: any = [
+    { label: 'Manage User', value: 'manage_user' },
+    { label: 'Add User', value: 'create_user' },
+    { label: 'Edit User', value: 'edit_user' },
+    { label: 'Delete User', value: 'delete_user' },
+    { label: 'Approve User Update', value: 'approve_user_update' },
+    { label: 'Search', value: 'search' },
+    { label: 'Create Report', value: 'create_report' },
+    { label: 'Approve Report', value: 'approve_report' },
+    { label: 'Delete Report', value: 'delete_report' },
+    { label: 'Reject Report', value: 'reject_report' },
+    { label: 'Manage Subscription', value: 'manage_subcription' },
+  ];
+
+  constructor(private dataService: DataService, private fb: FormBuilder,
+    private message: NzMessageService, private modalService: NzModalService) { }
 
   ngOnInit(): void {
+    this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'));
     this.bulkActionForm = this.fb.group({
       action: [null, [Validators.required]]
     });
@@ -94,6 +103,10 @@ export class StaffComponent implements OnInit {
     this.isVisible = true;
   }
 
+  handleCancel() {
+    this.isVisible = false;
+  }
+
   onAddNewUser() {
     const permissions = this.newEmployeeForm.value.role === "admin" ? this.newEmployeeForm.value.permission.filter((item: any) => item.value).map((item: any) => item.value).toString() : this.newEmployeeForm.value.permission.filter((item: any) => item.checked).map((item: any) => item.value).toString();
     console.log("Permissions: ", permissions)
@@ -105,17 +118,34 @@ export class StaffComponent implements OnInit {
       role: this.newEmployeeForm.value.role,
       permissions: [permissions]
     }
-    console.log("Params: ", params);
 
     if (this.isEdit) {
       this.dataService.updateEmployee({ id: this.editId, body: params })
         .subscribe((res: any) => {
           console.log("Response: ", res);
           if (res.status === "success") {
-            this.successModal = true;
-            this.isEdit = false;
-            this.editId = "";
             this.isVisible = false;
+            const drawerRef = this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: "Employee details updated successfully",
+                modelSubTitle: ""
+              }
+            });
+
+            drawerRef.afterClose.subscribe((data: any) => {
+              if (data === true) {
+                this.isEdit = false;
+                this.editId = "";
+                this.isVisible = false;
+                this.ngOnInit();
+              }
+            })
+          } else if (res.status === "error") {
+            this.message.create('error', res.message);
           }
         })
 
@@ -124,7 +154,23 @@ export class StaffComponent implements OnInit {
         .subscribe((res: any) => {
           console.log("Response: ", res);
           if (res.status === "success") {
-            this.successModal = true;
+            const drawerRef = this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: "User account has been created",
+                modelSubTitle: "A mail has been sent to the user email address"
+              }
+            });
+
+            drawerRef.afterClose.subscribe((data: any) => {
+              if (data === true) {
+                this.isVisible = false;
+                this.ngOnInit();
+              }
+            })
           }
         })
     }
@@ -141,8 +187,7 @@ export class StaffComponent implements OnInit {
       return {
         label: item.label, value: item.value, checked: employee[0].permissions[0].includes(item.value)
       }
-    })
-    console.log("Permission: ", permission);
+    });
 
     this.isVisible = true;
     this.newEmployeeForm.patchValue({
@@ -153,46 +198,57 @@ export class StaffComponent implements OnInit {
       role: employee[0].role === "company-owner" ? "admin" : "employee",
       permission: permission
     })
-    console.log("New Employee: ", this.newEmployeeForm)
   }
 
   onBulkAction() {
-    console.log("Bulk Action: ", this.bulkActionForm.value.action);
-    console.log("Set: ", this.setOfCheckedId.size);
     if (this.bulkActionForm.value.action === "delete" && this.setOfCheckedId.size > 0) {
-      this.deactivateModal = true;
-    }
-  }
+      const drawerRef = this.modalService.create<ModelsComponent>({
+        nzTitle: '',
+        nzContent: ModelsComponent,
+        nzWidth: 444,
+        nzFooter: null,
+        nzComponentParams: {
+          modelType: "deactivate",
+          modelTitle: "Are you sure you want to deactivate ?",
+          modelSubTitle: "You are about to take a serious action. Be careful before you deactivate this account"
+        }
+      });
 
-  handleCancel() {
-    this.isVisible = false;
-  }
+      drawerRef.afterClose.subscribe((data: any) => {
+        if (data === true) {
+          const params: any = [];
+          this.setOfCheckedId.forEach((item) => {
+            params.push(item);
+          })
 
-  onSuccessOk(type: string) {
-    if (type === "success") {
-      this.successModal = false;
-    } else if (type === "deactivate") {
-      this.deactivateModal = false;
-      this.deactivateSuccessModal = false;
-    }
-    this.ngOnInit();
-  }
+          this.dataService.deleteEmployee({ "userIds": params })
+            .subscribe((res: any) => {
+              if (res.status === "success") {
+                // this.message.create('success', res.message);
+                this.bulkActionForm.patchValue({
+                  action: null
+                })
+                this.setOfCheckedId.clear();
+                this.refreshCheckedStatus();
 
-  onDeactivateCancel() {
-    this.deactivateModal = false;
-  }
+                this.modalService.create<ModelsComponent>({
+                  nzTitle: '',
+                  nzContent: ModelsComponent,
+                  nzWidth: 444,
+                  nzFooter: null,
+                  nzComponentParams: {
+                    modelType: "success",
+                    modelTitle: "User  account has been deactivated.",
+                    modelSubTitle: ""
+                  }
+                });
 
-  onDeactivateYes() {
-    const params: any = [];
-    this.setOfCheckedId.forEach((item) => {
-      params.push(item);
-    })
-
-    this.dataService.deleteEmployee({ "userIds": params })
-      .subscribe((res: any) => {
-        if (res.status === "success") {
-          this.deactivateSuccessModal = true;
+              } else if (res.status === "error") {
+                this.message.create('error', res.message);
+              }
+            })
         }
       })
+    }
   }
 }

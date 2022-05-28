@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
-import { NzUploadChangeParam, NzUploadFile, NzUploadXHRArgs } from 'ng-zorro-antd/upload';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-settings',
@@ -46,7 +47,8 @@ export class SettingsComponent implements OnInit {
   isEdit: any = true;
   passwordVisible = false;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private dataService: DataService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService,
+    private dataService: DataService, private message: NzMessageService) { }
 
   ngOnInit(): void {
     this.changePasswordForm = this.fb.group({
@@ -110,7 +112,9 @@ export class SettingsComponent implements OnInit {
         .subscribe((res: any) => {
           console.log("Response: ", res);
           if (res.status === "success") {
-            alert("Password change successfulluy");
+            this.message.create('success', res.message);
+          } else if (res.status === "error") {
+            this.message.create('error', res.message);
           }
         })
     }
@@ -122,9 +126,11 @@ export class SettingsComponent implements OnInit {
     formData.append("image", item.file);
     this.authService.uploadProfilePicture(formData)
       .subscribe((res: any) => {
-        // console.log("Response: ", res);
         if (res.status === "success") {
+          this.message.create('success', res.message);
           this.getEmployeeDetails();
+        } else if (res.status === "error") {
+          this.message.create('error', res.message);
         }
       })
     // this.http.post('https://jsonplaceholder.typicode.com/posts/', formData).subscribe(
@@ -162,8 +168,11 @@ export class SettingsComponent implements OnInit {
     this.dataService.updateProfile(params)
       .subscribe((res: any) => {
         if (res.status === "success") {
+          this.message.create('success', res.message);
           this.getEmployeeDetails();
           this.isEdit = true;
+        } else if (res.status === "error") {
+          this.message.create('error', res.message);
         }
       })
   }

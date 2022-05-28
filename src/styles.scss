@@ -16,24 +16,9 @@
     width: 48% !important;
 }
 
-.ant-input-group-addon:first-child {
-    border: none !important;
-    background-color: inherit;
-}
-
-.dashboardCards {
-
-
-    .ant-card {
-        display: flex;
-        align-items: stretch;
-    }
-
-    .ant-card-body {
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 0px;
-        margin-left: -5px;
-        padding-right: 0px !important;
+.settingContainer {
+    .ant-input-group-addon:first-child {
+        border: none !important;
+        background-color: inherit;
     }
 }

@@ -1,0 +1,14 @@
+.dashboardTable {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 20px;
+}
+
+.btn {
+    min-height: 40px;
+    background: #29B475;
+    border-radius: 5px;
+    border: #29B475;
+    padding: 10px 20px;
+}

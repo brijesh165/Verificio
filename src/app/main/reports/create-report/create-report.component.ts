@@ -1,21 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { User } from 'src/app/models/User';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+  selector: 'app-create-report',
+  templateUrl: './create-report.component.html',
+  styleUrls: ['./create-report.component.scss']
 })
-export class ReportComponent implements OnInit {
+export class CreateReportComponent implements OnInit {
 
   reportForm: any = FormGroup;
   reportTypeList: any = [];
   userList: any = [];
   showPreview: any = false;
-  constructor(private fb: FormBuilder, private dataService: DataService) { }
+  authenticatedUser: User;
+
+  constructor(private fb: FormBuilder, private dataService: DataService,
+    private message: NzMessageService) { }
 
   ngOnInit(): void {
+    this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'))
     this.reportForm = this.fb.group({
       // email: [null, [Validators.required, Validators.email]],
       staff: [null, [Validators.required]],
@@ -61,7 +67,11 @@ export class ReportComponent implements OnInit {
     this.dataService.createReport(params)
       .subscribe((res: any) => {
         console.log("Response: ", res);
+        if (res.status === "success") {
+          this.message.create('success', res.message);
+        } else if (res.status === "error") {
+          this.message.create('error', res.message);
+        }
       })
   }
-
 }

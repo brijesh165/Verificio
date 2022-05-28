@@ -8,11 +8,12 @@
                 <i nz-icon nzType="bank" style="color: #AEB9DE"></i>
                 <span class="menuItem">Dashboard</span>
             </li>
-            <li nz-menu-item routerLink="/app/staff" [nzMatchRouter]="true">
+            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_user')" nz-menu-item routerLink="/app/staff"
+                [nzMatchRouter]="true">
                 <i nz-icon nzType="user" style="color: #AEB9DE"></i>
                 <span class="menuItem">All Staff</span>
             </li>
-            <li nz-menu-item routerLink="/app/report" [nzMatchRouter]="true">
+            <li nz-menu-item routerLink="/app/admin-dashboard" [nzMatchRouter]="true">
                 <i nz-icon nzType="book" style="color: #AEB9DE"></i>
                 <span class="menuItem">Report</span>
             </li>
@@ -24,7 +25,7 @@
                 <i nz-icon nzType="file-zip" style="color: #AEB9DE"></i>
                 <span class="menuItem">Survey</span>
             </li>
-            <li nz-menu-item [nzMatchRouter]>
+            <li *ngIf="authenticatedUser.hasCompanyPermission('search')" nz-menu-item [nzMatchRouter]>
                 <i nz-icon nzType="search" style="color: #AEB9DE"></i>
                 <span class="menuItem">Search</span>
             </li>
@@ -40,7 +41,7 @@
                 <!-- <i nz-icon nzType="bell" nzTheme="outline" style="font-size: 24px;"></i> -->
                 <div style="display: flex; align-items: center;">
                     <nz-avatar [nzText]="userInitials" style="margin-right: 5px;"></nz-avatar>
-                    <span class="username">Olanrewaju</span>
+                    <span class="username">{{authenticatedUser.firstName}} {{authenticatedUser.lastName}}</span>
 
                     <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight">
                         <i nz-icon nzType="down" nzTheme="outline"></i>
