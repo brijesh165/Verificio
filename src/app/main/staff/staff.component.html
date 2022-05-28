@@ -14,44 +14,15 @@
             (click)="onAddNew()">Add New</button>
     </div>
 
-    <div style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
-        <div style="display: flex; min-width: 75%;">
-            <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
-                <!-- Bulk Action -->
-                <nz-form-item>
-                    <nz-select formControlName="action" nzPlaceHolder="Bulk Action" nzSize="large">
-                        <nz-option nzValue="delete" nzLabel="Delete"
-                            *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"></nz-option>
-                    </nz-select>
-                </nz-form-item>
-
-                <nz-form-item>
-                    <button nz-button nzType="primary" class="btn" style="width: min-content;"
-                        (click)="onBulkAction()">Apply</button>
-                </nz-form-item>
-            </form>
-
-            <!-- <form nz-form nzLayout="inline" [formGroup]="changeRoleForm">
-                <nz-form-item>
-                    <nz-select formControlName="role" nzPlaceHolder="Change role" nzSize="large">
-                        <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
-                        <nz-option nzValue="employee" nzLabel="Employee"></nz-option>
-                    </nz-select>
-                </nz-form-item>
-
-                <nz-form-item>
-                    <button nz-button nzType="primary" class="btn" style="width: min-content;"
-                        (click)="onBulkAction()">Apply</button>
-                </nz-form-item>
-            </form> -->
+    <div style="width: 100%; display: flex; align-items: center; justify-content: end;">
+        <div>
+            <nz-input-group [nzSuffix]="suffixIconSearch" class="searchInput">
+                <input type="text" nz-input placeholder="input search text" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search"></i>
+            </ng-template>
         </div>
-
-        <nz-input-group [nzSuffix]="suffixIconSearch" class="searchInput">
-            <input type="text" nz-input placeholder="input search text" />
-        </nz-input-group>
-        <ng-template #suffixIconSearch>
-            <i nz-icon nzType="search"></i>
-        </ng-template>
     </div>
 
 
@@ -60,20 +31,14 @@
             (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
             <thead>
                 <tr>
-                    <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
-                        (nzCheckedChange)="onAllChecked($event)">
-                    </th>
                     <th>Full Name</th>
                     <th>Email</th>
                     <th>Designation</th>
-                    <!-- <th>Profile</th> -->
-                    <th>Action</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of rowSelectionTable.data">
-                    <td [nzChecked]="setOfCheckedId.has(data._id)" [nzDisabled]="data.disabled"
-                        (nzCheckedChange)="onItemChecked(data._id, $event)"></td>
                     <td>
                         <nz-avatar nzIcon="user" [nzSrc]="'http://54.157.195.180/' + data.profilePicture"
                             style="margin-right: 5px;"></nz-avatar>
@@ -81,13 +46,22 @@
                     </td>
                     <td>{{ data.email }}</td>
                     <td>{{ data.designation }}</td>
-                    <!-- <td>
-                        <img [src]="'http://54.157.195.180/' + data.profilePicture" alt="profile" />
-                    </td> -->
+
                     <td>
-                        <div class="btnDiv">
-                            <button nz-button nzType="primary" class="btn" (click)="onEdit(data._id)">Edit</button>
-                        </div>
+                        <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
+                            <!-- Bulk Action -->
+                            <nz-form-item>
+                                <nz-select formControlName="action" nzPlaceHolder="Actions" nzSize="large"
+                                    (ngModelChange)="changeAction($event, data._id)">
+                                    <nz-option nzValue="view" nzLabel="View"
+                                        *ngIf="authenticatedUser.hasCompanyPermission('view_user')"></nz-option>
+                                    <nz-option nzValue="edit" nzLabel="Edit"
+                                        *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"></nz-option>
+                                    <nz-option nzValue="delete" nzLabel="Deactivate"
+                                        *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"></nz-option>
+                                </nz-select>
+                            </nz-form-item>
+                        </form>
                     </td>
                 </tr>
             </tbody>
@@ -146,8 +120,8 @@
                 <nz-form-item>
                     <nz-form-label [nzSpan]="null" nzFor="role">Select Role</nz-form-label>
                     <nz-select formControlName="role" nzPlaceHolder="Select role">
-                        <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
-                        <nz-option nzValue="employee" nzLabel="Employee"></nz-option>
+                        <nz-option nzValue="company-owner" nzLabel="Admin"></nz-option>
+                        <nz-option nzValue="company-employee" nzLabel="Employee"></nz-option>
                     </nz-select>
                 </nz-form-item>
 

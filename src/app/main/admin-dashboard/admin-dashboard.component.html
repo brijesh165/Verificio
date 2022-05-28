@@ -61,4 +61,4 @@
 </div>
 
 
-<app-list-report></app-list-report>
+<app-list-report *ngIf="authenticatedUser.hasCompanyPermission('manage_report')"></app-list-report>

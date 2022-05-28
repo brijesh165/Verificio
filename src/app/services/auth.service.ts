@@ -31,6 +31,10 @@ export class AuthService {
     return this.http.post(this.baseUrl + "auth/login", params);
   }
 
+  me() {
+    return this.http.get(this.baseUrl + "auth/me");
+  }
+
   changePassword(params: any) {
     return this.http.post(this.baseUrl + "user/change-password", params);
   }

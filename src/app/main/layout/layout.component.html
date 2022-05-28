@@ -13,15 +13,16 @@
                 <i nz-icon nzType="user" style="color: #AEB9DE"></i>
                 <span class="menuItem">All Staff</span>
             </li>
-            <li nz-menu-item routerLink="/app/admin-dashboard" [nzMatchRouter]="true">
+            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_report')" nz-menu-item
+                routerLink="/app/admin-dashboard" [nzMatchRouter]="true">
                 <i nz-icon nzType="book" style="color: #AEB9DE"></i>
                 <span class="menuItem">Report</span>
             </li>
-            <li nz-menu-item [nzMatchRouter]>
+            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_subscription')" nz-menu-item [nzMatchRouter]>
                 <i nz-icon nzType="check-square" style="color: #AEB9DE"></i>
                 <span class="menuItem">Subscriptions</span>
             </li>
-            <li nz-menu-item [nzMatchRouter]>
+            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_survey')" nz-menu-item [nzMatchRouter]>
                 <i nz-icon nzType="file-zip" style="color: #AEB9DE"></i>
                 <span class="menuItem">Survey</span>
             </li>

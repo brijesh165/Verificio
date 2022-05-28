@@ -119,15 +119,23 @@
                 <span class="subTitle">Manage your Verificio account. All changes in your account
                     will be applied to all of your workspace.</span>
 
+                <div *ngIf="isChangesPending">
+                    <nz-alert nzType="info" nzMessage="Your profile changes are awaiting approval from admin.">
+                    </nz-alert>
+                </div>
+                <br>
                 <div style="width: 100%;">
                     <div nz-row class="rowStyle">
                         <div nz-col nzSpan="12" style="text-align: left;">
                             <!-- <button nz-button nzType="text">Change image</button> -->
                             <div style="display: flex; flex-direction: column">
-                                <img [src]="profileImagePath" alt="profile" class="profileImg" />
+
+
+                                <!-- <img [src]="profileImagePath" alt="profile" class="profileImg" /> -->
                                 <nz-upload [nzCustomRequest]="handleUpload" [nzShowUploadList]="false"
                                     [nzBeforeUpload]="beforeUpload">
-                                    <button nz-button nzType="link">Click to Upload</button>
+                                    <nz-avatar nzIcon="user" [nzSize]="90" [nzSrc]="profileImagePath"></nz-avatar>
+                                    <!-- <button nz-button nzType="link">Click to Upload</button> -->
                                 </nz-upload>
                             </div>
                         </div>
@@ -159,10 +167,9 @@
                                 </nz-form-item>
                             </div>
 
-                            <div nz-col nzSpan="12" style="text-align: right;">
+                            <div nz-col nzSpan="12">
                                 <nz-form-item style="margin: 0 0 2px">
-                                    <nz-form-label [nzSpan]="null" nzFor="lastName"
-                                        style="text-align: right; padding: 0px;">Last Name
+                                    <nz-form-label [nzSpan]="null" nzFor="lastName" style=" padding: 0px;">Last Name
                                     </nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
                                         <nz-input-group nzSize="large">
@@ -192,8 +199,7 @@
 
                             <div nz-col nzSpan="12" style="text-align: right;">
                                 <nz-form-item style="margin: 0 0 2px">
-                                    <nz-form-label [nzSpan]="null" nzFor="phone"
-                                        style="text-align: right; padding: 0px;">Phone Number
+                                    <nz-form-label [nzSpan]="null" nzFor="phone" style="padding: 0px;">Phone Number
                                     </nz-form-label>
                                     <nz-form-control nzErrorTip="Please enter your phone number!">
                                         <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" nzSize="large">
@@ -203,7 +209,8 @@
                                     </nz-form-control>
                                 </nz-form-item>
                                 <ng-template #addOnBeforeTemplate>
-                                    <nz-select formControlName="phoneNumberPrefix" nzBorderless>
+                                    <nz-select nzPlaceholder="Country Code" formControlName="phoneNumberPrefix"
+                                        nzBorderless>
                                         <nz-option nzLabel="+91" nzValue="+91"></nz-option>
                                         <nz-option nzLabel="+86" nzValue="+86"></nz-option>
                                         <nz-option nzLabel="+87" nzValue="+87"></nz-option>
@@ -283,7 +290,8 @@
                                         Birth</nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid date.">
                                         <nz-input-group nzSize="large">
-                                            <nz-date-picker formControlName="dateOfBirth" nzBorderless></nz-date-picker>
+                                            <nz-date-picker [nzFormat]="'dd-MMM-yyyy'" formControlName="dateOfBirth"
+                                                nzBorderless></nz-date-picker>
                                             <!-- <input type="text" nz-input nzBorderless formControlName="dateOfBirth"
                                                 placeholder="Enter your email address" style="padding: 6.5px 0px" /> -->
                                         </nz-input-group>
@@ -291,16 +299,16 @@
                                 </nz-form-item>
                             </div>
 
-                            <div nz-col nzSpan="12" style="text-align: right;">
+                            <div nz-col nzSpan="12">
                                 <nz-form-item style="margin: 0 0 2px">
-                                    <nz-form-label [nzSpan]="null" nzFor="gender"
-                                        style="text-align: right; padding: 0px;">Gender
+                                    <nz-form-label [nzSpan]="null" nzFor="gender" style="padding: 0px;">Gender
                                     </nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid gender.">
                                         <nz-input-group nzSize="large">
-                                            <nz-select formControlName="gender" nzBorderless>
-                                                <nz-option nzLabel="male" nzValue="Male"></nz-option>
-                                                <nz-option nzLabel="female" nzValue="Female"></nz-option>
+                                            <nz-select formControlName="gender" nzPlaceHolder="Gender" nzBorderless>
+
+                                                <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+                                                <nz-option nzLabel="Female" nzValue="Female"></nz-option>
                                             </nz-select>
                                         </nz-input-group>
                                     </nz-form-control>

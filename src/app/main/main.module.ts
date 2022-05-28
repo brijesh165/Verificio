@@ -33,6 +33,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzResultModule } from 'ng-zorro-antd/result';
+import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { ModelsComponent } from './models/models.component';
 
 
@@ -53,7 +54,7 @@ import { ModelsComponent } from './models/models.component';
     MainRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-
+    NzAlertModule,
     NzLayoutModule,
     NzIconModule,
     NzCardModule,

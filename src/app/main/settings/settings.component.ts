@@ -46,6 +46,7 @@ export class SettingsComponent implements OnInit {
   uploadFileName: any = '';
   isEdit: any = true;
   passwordVisible = false;
+  isChangesPending = false;
 
   constructor(private fb: FormBuilder, private authService: AuthService,
     private dataService: DataService, private message: NzMessageService) { }
@@ -76,20 +77,26 @@ export class SettingsComponent implements OnInit {
 
   getEmployeeDetails() {
     let userInfo = JSON.parse(localStorage.getItem("user") || '{}');
-    this.dataService.getEmployeeDetailsById(userInfo._id)
+    this.authService.me()
       .subscribe((res: any) => {
         console.log("Employee Details: ", res.data);
+
+        if (res.data.changedData != null) {
+          this.isChangesPending = true;
+        }
+        res.data = { ...res.data, ...res.data.changedData };
+
         this.profileForm.patchValue({
           firstName: res.data.firstName,
           lastName: res.data.lastName,
           email: res.data.email,
           phoneNumberPrefix: res.data.countryCode,
           phone: res.data.phoneNo,
-          address: res.data.address.address,
-          state: res.data.address.state,
-          stateOfOrigin: res.data.address.stateOfOrigin,
-          lga: res.data.address.lga,
-          dateOfBirth: res.data.dob ? moment(res.data.dob).format("DD/MM/yyyy") : "",
+          address: res.data.address?.address,
+          state: res.data.address?.state,
+          stateOfOrigin: res.data.address?.stateOfOrigin,
+          lga: res.data.address?.lga,
+          dateOfBirth: res.data.dob ? moment(res.data.dob).toDate() : null,
           gender: res.data.gender
         })
 
@@ -154,7 +161,7 @@ export class SettingsComponent implements OnInit {
     const params = {
       "firstName": this.profileForm.value.firstName,
       "lastName": this.profileForm.value.lastName,
-      "dob": moment(this.profileForm.value.dateOfBirth).format("DD/MM/yyyy"),
+      "dob": moment(this.profileForm.value.dateOfBirth).toISOString(),
       "address": {
         "address": this.profileForm.value.address,
         "state": this.profileForm.value.state,

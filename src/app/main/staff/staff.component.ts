@@ -15,13 +15,10 @@ import { ModelsComponent } from '../models/models.component';
 export class StaffComponent implements OnInit {
 
   tableData: any = [];
-  checked = false;
-  indeterminate = false;
   isVisible = false;
 
   isEdit: any = false;
   editId: any = "";
-  setOfCheckedId = new Set<number>();
 
   newEmployeeForm: any = FormGroup;
   bulkActionForm: any = FormGroup;
@@ -65,6 +62,10 @@ export class StaffComponent implements OnInit {
       permission: [this.permissions, [Validators.required]]
     });
 
+    this.listEmployee();
+  }
+
+  listEmployee() {
     this.dataService.listEmployee()
       .subscribe((res: any) => {
         console.log("Response: ", res);
@@ -76,29 +77,6 @@ export class StaffComponent implements OnInit {
     console.log("Event: ", event);
   }
 
-  updateCheckedSet(id: number, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
-
-  refreshCheckedStatus(): void {
-    this.checked = this.tableData.every((item: any) => this.setOfCheckedId.has(item._id));
-    this.indeterminate = this.tableData.some((item: any) => this.setOfCheckedId.has(item._id)) && !this.checked;
-  }
-
-  onAllChecked(value: boolean): void {
-    this.tableData.forEach((item: any) => this.updateCheckedSet(item._id, value));
-    this.refreshCheckedStatus();
-  }
-
-  onItemChecked(id: number, checked: boolean) {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
-  }
-
   onAddNew() {
     this.isVisible = true;
   }
@@ -108,7 +86,7 @@ export class StaffComponent implements OnInit {
   }
 
   onAddNewUser() {
-    const permissions = this.newEmployeeForm.value.role === "admin" ? this.newEmployeeForm.value.permission.filter((item: any) => item.value).map((item: any) => item.value).toString() : this.newEmployeeForm.value.permission.filter((item: any) => item.checked).map((item: any) => item.value).toString();
+    const permissions = this.newEmployeeForm.value.role === "admin" ? [] : this.newEmployeeForm.value.permission.filter((item: any) => item.checked).map((item: any) => item.value);
     console.log("Permissions: ", permissions)
     const params = {
       firstName: this.newEmployeeForm.value.firstName,
@@ -116,7 +94,7 @@ export class StaffComponent implements OnInit {
       designation: this.newEmployeeForm.value.designation,
       email: this.newEmployeeForm.value.email,
       role: this.newEmployeeForm.value.role,
-      permissions: [permissions]
+      permissions: permissions
     }
 
     if (this.isEdit) {
@@ -129,6 +107,7 @@ export class StaffComponent implements OnInit {
               nzTitle: '',
               nzContent: ModelsComponent,
               nzWidth: 444,
+              nzFooter: null,
               nzComponentParams: {
                 modelType: "success",
                 modelTitle: "Employee details updated successfully",
@@ -158,6 +137,7 @@ export class StaffComponent implements OnInit {
               nzTitle: '',
               nzContent: ModelsComponent,
               nzWidth: 444,
+              nzFooter: null,
               nzComponentParams: {
                 modelType: "success",
                 modelTitle: "User account has been created",
@@ -176,16 +156,22 @@ export class StaffComponent implements OnInit {
     }
   }
 
+  changeAction(value: any, id: any): void {
+    if (value === "edit") {
+      this.onEdit(id);
+    } else if (value === "delete") {
+      this.onDelete(id);
+    }
+  }
+
   onEdit(id: any): void {
-    console.log("Edit: ", id)
     this.isEdit = true;
     this.editId = id;
     let employee = this.tableData.filter((item: any) => item._id === id);
-    console.log("Employee: ", employee);
 
     const permission = this.permissions.map((item: any) => {
       return {
-        label: item.label, value: item.value, checked: employee[0].permissions[0].includes(item.value)
+        label: item.label, value: item.value, checked: employee[0].permissions.includes(item.value)
       }
     });
 
@@ -200,55 +186,48 @@ export class StaffComponent implements OnInit {
     })
   }
 
-  onBulkAction() {
-    if (this.bulkActionForm.value.action === "delete" && this.setOfCheckedId.size > 0) {
-      const drawerRef = this.modalService.create<ModelsComponent>({
-        nzTitle: '',
-        nzContent: ModelsComponent,
-        nzWidth: 444,
-        nzFooter: null,
-        nzComponentParams: {
-          modelType: "deactivate",
-          modelTitle: "Are you sure you want to deactivate ?",
-          modelSubTitle: "You are about to take a serious action. Be careful before you deactivate this account"
-        }
-      });
+  onDelete(id: any): void {
+    const drawerRef = this.modalService.create<ModelsComponent>({
+      nzTitle: '',
+      nzContent: ModelsComponent,
+      nzWidth: 444,
+      nzFooter: null,
+      nzComponentParams: {
+        modelType: "deactivate",
+        modelTitle: "Are you sure you want to deactivate ?",
+        modelSubTitle: "You are about to take a serious action. Be careful before you deactivate this account"
+      }
+    });
 
-      drawerRef.afterClose.subscribe((data: any) => {
-        if (data === true) {
-          const params: any = [];
-          this.setOfCheckedId.forEach((item) => {
-            params.push(item);
+    drawerRef.afterClose.subscribe((data: any) => {
+      if (data === true) {
+
+        this.dataService.deleteEmployee({ "userIds": [id] })
+          .subscribe((res: any) => {
+            if (res.status === "success") {
+              this.bulkActionForm.patchValue({
+                action: null
+              })
+
+              this.modalService.create<ModelsComponent>({
+                nzTitle: '',
+                nzContent: ModelsComponent,
+                nzWidth: 444,
+                nzFooter: null,
+                nzComponentParams: {
+                  modelType: "success",
+                  modelTitle: "User  account has been deactivated.",
+                  modelSubTitle: ""
+                }
+              });
+
+              this.listEmployee()
+
+            } else if (res.status === "error") {
+              this.message.create('error', res.message);
+            }
           })
-
-          this.dataService.deleteEmployee({ "userIds": params })
-            .subscribe((res: any) => {
-              if (res.status === "success") {
-                // this.message.create('success', res.message);
-                this.bulkActionForm.patchValue({
-                  action: null
-                })
-                this.setOfCheckedId.clear();
-                this.refreshCheckedStatus();
-
-                this.modalService.create<ModelsComponent>({
-                  nzTitle: '',
-                  nzContent: ModelsComponent,
-                  nzWidth: 444,
-                  nzFooter: null,
-                  nzComponentParams: {
-                    modelType: "success",
-                    modelTitle: "User  account has been deactivated.",
-                    modelSubTitle: ""
-                  }
-                });
-
-              } else if (res.status === "error") {
-                this.message.create('error', res.message);
-              }
-            })
-        }
-      })
-    }
+      }
+    })
   }
 }
