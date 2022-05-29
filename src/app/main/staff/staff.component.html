@@ -50,21 +50,19 @@
                             <td>{{ data.designation }}</td>
 
                             <td>
-                                <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
-                                    <!-- Bulk Action -->
-                                    <nz-form-item>
-                                        <nz-select formControlName="action" nzPlaceHolder="Actions" nzSize="large"
-                                            (ngModelChange)="changeAction($event, data._id)">
-                                            <nz-option nzValue="view" nzLabel="View"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('view_user')"></nz-option>
-                                            <nz-option nzValue="edit" nzLabel="Edit"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"></nz-option>
-                                            <nz-option nzValue="delete" nzLabel="Deactivate"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('delete_user')">
-                                            </nz-option>
-                                        </nz-select>
-                                    </nz-form-item>
-                                </form>
+
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                  </button>
+                                  <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')" (click)="changeAction('edit', data._id)">Edit</li>
+                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')" (click)="changeAction('delete', data._id)">Deactivate</li>
+                                    </ul>
+                                  </nz-dropdown-menu>
+
+                           
                             </td>
                         </tr>
                     </tbody>
@@ -91,21 +89,17 @@
                             <td>{{ data.designation }}</td>
 
                             <td>
-                                <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
-                                    <!-- Bulk Action -->
-                                    <nz-form-item>
-                                        <nz-select formControlName="action" nzPlaceHolder="Actions" nzSize="large"
-                                            (ngModelChange)="changeAction($event, data._id)">
-                                            <nz-option nzValue="view" nzLabel="View"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('view_user')"></nz-option>
-                                            <nz-option nzValue="edit" nzLabel="Edit"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"></nz-option>
-                                            <nz-option nzValue="delete" nzLabel="Deactivate"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('delete_user')">
-                                            </nz-option>
-                                        </nz-select>
-                                    </nz-form-item>
-                                </form>
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                  </button>
+                                  <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')" (click)="changeAction('edit', data._id)">Edit</li>
+                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')" (click)="changeAction('delete', data._id)">Deactivate</li>
+                                    </ul>
+                                  </nz-dropdown-menu>
+
                             </td>
                         </tr>
                     </tbody>
@@ -132,8 +126,20 @@
                             <td>{{ data.designation }}</td>
 
                             <td>
-                                <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
-                                    <!-- Bulk Action -->
+
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                  </button>
+                                  <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')" (click)="changeAction('edit', data._id)">Edit</li>
+                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')" (click)="changeAction('delete', data._id)">Deactivate</li>
+                                    </ul>
+                                  </nz-dropdown-menu>
+
+
+                                <!-- <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
                                     <nz-form-item>
                                         <nz-select formControlName="action" nzPlaceHolder="Actions" nzSize="large"
                                             (ngModelChange)="changeAction($event, data._id)">
@@ -146,7 +152,7 @@
                                             </nz-option>
                                         </nz-select>
                                     </nz-form-item>
-                                </form>
+                                </form> -->
                             </td>
                         </tr>
                     </tbody>
