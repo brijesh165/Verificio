@@ -19,17 +19,18 @@ import { NzStepsModule } from 'ng-zorro-antd/steps';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
-
-
+import { NzResultModule } from 'ng-zorro-antd/result';
 
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     RegistrationComponent,
     LoginComponent,
-    ForgetPasswordComponent
+    ForgetPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +51,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
     NzModalModule,
     NzIconModule,
     NzNotificationModule,
+    NzResultModule,
   ]
 })
 export class AuthModule { }

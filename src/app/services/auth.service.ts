@@ -36,6 +36,18 @@ export class AuthService {
     return this.http.get(this.baseUrl + "auth/me");
   }
 
+  forgetPassword(params: any) {
+    return this.http.post(this.baseUrl + "auth/password/reset", params);
+  }
+
+  passwordVerifyOtp(params: any) {
+    return this.http.post(this.baseUrl + "auth/password/reset/verify", params);
+  }
+
+  resetPassword(params: any) {
+    return this.http.post(this.baseUrl + "auth/password/reset/update", params);
+  }
+
   changePassword(params: any) {
     return this.http.post(this.baseUrl + "user/change-password", params);
   }

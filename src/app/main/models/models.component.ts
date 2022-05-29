@@ -12,6 +12,7 @@ export class ModelsComponent implements OnInit {
   @Input() modelType: string = "";
   @Input() modelTitle: string = "";
   @Input() modelSubTitle: string = "";
+  otp: any = "";
 
   constructor(private modal: NzModalRef) { }
 
@@ -33,4 +34,5 @@ export class ModelsComponent implements OnInit {
   onLogin() {
     this.modal.close(true);
   }
+
 }

@@ -39,6 +39,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { ModelsComponent } from './models/models.component';
 import { ImportCsvComponent } from './staff/import-csv/import-csv.component';
 
+import { NgOtpInputModule } from 'ng-otp-input';
 
 
 @NgModule({
@@ -59,6 +60,8 @@ import { ImportCsvComponent } from './staff/import-csv/import-csv.component';
     FormsModule,
     NzTypographyModule,
     ReactiveFormsModule,
+
+    NgOtpInputModule,
     NzPopoverModule,
     NzAlertModule,
     NzLayoutModule,
