@@ -39,7 +39,6 @@ export class RegistrationComponent implements OnInit {
     this.registrationForm = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
-      userName: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(6)]],
       phoneNumberPrefix: [null, [Validators.required]],
@@ -76,7 +75,6 @@ export class RegistrationComponent implements OnInit {
         "employees": this.organizationForm.value.companySize,
         "industry": this.organizationForm.value.industry,
         "password": this.registrationForm.value.password,
-        "userName": this.registrationForm.value.userName,
         "email": this.registrationForm.value.email
       }
 

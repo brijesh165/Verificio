@@ -69,7 +69,7 @@ export class SettingsComponent implements OnInit {
     this.profileForm = this.fb.group({
       firstName: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       lastName: [{ value: null, disabled: this.isEdit }, [Validators.required]],
-      email: [{ value: null, disabled: this.isEdit }, [Validators.required]],
+      email: [{ value: null, disabled: true }, [Validators.required]],
       phoneNumberPrefix: ['+91', [Validators.required]],
       phone: [{ value: null, disabled: this.isEdit }, [Validators.required, Validators.maxLength(10)]],
       address: [{ value: null, disabled: this.isEdit }, [Validators.required]],
@@ -183,7 +183,6 @@ export class SettingsComponent implements OnInit {
     if (!this.isEdit) {
       this.profileForm.controls['firstName'].enable();
       this.profileForm.controls['lastName'].enable();
-      this.profileForm.controls['email'].enable();
       this.profileForm.controls['phone'].enable();
       this.profileForm.controls['address'].enable();
       this.profileForm.controls['state'].enable();
@@ -194,7 +193,6 @@ export class SettingsComponent implements OnInit {
     } else {
       this.profileForm.controls['firstName'].disable();
       this.profileForm.controls['lastName'].disable();
-      this.profileForm.controls['email'].disable();
       this.profileForm.controls['phone'].disable();
       this.profileForm.controls['address'].disable();
       this.profileForm.controls['state'].disable();

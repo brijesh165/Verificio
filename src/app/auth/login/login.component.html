@@ -35,11 +35,11 @@
 
                     <!-- Email -->
                     <nz-form-item>
-                        <nz-form-label [nzSpan]="null" nzFor="userName">User Name</nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid user name.">
+                        <nz-form-label [nzSpan]="null" nzFor="userName">Email</nz-form-label>
+                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email address">
                             <nz-input-group nzSize="large">
-                                <input type="text" nz-input nzSize="large" formControlName="userName"
-                                    placeholder="Enter user name here" />
+                                <input type="text" nz-input nzSize="large" formControlName="email"
+                                    placeholder="Eg info@domainname.com" />
                             </nz-input-group>
                         </nz-form-control>
                     </nz-form-item>
@@ -56,6 +56,16 @@
                                 <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
                                     (click)="passwordVisible = !passwordVisible"></i>
                             </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <!-- Password -->
+                    <nz-form-item [hidden]="hideCompany">
+                        <nz-form-label [nzSpan]="null" nzFor="companyId">Company</nz-form-label>
+                        <nz-form-control [nzSpan]="null" nzErrorTip="Please select company">
+                            <nz-select nzSize="large" nzShowSearch nzPlaceHolder="Select Company" formControlName="companyId">
+                                <nz-option *ngFor="let company of companyList" [nzLabel]="company.name" [nzValue]="company._id"></nz-option>
+                            </nz-select>
                         </nz-form-control>
                     </nz-form-item>
 

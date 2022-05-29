@@ -25,12 +25,12 @@ export class ForgetPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.forgetPasswordForm = this.fb.group({
-      username: [null, [Validators.required]],
+      email: [null, [Validators.required,Validators.email]],
     });
   }
 
   submitForm(): void {
-    this.authService.forgetPassword({ "userName": this.forgetPasswordForm.value.username })
+    this.authService.forgetPassword(this.forgetPasswordForm.value)
       .subscribe((res: any) => {
         if (res.status === "success") {
           this.otp_id = res.data;

@@ -61,7 +61,7 @@
                                     style="margin-right: 5px;"></nz-avatar>
                                 {{ data.firstName}} {{ data.lastName }}
                             </td>
-                            <td>{{ data.email }} <br> <span nz-typography nzType="success">{{data.userName}}</span>
+                            <td>{{ data.email }}
                             </td>
                             <td>{{ data.designation }}</td>
                             <td>
@@ -99,7 +99,7 @@
                                     style="margin-right: 5px;"></nz-avatar>
                                 {{ data.firstName}} {{ data.lastName }}
                             </td>
-                            <td>{{ data.email }}<br> <span nz-typography nzType="success">{{data.userName}}</span></td>
+                            <td>{{ data.email }}</td>
                             <td>{{ data.designation }}</td>
 
                             <td>
@@ -138,7 +138,7 @@
                                     style="margin-right: 5px;"></nz-avatar>
                                 {{ data.firstName}} {{ data.lastName }}
                             </td>
-                            <td>{{ data.email }}<br> <span nz-typography nzType="success">{{data.userName}}</span></td>
+                            <td>{{ data.email }}</td>
                             <td>{{ data.designation }}</td>
 
                             <td>
@@ -155,22 +155,6 @@
                                             (click)="changeAction('delete', data._id)">Deactivate</li>
                                     </ul>
                                 </nz-dropdown-menu>
-
-
-                                <!-- <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
-                                    <nz-form-item>
-                                        <nz-select formControlName="action" nzPlaceHolder="Actions" nzSize="large"
-                                            (ngModelChange)="changeAction($event, data._id)">
-                                            <nz-option nzValue="view" nzLabel="View"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('view_user')"></nz-option>
-                                            <nz-option nzValue="edit" nzLabel="Edit"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"></nz-option>
-                                            <nz-option nzValue="delete" nzLabel="Deactivate"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('delete_user')">
-                                            </nz-option>
-                                        </nz-select>
-                                    </nz-form-item>
-                                </form> -->
                             </td>
                         </tr>
                     </tbody>
