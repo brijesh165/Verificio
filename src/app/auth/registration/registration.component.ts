@@ -76,7 +76,6 @@ export class RegistrationComponent implements OnInit {
 
       this.authService.register(params)
         .subscribe((response: any) => {
-          console.log("Response: ", response);
           if (response.status === "success") {
             this.notification.create(
               'success',
@@ -85,7 +84,7 @@ export class RegistrationComponent implements OnInit {
             );
             this.otp_id = response.data;
             this.isModalVisible = true;
-          }else{
+          } else {
             this.messageService.error(response.message);
           }
         })
@@ -99,7 +98,8 @@ export class RegistrationComponent implements OnInit {
   onOtpChange(event: any): void {
     this.otp = event;
   }
-  closeOTPModal():void{
+
+  closeOTPModal(): void {
     this.isModalVisible = false;
   }
 

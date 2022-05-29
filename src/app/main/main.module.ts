@@ -36,6 +36,7 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { ModelsComponent } from './models/models.component';
 
+import { NgOtpInputModule } from 'ng-otp-input';
 
 
 @NgModule({
@@ -54,6 +55,8 @@ import { ModelsComponent } from './models/models.component';
     MainRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+
+    NgOtpInputModule,
     NzAlertModule,
     NzLayoutModule,
     NzIconModule,
