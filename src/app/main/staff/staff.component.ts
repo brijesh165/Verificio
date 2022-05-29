@@ -24,6 +24,7 @@ export class StaffComponent implements OnInit {
 
   isEdit: any = false;
   editId: any = "";
+  searchTetx: any = "";
 
   newEmployeeForm: any = FormGroup;
   bulkActionForm: any = FormGroup;
@@ -73,16 +74,16 @@ export class StaffComponent implements OnInit {
   listEmployee() {
     this.dataService.listEmployee()
       .subscribe((res: any) => {
-        this.tableData = res.data.map((item:any)=>User.fromMap(item));
-        this.allAdminData = res.data.filter(function(item:any){
-          return item.role == 'company-owner' && item.archived==false
-        }).map((item:any)=>User.fromMap(item));
-        this.allEmployeeData = res.data.filter(function(item:any){
-          return item.role == 'company-employye' && item.archived==false
-        }).map((item:any)=>User.fromMap(item));
-        this.allArchiveData = res.data.filter(function(item:any){
-          return item.archived==true;
-        }).map((item:any)=>User.fromMap(item));
+        this.tableData = res.data.map((item: any) => User.fromMap(item));
+        this.allAdminData = res.data.filter(function (item: any) {
+          return item.role == 'company-owner' && item.archived == false
+        }).map((item: any) => User.fromMap(item));
+        this.allEmployeeData = res.data.filter(function (item: any) {
+          return item.role == 'company-employee' && item.archived == false
+        }).map((item: any) => User.fromMap(item));
+        this.allArchiveData = res.data.filter(function (item: any) {
+          return item.archived == true;
+        }).map((item: any) => User.fromMap(item));
       })
   }
 
@@ -164,11 +165,34 @@ export class StaffComponent implements OnInit {
                 this.ngOnInit();
               }
             })
-          }else{
+          } else {
             this.message.error(res.message);
           }
         })
     }
+  }
+
+  onSearch(searchTxt: any): void {
+    const targetValue: any[] = [];
+    this.tableData.forEach((value: any) => {
+      let keys = Object.keys(value);
+      for (let i = 0; i < keys.length; i++) {
+        if (value[keys[i]] && value[keys[i]].toString().toLocaleLowerCase().includes(searchTxt)) {
+          targetValue.push(value);
+          break;
+        }
+      }
+    });
+
+    this.allAdminData = targetValue.filter(function (item: any) {
+      return item.role == 'company-owner' && item.archived == false
+    }).map((item: any) => User.fromMap(item));
+    this.allEmployeeData = targetValue.filter(function (item: any) {
+      return item.role == 'company-employee' && item.archived == false
+    }).map((item: any) => User.fromMap(item));
+    this.allArchiveData = targetValue.filter(function (item: any) {
+      return item.archived == true;
+    }).map((item: any) => User.fromMap(item));
   }
 
   changeAction(value: any, id: any): void {

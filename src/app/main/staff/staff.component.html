@@ -10,14 +10,15 @@
     <div class="title">All Staff</div>
 
     <div class="btnDiv">
-        <button nz-button nzSize="large" nzType="primary"  *ngIf="authenticatedUser.hasCompanyPermission('create_user')"
+        <button nz-button nzSize="large" nzType="primary" *ngIf="authenticatedUser.hasCompanyPermission('create_user')"
             (click)="onAddNew()">Add New User</button>
     </div>
 
     <div style="width: 100%; display: flex; align-items: center; justify-content: end;">
         <div>
             <nz-input-group [nzPrefix]="suffixIconSearch" nzSize="large" class="searchInput">
-                <input type="text" nzSize="large" nz-input placeholder="Search" />
+                <input type="text" nzSize="large" nz-input placeholder="Search" [(ngModel)]="searchTetx"
+                    (ngModelChange)="onSearch($event)" />
             </nz-input-group>
             <ng-template #suffixIconSearch>
                 <i nz-icon nzSize="large" nzType="search"></i>
@@ -27,47 +28,47 @@
 
 
     <div style="width: 100%; margin-top: 20px; background-color: white; border-radius: 10px; " class="staffList">
-
         <nz-tabset>
             <nz-tab nzTitle="Admin">
                 <nz-table #adminTableData nzShowPagination nzShowSizeChanger [nzData]="allAdminData">
-                <thead>
-                    <tr>
-                        <th>Full Name</th>
-                        <th>Email</th>
-                        <th>Designation</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let data of adminTableData.data">
-                        <td>
-                            <nz-avatar nzIcon="user" [nzSrc]="'http://54.157.195.180/' + data.profilePicture"
-                                style="margin-right: 5px;"></nz-avatar>
-                            {{ data.firstName}} {{ data.lastName }}
-                        </td>
-                        <td>{{ data.email }}</td>
-                        <td>{{ data.designation }}</td>
-    
-                        <td>
-                            <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
-                                <!-- Bulk Action -->
-                                <nz-form-item>
-                                    <nz-select formControlName="action" nzPlaceHolder="Actions" nzSize="large"
-                                        (ngModelChange)="changeAction($event, data._id)">
-                                        <nz-option nzValue="view" nzLabel="View"
-                                            *ngIf="authenticatedUser.hasCompanyPermission('view_user')"></nz-option>
-                                        <nz-option nzValue="edit" nzLabel="Edit"
-                                            *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"></nz-option>
-                                        <nz-option nzValue="delete" nzLabel="Deactivate"
-                                            *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"></nz-option>
-                                    </nz-select>
-                                </nz-form-item>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </nz-table>
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Designation</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of adminTableData.data">
+                            <td>
+                                <nz-avatar nzIcon="user" [nzSrc]="'http://54.157.195.180/' + data.profilePicture"
+                                    style="margin-right: 5px;"></nz-avatar>
+                                {{ data.firstName}} {{ data.lastName }}
+                            </td>
+                            <td>{{ data.email }}</td>
+                            <td>{{ data.designation }}</td>
+
+                            <td>
+                                <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
+                                    <!-- Bulk Action -->
+                                    <nz-form-item>
+                                        <nz-select formControlName="action" nzPlaceHolder="Actions" nzSize="large"
+                                            (ngModelChange)="changeAction($event, data._id)">
+                                            <nz-option nzValue="view" nzLabel="View"
+                                                *ngIf="authenticatedUser.hasCompanyPermission('view_user')"></nz-option>
+                                            <nz-option nzValue="edit" nzLabel="Edit"
+                                                *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"></nz-option>
+                                            <nz-option nzValue="delete" nzLabel="Deactivate"
+                                                *ngIf="authenticatedUser.hasCompanyPermission('delete_user')">
+                                            </nz-option>
+                                        </nz-select>
+                                    </nz-form-item>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
             </nz-tab>
             <nz-tab nzTitle="Employees">
                 <nz-table #employeeTable nzShowPagination nzShowSizeChanger [nzData]="allEmployeeData">
@@ -88,7 +89,7 @@
                             </td>
                             <td>{{ data.email }}</td>
                             <td>{{ data.designation }}</td>
-        
+
                             <td>
                                 <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
                                     <!-- Bulk Action -->
@@ -100,7 +101,8 @@
                                             <nz-option nzValue="edit" nzLabel="Edit"
                                                 *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"></nz-option>
                                             <nz-option nzValue="delete" nzLabel="Deactivate"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"></nz-option>
+                                                *ngIf="authenticatedUser.hasCompanyPermission('delete_user')">
+                                            </nz-option>
                                         </nz-select>
                                     </nz-form-item>
                                 </form>
@@ -128,7 +130,7 @@
                             </td>
                             <td>{{ data.email }}</td>
                             <td>{{ data.designation }}</td>
-        
+
                             <td>
                                 <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
                                     <!-- Bulk Action -->
@@ -140,7 +142,8 @@
                                             <nz-option nzValue="edit" nzLabel="Edit"
                                                 *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"></nz-option>
                                             <nz-option nzValue="delete" nzLabel="Deactivate"
-                                                *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"></nz-option>
+                                                *ngIf="authenticatedUser.hasCompanyPermission('delete_user')">
+                                            </nz-option>
                                         </nz-select>
                                     </nz-form-item>
                                 </form>
@@ -149,9 +152,7 @@
                     </tbody>
                 </nz-table>
             </nz-tab>
-          </nz-tabset>
-
-       
+        </nz-tabset>
     </div>
 
 
@@ -203,21 +204,21 @@
                 </nz-form-item>
 
                 <div [hidden]="isEdit==true && this.editId==authenticatedUser._id">
-                <!-- Role -->
-                <nz-form-item>
-                    <nz-form-label [nzSpan]="null" nzFor="role">Select Role</nz-form-label>
-                    <nz-select formControlName="role" nzSize="large"  nzPlaceHolder="Select role">
-                        <nz-option nzValue="company-owner" nzLabel="Admin"></nz-option>
-                        <nz-option nzValue="company-employee" nzLabel="Employee"></nz-option>
-                    </nz-select>
-                </nz-form-item>
+                    <!-- Role -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="role">Select Role</nz-form-label>
+                        <nz-select formControlName="role" nzSize="large" nzPlaceHolder="Select role">
+                            <nz-option nzValue="company-owner" nzLabel="Admin"></nz-option>
+                            <nz-option nzValue="company-employee" nzLabel="Employee"></nz-option>
+                        </nz-select>
+                    </nz-form-item>
 
-                <!-- Permission -->
-                <nz-form-item *ngIf="newEmployeeForm.value.role == 'employee'">
-                    <nz-form-label [nzSpan]="null" nzFor="permission">Select Permission</nz-form-label>
-                    <nz-checkbox-group formControlName="permission"></nz-checkbox-group>
-                </nz-form-item>
-            </div>
+                    <!-- Permission -->
+                    <nz-form-item *ngIf="newEmployeeForm.value.role == 'company-employee'">
+                        <nz-form-label [nzSpan]="null" nzFor="permission">Select Permission</nz-form-label>
+                        <nz-checkbox-group formControlName="permission"></nz-checkbox-group>
+                    </nz-form-item>
+                </div>
 
                 <nz-form-item>
                     <button nz-button nzType="primary" [disabled]="!newEmployeeForm.valid" nzSize="large"

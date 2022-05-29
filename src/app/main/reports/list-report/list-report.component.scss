@@ -1,14 +1,39 @@
-.dashboardTable {
+.listReportContainer {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 
-    margin-top: 20px;
-}
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: #333333;
 
-.btn {
-    min-height: 40px;
-    background: #29B475;
-    border-radius: 5px;
-    border: #29B475;
-    padding: 10px 20px;
+        margin: 10px 0px;
+    }
+
+    .addReportFormDiv {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        margin-top: 10px;
+    }
+
+    .dashboardTable {
+        width: 100%;
+        margin-top: 20px;
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    .btn {
+        min-height: 40px;
+        background: #29B475;
+        border-radius: 5px;
+        border: #29B475;
+        padding: 10px 20px;
+    }
+
 }

@@ -13,11 +13,15 @@ import { Report } from 'src/app/models/Report';
 })
 export class ListReportComponent implements OnInit {
 
-  reportsTable: Report[] = [];
+  allReportsTable: Report[] = [];
+  allApprovedReportsTable: Report[] = [];
+  allRejectedReportsTable: Report[] = [];
+  allPendingReportsTable: Report[] = [];
   checked = false;
   indeterminate = false;
   setOfCheckedId = new Set<string>();
   authenticatedUser: User;
+  searchTetx: any = "";
 
   bulkActionForm: any = FormGroup;
 
@@ -37,7 +41,19 @@ export class ListReportComponent implements OnInit {
   getReports() {
     this.dataService.listReport()
       .subscribe((res: any) => {
-        this.reportsTable = res.data.map((item: any) => Report.fromMap(item));
+        this.allReportsTable = res.data.map((item: any) => Report.fromMap(item));
+
+        this.allApprovedReportsTable = res.data.filter(function (item: any) {
+          return (item.isApproved === true)
+        }).map((item: any) => Report.fromMap(item));
+
+        this.allRejectedReportsTable = res.data.filter(function (item: any) {
+          return (item.approvedBy !== null && item.isApproved == false)
+        }).map((item: any) => Report.fromMap(item));
+
+        this.allPendingReportsTable = res.data.filter(function (item: any) {
+          return item.approvedBy == null
+        }).map((item: any) => Report.fromMap(item));
       })
   }
 
@@ -78,6 +94,31 @@ export class ListReportComponent implements OnInit {
     }
   }
 
+  onSearch(searchTxt: any) {
+    const targetValue: any[] = [];
+    this.allReportsTable.forEach((value: any) => {
+      let keys = Object.keys(value);
+      for (let i = 0; i < keys.length; i++) {
+        if (value[keys[i]] && value[keys[i]].toString().toLocaleLowerCase().includes(searchTxt)) {
+          targetValue.push(value);
+          break;
+        }
+      }
+    });
+
+    this.allApprovedReportsTable = targetValue.filter(function (item: any) {
+      return (item.approvedBy == null && item.isApproved === true)
+    }).map((item: any) => Report.fromMap(item));
+
+    this.allRejectedReportsTable = targetValue.filter(function (item: any) {
+      return (item.approvedBy !== null && item.isApproved == false)
+    }).map((item: any) => Report.fromMap(item));
+
+    this.allPendingReportsTable = targetValue.filter(function (item: any) {
+      return item.approvedBy == null
+    }).map((item: any) => Report.fromMap(item));
+  }
+
   onCurrentPageDataChange(event: any) {
     console.log("Event: ", event);
   }
@@ -91,12 +132,12 @@ export class ListReportComponent implements OnInit {
   }
 
   refreshCheckedStatus(): void {
-    this.checked = this.reportsTable.every((item: any) => this.setOfCheckedId.has(item._id));
-    this.indeterminate = this.reportsTable.some((item: any) => this.setOfCheckedId.has(item._id)) && !this.checked;
+    this.checked = this.allReportsTable.every((item: any) => this.setOfCheckedId.has(item._id));
+    this.indeterminate = this.allReportsTable.some((item: any) => this.setOfCheckedId.has(item._id)) && !this.checked;
   }
 
   onAllChecked(value: boolean): void {
-    this.reportsTable.forEach((item: any) => this.updateCheckedSet(item._id, value));
+    this.allReportsTable.forEach((item: any) => this.updateCheckedSet(item._id, value));
     this.refreshCheckedStatus();
   }
 
