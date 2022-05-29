@@ -3,9 +3,6 @@
     align-items: center;
     justify-content: center;
 
-    height: 32px;
-    margin: 16px;
-
     .title {
         font-size: 18.712px;
         font-weight: 700;
@@ -14,6 +11,10 @@
     }
 }
 
+nz-layout{
+    min-height: calc(100vh);
+    background-color:  #EFF3FB;
+}
 .menuItem {
     font-size: 16px;
     font-weight: 600;
@@ -24,7 +25,14 @@
 .ant-menu-item-selected {
     background: #4A6998 !important;
     border-radius: 0px 25px 25px 0px;
-    border-left: 7px solid #3BE5BF;
+    border-left: 7px solid #29B475;
+    padding-left: 17px!important;
+    background: #4a699852!important;
+    font-weight: 600;
+    color:#AEB9DE;
+    .anticon {
+        color:#29B475!important;
+    }
 }
 
 .layout {
@@ -35,38 +43,19 @@ ul {
     list-style-type: none;
 }
 
-nz-sider {
-    overflow: auto;
-    height: 100%;
-    position: fixed;
-    left: 0;
+
+.username {
+    font-size: 19.95px;
+    font-weight: 500;
+    margin-left: 10px;
+    line-height: 24px;
+    color: #343A40!important;
 }
 
-.right-layout {
-    margin-left: 200px;
-
-    .profileSection {
-        display: flex;
-        align-items: center;
-        justify-content: space-around;
-        height: inherit;
-        min-width: 275px;
-
-        .userImg {
-            height: 30px;
-            width: 30px;
-            margin-right: 10px;
-            border-radius: 50%;
-            background: #000;
-        }
-
-        .username {
-            font-size: 19.9452px;
-            font-weight: 500;
-            line-height: 24px;
-            color: #343A40;
-        }
-    }
+.page-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 nz-header {
@@ -87,3 +76,20 @@ nz-content {
 nz-footer {
     text-align: center;
 }
+
+.trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .trigger:hover {
+    color: #1890ff;
+  }
+  .notification-btn{
+      font-size:22px;
+      margin-right: 20px;
+      color: #343a40, !important;
+  }

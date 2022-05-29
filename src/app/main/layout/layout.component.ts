@@ -11,6 +11,7 @@ export class LayoutComponent implements OnInit {
 
   userInitials: any = "";
   authenticatedUser: User;
+  isCollapsed = false;
   constructor(private router: Router) { }
 
   ngOnInit(): void {

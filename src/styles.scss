@@ -8,9 +8,9 @@
     font-weight: 700 !important;
 }
 
-.ant-layout-sider {
-    background: #132574 !important;
-}
+// .ant-layout-sider {
+//     background: #132574 !important;
+// }
 
 .ant-checkbox-group-item {
     width: 48% !important;
@@ -21,4 +21,8 @@
         border: none !important;
         background-color: inherit;
     }
+}
+
+.ant-menu-inline .ant-menu-selected::after, .ant-menu-inline .ant-menu-item-selected::after {
+    border-right: none;
 }

@@ -5,6 +5,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { CreateReportComponent } from './reports/create-report/create-report.component';
+import { ListReportComponent } from './reports/list-report/list-report.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StaffComponent } from './staff/staff.component';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard] },
       { path: 'create-report', component: CreateReportComponent, canActivate: [AuthGuard] },
       { path: 'staff', component: StaffComponent, canActivate: [AuthGuard] },
+      { path: 'reports', component: ListReportComponent, canActivate: [AuthGuard] },
       { path: 'setting', component: SettingsComponent, canActivate: [AuthGuard] }
     ]
   }

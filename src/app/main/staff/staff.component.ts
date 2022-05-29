@@ -15,6 +15,11 @@ import { ModelsComponent } from '../models/models.component';
 export class StaffComponent implements OnInit {
 
   tableData: any = [];
+
+  allEmployeeData: any = [];
+  allAdminData: any = [];
+  allArchiveData: any = [];
+
   isVisible = false;
 
   isEdit: any = false;
@@ -68,8 +73,16 @@ export class StaffComponent implements OnInit {
   listEmployee() {
     this.dataService.listEmployee()
       .subscribe((res: any) => {
-        console.log("Response: ", res);
         this.tableData = res.data.map((item:any)=>User.fromMap(item));
+        this.allAdminData = res.data.filter(function(item:any){
+          return item.role == 'company-owner' && item.archived==false
+        }).map((item:any)=>User.fromMap(item));
+        this.allEmployeeData = res.data.filter(function(item:any){
+          return item.role == 'company-employye' && item.archived==false
+        }).map((item:any)=>User.fromMap(item));
+        this.allArchiveData = res.data.filter(function(item:any){
+          return item.archived==true;
+        }).map((item:any)=>User.fromMap(item));
       })
   }
 
@@ -151,6 +164,8 @@ export class StaffComponent implements OnInit {
                 this.ngOnInit();
               }
             })
+          }else{
+            this.message.error(res.message);
           }
         })
     }
@@ -181,7 +196,7 @@ export class StaffComponent implements OnInit {
       lastName: employee[0].lastName,
       designation: employee[0].designation,
       email: employee[0].email,
-      role: employee[0].role === "company-owner" ? "admin" : "employee",
+      role: employee[0].role,
       permission: permission
     })
   }
