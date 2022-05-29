@@ -10,7 +10,7 @@
     <div class="title">Reports</div>
 
     <div class="btnDiv" *ngIf="authenticatedUser.hasCompanyPermission('create_report')">
-        <button nzType="primary" nz-button (click)="onAddNewReport()">Create New Report</button>
+        <button nzType="primary" nzSize="large" nz-button (click)="onAddNewReport()">Create New Report</button>
     </div>
 
     <div class="addReportFormDiv">
