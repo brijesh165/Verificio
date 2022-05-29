@@ -43,12 +43,12 @@
                                 <input type="password" nz-input nzSize="large" formControlName="currPassword"
                                     placeholder="Enter your current password" />
                             </nz-input-group> -->
-                            <nz-input-group [nzSuffix]="suffixTemplate">
-                                <input [type]="passwordVisible ? 'text' : 'password'" nz-input
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input nzSize="large" [type]="passwordVisible ? 'text' : 'password'" nz-input
                                     placeholder="Enter your current password" formControlName="currPassword" />
                             </nz-input-group>
                             <ng-template #suffixTemplate>
-                                <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                <i nzSize="large" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
                                     (click)="passwordVisible = !passwordVisible"></i>
                             </ng-template>
                         </nz-form-control>
@@ -62,12 +62,12 @@
                                 <input type="password" nz-input nzSize="large" formControlName="newPassword"
                                     placeholder="Enter a new password" />
                             </nz-input-group> -->
-                            <nz-input-group [nzSuffix]="suffixTemplate">
-                                <input [type]="passwordVisible ? 'text' : 'password'" nz-input
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input nzSize="large" [type]="passwordVisible ? 'text' : 'password'" nz-input
                                     placeholder="Enter a new password" formControlName="newPassword" />
                             </nz-input-group>
                             <ng-template #suffixTemplate>
-                                <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                <i nzSize="large" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
                                     (click)="passwordVisible = !passwordVisible"></i>
                             </ng-template>
                         </nz-form-control>
@@ -89,12 +89,12 @@
                                 <input type="password" nz-input nzSize="large" formControlName="newPassword"
                                     placeholder="Re-type your password" />
                             </nz-input-group> -->
-                            <nz-input-group [nzSuffix]="suffixTemplate">
-                                <input [type]="passwordVisible ? 'text' : 'password'" nz-input
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input [type]="passwordVisible ? 'text' : 'password'" nzSize="large" nz-input
                                     placeholder="Enter a new password" formControlName="reNewPassword" />
                             </nz-input-group>
                             <ng-template #suffixTemplate>
-                                <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                <i nz-icon nzSize="large" [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
                                     (click)="passwordVisible = !passwordVisible"></i>
                             </ng-template>
                         </nz-form-control>
@@ -104,7 +104,8 @@
                     <nz-form-item>
                         <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
                             <nz-form-control>
-                                <button nz-button nzType="primary" class="saveBtn"
+                                <button nz-button nzType="primary" 
+                                nzSize="large"
                                     [disabled]="!changePasswordForm.valid">Save</button>
                             </nz-form-control>
                         </nz-form-item>
@@ -246,7 +247,7 @@
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state.">
                                         <nz-input-group nzSize="large">
                                             <input type="text" nz-input nzBorderless formControlName="state"
-                                                placeholder="Enter your state" style="padding: 6.5px 0px" />
+                                                placeholder="State" style="padding: 6.5px 0px" />
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -260,7 +261,7 @@
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state of origin.">
                                         <nz-input-group nzSize="large">
                                             <input type="text" nz-input nzBorderless formControlName="stateOfOrigin"
-                                                placeholder="Enter your state of origin" style="padding: 6.5px 0px" />
+                                                placeholder="State of origin" style="padding: 6.5px 0px" />
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -274,7 +275,7 @@
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
                                         <nz-input-group nzSize="large">
                                             <input type="text" nz-input nzBorderless formControlName="lga"
-                                                placeholder="Enter your lga" style="padding: 6.5px 0px" />
+                                                placeholder="LGA" style="padding: 6.5px 0px" />
                                         </nz-input-group>
                                     </nz-form-control>
                                 </nz-form-item>
@@ -290,7 +291,7 @@
                                         Birth</nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid date.">
                                         <nz-input-group nzSize="large">
-                                            <nz-date-picker [nzFormat]="'dd-MMM-yyyy'" formControlName="dateOfBirth"
+                                            <nz-date-picker nzSize="large" [nzFormat]="'dd-MMM-yyyy'" formControlName="dateOfBirth"
                                                 nzBorderless></nz-date-picker>
                                             <!-- <input type="text" nz-input nzBorderless formControlName="dateOfBirth"
                                                 placeholder="Enter your email address" style="padding: 6.5px 0px" /> -->
@@ -305,7 +306,7 @@
                                     </nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid gender.">
                                         <nz-input-group nzSize="large">
-                                            <nz-select formControlName="gender" nzPlaceHolder="Gender" nzBorderless>
+                                            <nz-select nzSize="large" formControlName="gender" nzPlaceHolder="Gender" nzBorderless>
 
                                                 <nz-option nzLabel="Male" nzValue="Male"></nz-option>
                                                 <nz-option nzLabel="Female" nzValue="Female"></nz-option>
@@ -319,7 +320,8 @@
                         <div nz-row class="rowStyle" style="margin-top: 20px; justify-content: flex-start;">
                             <nz-form-item *ngIf="!isEdit">
                                 <nz-form-control>
-                                    <button type="submit" nz-button nzType="primary" class="btn"
+                                    <button type="submit" nz-button nzType="primary" 
+                                    nzSize="large"
                                         [disabled]="!profileForm.valid">Save
                                         Changes</button>
                                 </nz-form-control>
