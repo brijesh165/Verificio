@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy":"ng build && aws s3 cp dist/verificio s3://app.verificio.com --recursive"
   },
   "private": true,
   "dependencies": {
