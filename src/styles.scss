@@ -26,3 +26,11 @@
 .ant-menu-inline .ant-menu-selected::after, .ant-menu-inline .ant-menu-item-selected::after {
     border-right: none;
 }
+
+.staffList .ant-tabs .ant-tabs-nav{
+    padding-left: 17px!important;
+}
+
+.staffList nz-tabs-nav.ant-tabs-nav{
+    padding-left: 17px!important;
+}
