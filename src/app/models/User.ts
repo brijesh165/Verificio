@@ -1,3 +1,5 @@
+import { environment } from "src/environments/environment";
+
 export class User {
 
     _id: String = "";
@@ -5,6 +7,11 @@ export class User {
     lastName: String = "";
     role: String = "";
     permissions: String[] = [];
+    profilePicture:String;
+
+    getProfilePictureUrl(){
+        return environment.apiUrl+"/"+(this.profilePicture?this.profilePicture:'');
+    }
 
     hasCompanyPermission(permission: String) {
         if (this.role == 'company-owner') {

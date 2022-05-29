@@ -69,7 +69,7 @@ export class StaffComponent implements OnInit {
     this.dataService.listEmployee()
       .subscribe((res: any) => {
         console.log("Response: ", res);
-        this.tableData = res.data;
+        this.tableData = res.data.map((item:any)=>User.fromMap(item));
       })
   }
 
