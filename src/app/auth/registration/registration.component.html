@@ -3,7 +3,11 @@
         <span class="title">verifico</span>
     </div>
 
-    <div nz-col nzSpan="12" nzXs="24" nzSm="24" nzMd="18" nzLg="12" nzXl="10" style="background-color: white;">
+    <div nz-row nzJustify="center">
+
+
+
+    <div nz-col nzSpan="12" nzXs="24" nzSm="24" nzMd="18" nzLg="18" nzXl="16" style="background-color: white;">
         <div style="background: #fff;padding:20px;">
             <nz-card style="width:100%" [nzBordered]="false">
                 <nz-card-meta class="cardMeta" nzTitle="Create An Account"
@@ -193,14 +197,14 @@
                         </nz-form-item>
 
 
-                        <!-- acknowledge -->
                         <nz-form-item>
-                            <label nz-checkbox formControlName="orgAck"> I acknowledge that I have read and hereby
+                            <label nz-checkbox formControlName="regAck"> I acknowledge that I have read and hereby
                                 accept the terms and
                                 conditions in
                                 verificio and its <span class="ackTxt">third party partners, Terms of Use, and Privacy
                                     Policy.</span></label>
                         </nz-form-item>
+
 
                         <!-- button -->
                         <!-- <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
@@ -235,7 +239,7 @@
                 </div>
             </nz-card>
 
-            <nz-modal [nzWidth]="379" [(nzVisible)]="isModalVisible" [nzClosable]="false" [nzFooter]=null>
+            <nz-modal [nzWidth]="379" [nzVisible]="isModalVisible" [nzClosable]="true" [nzFooter]=null>
                 <ng-container *nzModalContent>
                     <h3 class="modalTitle">Comfirm Token</h3>
                     <p class="modalSubTitle">This code will expire in 15 minutes. Check your email</p>
@@ -248,9 +252,11 @@
                         <button nz-button class="modalDoneBtn" nzType="primary" (click)="onOtpDone()">
                             <span>Done</span>
                         </button>
+                     
                     </div>
                 </ng-container>
             </nz-modal>
         </div>
     </div>
+</div>
 </div>

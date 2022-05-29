@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = 'http://54.157.195.180/';
+  baseUrl: string = `${environment.apiUrl}/`;
   // baseUrl: string = 'http://192.168.75.137:3000';
 
   headers = new HttpHeaders({

@@ -5,6 +5,7 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-settings',
@@ -98,7 +99,7 @@ export class SettingsComponent implements OnInit {
           gender: res.data.gender
         })
 
-        this.profileImagePath = res.data.profilePicture && `http://54.157.195.180/${res.data.profilePicture}`
+        this.profileImagePath = res.data.profilePicture && `${environment.apiUrl}/${res.data.profilePicture}`
       })
   }
 

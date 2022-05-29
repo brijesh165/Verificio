@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ModelsComponent } from 'src/app/main/models/models.component';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class RegistrationComponent implements OnInit {
   passwordVisible = false;
 
   constructor(private fb: FormBuilder, private router: Router,
+    private messageService: NzMessageService,
     private authService: AuthService, private notification: NzNotificationService,
     private modalService: NzModalService) { }
 
@@ -36,7 +38,6 @@ export class RegistrationComponent implements OnInit {
       password: [null, [Validators.required, Validators.minLength(6)]],
       phoneNumberPrefix: ['+91', [Validators.required]],
       phone: [null, [Validators.required]],
-      // plan: [null, [Validators.required]],
       regAck: [null, [Validators.required]]
     });
 
@@ -84,6 +85,8 @@ export class RegistrationComponent implements OnInit {
             );
             this.otp_id = response.data;
             this.isModalVisible = true;
+          }else{
+            this.messageService.error(response.message);
           }
         })
     }
@@ -95,6 +98,9 @@ export class RegistrationComponent implements OnInit {
 
   onOtpChange(event: any): void {
     this.otp = event;
+  }
+  closeOTPModal():void{
+    this.isModalVisible = false;
   }
 
   onLogin(): void {

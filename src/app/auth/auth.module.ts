@@ -23,6 +23,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 
 import { NgOtpInputModule } from 'ng-otp-input';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     ReactiveFormsModule,
 
     NgOtpInputModule,
-
+    NzMessageModule,
     NzGridModule,
     NzCardModule,
     NzFormModule,
