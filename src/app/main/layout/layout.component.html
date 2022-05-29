@@ -59,14 +59,22 @@
             <div style="display: flex; align-items: center; justify-content: end;">
 
                 <div class="notification-btn">
-                    <i nz-icon nzType="bell" nzSize="large" nzTheme="outline"></i>
+                    <i nz-icon nzType="bell" nzSize="large" nz-popover nzPopoverPlacement="bottom" nzPopoverTitle="Notifications" [nzPopoverContent]="contentTemplate" nzTheme="outline"></i>
                 </div>
-            
-                <!-- <i nz-icon nzType="bell" nzTheme="outline" style="font-size: 24px;"></i> -->
+
+                <ng-template #contentTemplate>
+                    
+                    <div *ngFor="let notification of notificationList" style="max-width: 400px; border-bottom: 1px solid #dcdcdc;">
+                        <span>{{notification.message}}</span> <br>
+                       <span nz-typography nzType="secondary">{{notification.createdAt | date}}</span> 
+                      
+                    </div>
+
+                  </ng-template>
+        
                 <div style="display: flex; align-items: center; margin-right: 20px;">
                     <nz-avatar [nzText]="userInitials" style="margin-right: 5px;"></nz-avatar>
                     <span class="username">{{authenticatedUser.firstName}} {{authenticatedUser.lastName}}</span>
-
                     <button nz-button nzType="text" nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight">
                         <i nz-icon nzType="down" nzTheme="outline"></i>
                     </button>

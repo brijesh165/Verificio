@@ -24,6 +24,10 @@ export class DataService {
     return this.http.get(this.baseUrl + `user/dashboard`);
   }
 
+  getNotificationList() {
+    return this.http.get(this.baseUrl + `notification/list`);
+  }
+
   getEmployeeDetailsById(params: any) {
     return this.http.get(this.baseUrl + `user/employees/${params}`);
   }
