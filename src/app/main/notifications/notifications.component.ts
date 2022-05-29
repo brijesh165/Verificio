@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { DataService } from 'src/app/services/data.service';
+import { ApproveRejectChangeModalComponent } from '../staff/approve-reject-change-modal/approve-reject-change-modal.component';
 
 @Component({
   selector: 'app-notifications',
@@ -10,7 +12,7 @@ export class NotificationsComponent implements OnInit {
 
   notificationsList: any = [];
 
-  constructor(private dataSerice: DataService) { }
+  constructor(private dataSerice: DataService, private modalService: NzModalService) { }
 
   ngOnInit(): void {
     this.getAllNotifications();
@@ -19,9 +21,21 @@ export class NotificationsComponent implements OnInit {
   getAllNotifications() {
     this.dataSerice.getNotificationList()
       .subscribe((res: any) => {
-        console.log("Notifications Response: ", res);
-
         this.notificationsList = res.data;
       })
+  }
+
+  handleNotificationClick(data: any) {
+    if (data.actionType == "employeeProfileChanged") {
+      const drawerRef = this.modalService.create<ApproveRejectChangeModalComponent>({
+        nzTitle: 'User Profile Review',
+        nzContent: ApproveRejectChangeModalComponent,
+        nzWidth: 700,
+        nzFooter: null,
+        nzComponentParams: {
+          userId: data.params.userId
+        }
+      });
+    }
   }
 }

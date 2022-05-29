@@ -15,8 +15,8 @@ export class LayoutComponent implements OnInit {
   userInitials: any = "";
   authenticatedUser: User;
   isCollapsed = false;
-  notificationList:any[] = [];
-  constructor(private router: Router, private dataService: DataService, private modalService:NzModalService) { }
+  notificationList: any[] = [];
+  constructor(private router: Router, private dataService: DataService, private modalService: NzModalService) { }
 
 
   ngOnInit(): void {
@@ -26,15 +26,18 @@ export class LayoutComponent implements OnInit {
     this.getNotificationList();
   }
 
-  getNotificationList():void{
-    this.dataService.getNotificationList().subscribe((data:any)=>{
+  getNotificationList(): void {
+    this.dataService.getNotificationList().subscribe((data: any) => {
       this.notificationList = data.data;
     })
   }
 
+  onNotificationClick() {
+    this.router.navigate(["app/notifications"])
+  }
 
-  handleNotificationClick(data:any){
-    if(data.actionType=="employeeProfileChanged"){
+  handleNotificationClick(data: any) {
+    if (data.actionType == "employeeProfileChanged") {
       const drawerRef = this.modalService.create<ApproveRejectChangeModalComponent>({
         nzTitle: 'User Profile Review',
         nzContent: ApproveRejectChangeModalComponent,
