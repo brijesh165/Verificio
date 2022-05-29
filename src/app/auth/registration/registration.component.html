@@ -229,17 +229,17 @@
                     </div>
 
                     <div class="steps-action-1" *ngIf="activedStep === 0">
-                        <button nz-button class="nxtBtn" nzType="primary" [disabled]="!registrationForm.valid"
+                        <button nz-button nzSize="large" nzType="primary" [disabled]="!registrationForm.valid"
                             (click)="next()" *ngIf="activedStep < 1">
                             <span>Next</span>
                         </button>
                     </div>
 
                     <div class="steps-action-2" *ngIf="activedStep === 1">
-                        <button nz-button class="backBtn" nzType="primary" (click)="pre()" *ngIf="activedStep > 0">
+                        <button nz-button nzSize="large" nzType="default" (click)="pre()" *ngIf="activedStep > 0">
                             <span>Previous</span>
                         </button>
-                        <button type="submit" nz-button class="nxtBtn" nzType="primary" (click)="done()"
+                        <button type="submit" nz-button nzSize="large" nzType="primary" (click)="done()"
                             [disabled]="!organizationForm.valid" *ngIf="activedStep === 1">
                             <span>Done</span>
                         </button>
