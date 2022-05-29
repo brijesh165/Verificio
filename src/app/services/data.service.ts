@@ -43,6 +43,10 @@ export class DataService {
   updateEmployee(params: any) {
     return this.http.put(this.baseUrl + `user/employees/${params.id}`, params.body)
   }
+  
+  approveEmployeeProfileChange(params:any){
+    return this.http.post(this.baseUrl + "user/profile/approve",params);
+  }
 
   listEmployee() {
     return this.http.get(this.baseUrl + "user/employees/list")

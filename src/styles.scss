@@ -35,3 +35,12 @@
 .staffList nz-tabs-nav.ant-tabs-nav{
     padding-left: 17px!important;
 }
+
+.ant-input-group span.ant-input-group-addon:first-child {
+    border: none !important;
+    background-color: white;
+}
+
+.ant-modal-header{
+    background-color: #efefef;
+}

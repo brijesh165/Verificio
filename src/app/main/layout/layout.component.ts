@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { User } from 'src/app/models/User';
 import { DataService } from 'src/app/services/data.service';
+import { ApproveRejectChangeModalComponent } from '../staff/approve-reject-change-modal/approve-reject-change-modal.component';
 
 @Component({
   selector: 'app-layout',
@@ -14,7 +16,7 @@ export class LayoutComponent implements OnInit {
   authenticatedUser: User;
   isCollapsed = false;
   notificationList:any[] = [];
-  constructor(private router: Router, private dataService: DataService) { }
+  constructor(private router: Router, private dataService: DataService, private modalService:NzModalService) { }
 
 
   ngOnInit(): void {
@@ -28,6 +30,21 @@ export class LayoutComponent implements OnInit {
     this.dataService.getNotificationList().subscribe((data:any)=>{
       this.notificationList = data.data;
     })
+  }
+
+
+  handleNotificationClick(data:any){
+    if(data.actionType=="employeeProfileChanged"){
+      const drawerRef = this.modalService.create<ApproveRejectChangeModalComponent>({
+        nzTitle: 'User Profile Review',
+        nzContent: ApproveRejectChangeModalComponent,
+        nzWidth: 700,
+        nzFooter: null,
+        nzComponentParams: {
+          userId: data.params.userId
+        }
+      });
+    }
   }
 
   onlogout(): void {

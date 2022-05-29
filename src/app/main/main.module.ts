@@ -40,6 +40,7 @@ import { ModelsComponent } from './models/models.component';
 import { ImportCsvComponent } from './staff/import-csv/import-csv.component';
 
 import { NgOtpInputModule } from 'ng-otp-input';
+import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change-modal/approve-reject-change-modal.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { NgOtpInputModule } from 'ng-otp-input';
     CreateReportComponent,
     ListReportComponent,
     ModelsComponent,
-    ImportCsvComponent
+    ImportCsvComponent,
+    ApproveRejectChangeModalComponent
   ],
   imports: [
     CommonModule,

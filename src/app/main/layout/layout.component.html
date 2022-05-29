@@ -64,7 +64,7 @@
 
                 <ng-template #contentTemplate>
                     
-                    <div *ngFor="let notification of notificationList" style="max-width: 400px; border-bottom: 1px solid #dcdcdc;">
+                    <div (click)="handleNotificationClick(notification)" class="notification-container" *ngFor="let notification of notificationList" style="max-width: 400px;">
                         <span>{{notification.message}}</span> <br>
                        <span nz-typography nzType="secondary">{{notification.createdAt | date}}</span> 
                       
