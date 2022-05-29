@@ -11,6 +11,9 @@ import { StaffComponent } from './staff/staff.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { ListReportComponent } from './reports/list-report/list-report.component';
 import { CreateReportComponent } from './reports/create-report/create-report.component';
+import { ModelsComponent } from './models/models.component';
+import { ImportCsvComponent } from './staff/import-csv/import-csv.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -36,10 +39,8 @@ import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
-import { ModelsComponent } from './models/models.component';
-import { ImportCsvComponent } from './staff/import-csv/import-csv.component';
-
 import { NgOtpInputModule } from 'ng-otp-input';
+import { FilterDatePipe } from './pipes/filter-date.pipe';
 
 
 @NgModule({
@@ -52,7 +53,9 @@ import { NgOtpInputModule } from 'ng-otp-input';
     CreateReportComponent,
     ListReportComponent,
     ModelsComponent,
-    ImportCsvComponent
+    ImportCsvComponent,
+    NotificationsComponent,
+    FilterDatePipe
   ],
   imports: [
     CommonModule,

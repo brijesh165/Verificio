@@ -9,37 +9,20 @@
 
     <div class="title">Reports</div>
 
+    <div class="btnDiv" *ngIf="authenticatedUser.hasCompanyPermission('create_report')">
+        <button nzType="primary" nz-button (click)="onAddNewReport()">Create New Report</button>
+    </div>
+
     <div class="addReportFormDiv">
-        <div style="display: flex; min-width: 75%;">
-            <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
-                <!-- Bulk Action -->
-                <nz-form-item>
-                    <nz-select formControlName="action" nzPlaceHolder="Bulk Action" nzSize="large">
-                        <!-- <nz-option nzValue="delete" nzLabel="Delete"
-                        *ngIf="authenticatedUser.hasCompanyPermission('delete_report')"></nz-option> -->
-                        <nz-option nzValue="approve" nzLabel="Approve"
-                            *ngIf="authenticatedUser.hasCompanyPermission('approve_report')"></nz-option>
-                        <nz-option nzValue="reject" nzLabel="Reject"
-                            *ngIf="authenticatedUser.hasCompanyPermission('reject_report')"></nz-option>
-                    </nz-select>
-                </nz-form-item>
-
-                <nz-form-item>
-                    <button nz-button nzType="primary" nzSize="large" (click)="onBulkAction()">Apply</button>
-                </nz-form-item>
-            </form>
+        <div>
+            <nz-input-group nzSize="large" [nzPrefix]="suffixIconSearch" class="searchInput">
+                <input type="text" nz-input nzSize="large" placeholder="Search" [(ngModel)]="searchTetx"
+                    (ngModelChange)="onSearch($event)" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+                <i nz-icon nzType="search" nzSize="large"></i>
+            </ng-template>
         </div>
-
-
-
-        <nz-input-group nzSize="large" [nzPrefix]="suffixIconSearch" class="searchInput">
-            <input type="text" nz-input nzSize="large" placeholder="Search" [(ngModel)]="searchTetx"
-                (ngModelChange)="onSearch($event)" />
-        </nz-input-group>
-        <ng-template #suffixIconSearch>
-            <i nz-icon nzType="search" nzSize="large"></i>
-        </ng-template>
-
     </div>
 
     <div class="staffList dashboardTable">
@@ -49,24 +32,33 @@
                     (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
                     <thead>
                         <tr>
-                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
-                                (nzCheckedChange)="onAllChecked($event)">
-                            </th>
                             <th>Title</th>
                             <th>User</th>
                             <th>Report Category</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of rowSelectionTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(data._id)"
-                                (nzCheckedChange)="onItemChecked(data._id, $event)">
-                            </td>
                             <td>{{ data.description }}</td>
                             <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
                             <td>{{ data.reportType.name }}</td>
                             <td>{{ data.getFormattedStatus()}}</td>
+                            <td>
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"
+                                            (click)="onBulkAction('approve', data._id)">Approve</li>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"
+                                            (click)="onBulkAction('reject', data._id)">Reject</li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                            </td>
                         </tr>
                     </tbody>
                 </nz-table>
@@ -76,24 +68,20 @@
                     (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
                     <thead>
                         <tr>
-                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
-                                (nzCheckedChange)="onAllChecked($event)">
-                            </th>
                             <th>Title</th>
                             <th>User</th>
                             <th>Report Category</th>
-                            <th>Actions</th>
+                            <th>Status</th>
+                            <th>Approved By</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of approvedTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(data._id)"
-                                (nzCheckedChange)="onItemChecked(data._id, $event)">
-                            </td>
                             <td>{{ data.description }}</td>
                             <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
                             <td>{{ data.reportType.name }}</td>
                             <td>{{ data.getFormattedStatus()}}</td>
+                            <td>{{ data.approvedByUser.firstName}} {{data.approvedByUser.lastName}}</td>
                         </tr>
                     </tbody>
                 </nz-table>
@@ -103,24 +91,20 @@
                     (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
                     <thead>
                         <tr>
-                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
-                                (nzCheckedChange)="onAllChecked($event)">
-                            </th>
                             <th>Title</th>
                             <th>User</th>
                             <th>Report Category</th>
-                            <th>Actions</th>
+                            <th>Status</th>
+                            <th>Approved By</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of rejectedTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(data._id)"
-                                (nzCheckedChange)="onItemChecked(data._id, $event)">
-                            </td>
                             <td>{{ data.description }}</td>
                             <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
                             <td>{{ data.reportType.name }}</td>
                             <td>{{ data.getFormattedStatus()}}</td>
+                            <td>{{ data.approvedByUser.firstName}} {{data.approvedByUser.lastName}}</td>
                         </tr>
                     </tbody>
                 </nz-table>
@@ -130,24 +114,34 @@
                     (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
                     <thead>
                         <tr>
-                            <th [nzChecked]="checked" [nzIndeterminate]="indeterminate"
-                                (nzCheckedChange)="onAllChecked($event)">
-                            </th>
                             <th>Title</th>
                             <th>User</th>
                             <th>Report Category</th>
-                            <th>Actions</th>
+                            <th>Status</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let data of pendingTable.data">
-                            <td [nzChecked]="setOfCheckedId.has(data._id)"
-                                (nzCheckedChange)="onItemChecked(data._id, $event)">
-                            </td>
                             <td>{{ data.description }}</td>
                             <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
                             <td>{{ data.reportType.name }}</td>
                             <td>{{ data.getFormattedStatus()}}</td>
+                            <td>
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"
+                                            (click)="onBulkAction('approve', data._id)">Approve</li>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"
+                                            (click)="onBulkAction('reject', data._id)">Reject</li>
+                                    </ul>
+                                </nz-dropdown-menu>
+
+                            </td>
                         </tr>
                     </tbody>
                 </nz-table>

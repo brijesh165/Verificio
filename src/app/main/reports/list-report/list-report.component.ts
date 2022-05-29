@@ -17,13 +17,9 @@ export class ListReportComponent implements OnInit {
   allApprovedReportsTable: Report[] = [];
   allRejectedReportsTable: Report[] = [];
   allPendingReportsTable: Report[] = [];
-  checked = false;
-  indeterminate = false;
-  setOfCheckedId = new Set<string>();
+
   authenticatedUser: User;
   searchTetx: any = "";
-
-  bulkActionForm: any = FormGroup;
 
   constructor(private router: Router, private dataService: DataService,
     private fb: FormBuilder, private message: NzMessageService) { }
@@ -31,16 +27,13 @@ export class ListReportComponent implements OnInit {
   ngOnInit(): void {
     this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'))
 
-    this.bulkActionForm = this.fb.group({
-      action: [null, [Validators.required]]
-    });
-
     this.getReports();
   }
 
   getReports() {
     this.dataService.listReport()
       .subscribe((res: any) => {
+        console.log("Report List: ", res.data);
         this.allReportsTable = res.data.map((item: any) => Report.fromMap(item));
 
         this.allApprovedReportsTable = res.data.filter(function (item: any) {
@@ -57,42 +50,26 @@ export class ListReportComponent implements OnInit {
       })
   }
 
-  onAddNew(): void {
-    this.router.navigateByUrl('/app/report');
+  onAddNewReport(): void {
+    this.router.navigateByUrl('/app/create-report');
   }
 
-  onBulkAction(): void {
-    const selectedReport: any = [];
-    this.setOfCheckedId.forEach((item) => {
-      selectedReport.push(item);
-    })
-
-    if (this.bulkActionForm.value.action === null) {
-      this.message.create('error', 'Please select an action.');
-      return;
+  onBulkAction(status: any, id: any): void {
+    const params = {
+      reportId: id,
+      status: status === "approve" ? true : false
     }
-
-    if (selectedReport.length > 0 && this.bulkActionForm.value.action !== null) {
-      const params = {
-        reportId: selectedReport,
-        status: this.bulkActionForm.value.action === "approve" ? true : false
-      }
-      this.dataService.reportAction(params)
-        .subscribe((res: any) => {
-          if (res.status === "success") {
-            this.message.info(`Report status changed to ${this.bulkActionForm.value.action}`);
-            this.bulkActionForm.patchValue({
-              action: null
-            })
-            this.setOfCheckedId.clear();
-            this.refreshCheckedStatus();
-            this.getReports();
-          }
-        })
-    } else {
-      this.message.create('error', 'Please select report.');
-    }
+    this.dataService.reportAction(params)
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          this.message.info(res.message);
+          this.getReports();
+        } else if (res.status === "error") {
+          this.message.error(res.message);
+        }
+      })
   }
+
 
   onSearch(searchTxt: any) {
     const targetValue: any[] = [];
@@ -121,28 +98,5 @@ export class ListReportComponent implements OnInit {
 
   onCurrentPageDataChange(event: any) {
     console.log("Event: ", event);
-  }
-
-  updateCheckedSet(id: string, checked: boolean): void {
-    if (checked) {
-      this.setOfCheckedId.add(id);
-    } else {
-      this.setOfCheckedId.delete(id);
-    }
-  }
-
-  refreshCheckedStatus(): void {
-    this.checked = this.allReportsTable.every((item: any) => this.setOfCheckedId.has(item._id));
-    this.indeterminate = this.allReportsTable.some((item: any) => this.setOfCheckedId.has(item._id)) && !this.checked;
-  }
-
-  onAllChecked(value: boolean): void {
-    this.allReportsTable.forEach((item: any) => this.updateCheckedSet(item._id, value));
-    this.refreshCheckedStatus();
-  }
-
-  onItemChecked(id: string, checked: boolean) {
-    this.updateCheckedSet(id, checked);
-    this.refreshCheckedStatus();
   }
 }

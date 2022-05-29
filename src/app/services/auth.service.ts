@@ -58,4 +58,8 @@ export class AuthService {
 
     return this.http.post(this.baseUrl + "user/profile/picture", params, headers);
   }
+
+  getAllNotifications(params: any) {
+    return this.http.get(this.baseUrl + "notification/list");
+  }
 }

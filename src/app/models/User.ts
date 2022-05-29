@@ -7,10 +7,10 @@ export class User {
     lastName: String = "";
     role: String = "";
     permissions: String[] = [];
-    profilePicture:String;
+    profilePicture: String = "";
 
-    getProfilePictureUrl(){
-        return environment.apiUrl+"/"+(this.profilePicture?this.profilePicture:'');
+    getProfilePictureUrl() {
+        return environment.apiUrl + "/" + (this.profilePicture ? this.profilePicture : '');
     }
 
     hasCompanyPermission(permission: String) {

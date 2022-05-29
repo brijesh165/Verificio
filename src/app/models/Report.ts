@@ -7,6 +7,8 @@ export class Report {
     reportType: any;
     isApproved: boolean = false;
     approvedBy: string = "";
+    approvedByUser: any = "";
+
 
     static fromMap(data: any) {
         return Object.assign(new this, data);

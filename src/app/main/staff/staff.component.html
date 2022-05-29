@@ -13,17 +13,18 @@
 
         <nz-button-group nzSize="large">
             <button nzType="primary" nz-button (click)="onAddNew()">Add New User</button>
-            <button nzType="primary" nz-button nzSize="large"  nz-dropdown [nzDropdownMenu]="menu1" nzPlacement="bottomRight">
-              <i nz-icon nzType="ellipsis"></i>
+            <button nzType="primary" nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu1"
+                nzPlacement="bottomRight">
+                <i nz-icon nzType="ellipsis"></i>
             </button>
-          </nz-button-group>
+        </nz-button-group>
 
 
-          <nz-dropdown-menu #menu1="nzDropdownMenu">
+        <nz-dropdown-menu #menu1="nzDropdownMenu">
             <ul nz-menu>
-              <li nz-menu-item (click)="openImportCSVModal()">Import From CSV</li>
+                <li nz-menu-item (click)="openImportCSVModal()">Import From CSV</li>
             </ul>
-          </nz-dropdown-menu>
+        </nz-dropdown-menu>
         <!-- <button nz-button nzSize="large" nzType="primary" *ngIf="authenticatedUser.hasCompanyPermission('create_user')"
             (click)="onAddNew()">Add New User</button> -->
     </div>
@@ -60,23 +61,22 @@
                                     style="margin-right: 5px;"></nz-avatar>
                                 {{ data.firstName}} {{ data.lastName }}
                             </td>
-                            <td>{{ data.email }} <br> <span nz-typography nzType="success">{{data.userName}}</span>  </td>
+                            <td>{{ data.email }} <br> <span nz-typography nzType="success">{{data.userName}}</span>
+                            </td>
                             <td>{{ data.designation }}</td>
-
                             <td>
-
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
                                     <i nz-icon nzType="down"></i>
-                                  </button>
-                                  <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
                                     <ul nz-menu>
-                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')" (click)="changeAction('edit', data._id)">Edit</li>
-                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')" (click)="changeAction('delete', data._id)">Deactivate</li>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"
+                                            (click)="changeAction('edit', data._id)">Edit</li>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"
+                                            (click)="changeAction('delete', data._id)">Deactivate</li>
                                     </ul>
-                                  </nz-dropdown-menu>
-
-                           
+                                </nz-dropdown-menu>
                             </td>
                         </tr>
                     </tbody>
@@ -106,13 +106,15 @@
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
                                     <i nz-icon nzType="down"></i>
-                                  </button>
-                                  <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
                                     <ul nz-menu>
-                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')" (click)="changeAction('edit', data._id)">Edit</li>
-                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')" (click)="changeAction('delete', data._id)">Deactivate</li>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"
+                                            (click)="changeAction('edit', data._id)">Edit</li>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"
+                                            (click)="changeAction('delete', data._id)">Deactivate</li>
                                     </ul>
-                                  </nz-dropdown-menu>
+                                </nz-dropdown-menu>
 
                             </td>
                         </tr>
@@ -144,13 +146,15 @@
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
                                     <i nz-icon nzType="down"></i>
-                                  </button>
-                                  <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
                                     <ul nz-menu>
-                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')" (click)="changeAction('edit', data._id)">Edit</li>
-                                      <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')" (click)="changeAction('delete', data._id)">Deactivate</li>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"
+                                            (click)="changeAction('edit', data._id)">Edit</li>
+                                        <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"
+                                            (click)="changeAction('delete', data._id)">Deactivate</li>
                                     </ul>
-                                  </nz-dropdown-menu>
+                                </nz-dropdown-menu>
 
 
                                 <!-- <form nz-form nzLayout="inline" [formGroup]="bulkActionForm">
