@@ -20,6 +20,14 @@ export class DataService {
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
   });
 
+  getDashboardData() {
+    return this.http.get(this.baseUrl + `user/dashboard`);
+  }
+
+  getNotificationList() {
+    return this.http.get(this.baseUrl + `notification/list`);
+  }
+
   getEmployeeDetailsById(params: any) {
     return this.http.get(this.baseUrl + `user/employees/${params}`);
   }

@@ -34,7 +34,10 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzResultModule } from 'ng-zorro-antd/result';
 import { NzAlertModule } from 'ng-zorro-antd/alert';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { ModelsComponent } from './models/models.component';
+import { ImportCsvComponent } from './staff/import-csv/import-csv.component';
 
 import { NgOtpInputModule } from 'ng-otp-input';
 
@@ -48,15 +51,18 @@ import { NgOtpInputModule } from 'ng-otp-input';
     AdminDashboardComponent,
     CreateReportComponent,
     ListReportComponent,
-    ModelsComponent
+    ModelsComponent,
+    ImportCsvComponent
   ],
   imports: [
     CommonModule,
     MainRoutingModule,
     FormsModule,
+    NzTypographyModule,
     ReactiveFormsModule,
 
     NgOtpInputModule,
+    NzPopoverModule,
     NzAlertModule,
     NzLayoutModule,
     NzIconModule,

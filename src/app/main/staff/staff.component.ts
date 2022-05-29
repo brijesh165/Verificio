@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ModelsComponent } from '../models/models.component';
+import { ImportCsvComponent } from './import-csv/import-csv.component';
 
 
 @Component({
@@ -201,6 +202,20 @@ export class StaffComponent implements OnInit {
     } else if (value === "delete") {
       this.onDelete(id);
     }
+  }
+
+  openImportCSVModal() : void{
+    const drawerRef = this.modalService.create<ImportCsvComponent>({
+      nzTitle: 'Import From CSV',
+      nzContent: ImportCsvComponent,
+      nzWidth: 444,
+      nzFooter: null,
+      nzComponentParams: {
+      
+      }
+    });
+
+    
   }
 
   onEdit(id: any): void {

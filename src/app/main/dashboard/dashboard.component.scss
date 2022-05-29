@@ -69,6 +69,9 @@
         margin-top: 10px;
 
         .imgDiv {
+            display: flex;
+    align-items: center;
+    justify-content: center;
             height: 40px;
             width: 40px;
             background: #FFB03C;
@@ -86,6 +89,9 @@
         .imgDiv {
             height: 40px;
             width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: #806BFF;
 
             border-radius: 50%;
@@ -99,6 +105,9 @@
         margin-top: 10px;
 
         .imgDiv {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: 40px;
             width: 40px;
             background: #589CFF;

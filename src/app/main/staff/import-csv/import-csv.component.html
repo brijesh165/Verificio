@@ -1,0 +1,18 @@
+<p style="text-align: center">
+  Download <a [href]="sampleCSVPath" download target="_blank">Sample CSV</a>. Make changes. And upload to import your employee
+  data.
+</p>
+
+<div style="display: flex; align-items: center; justify-content: center; text-align: center;">
+<nz-upload
+  [nzAction]="csvImportPath"
+  nzName="csv"
+  [nzHeaders]="{ authorization: authToken }"
+  (nzChange)="handleChange($event)"
+>
+  <button nz-button>
+    <i nz-icon nzType="upload"></i>
+    Click to Upload
+  </button>
+</nz-upload>
+</div>
