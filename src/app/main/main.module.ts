@@ -41,6 +41,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { FilterDatePipe } from './pipes/filter-date.pipe';
+import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change-modal/approve-reject-change-modal.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { FilterDatePipe } from './pipes/filter-date.pipe';
     ModelsComponent,
     ImportCsvComponent,
     NotificationsComponent,
-    FilterDatePipe
+    FilterDatePipe,
+    ApproveRejectChangeModalComponent
   ],
   imports: [
     CommonModule,

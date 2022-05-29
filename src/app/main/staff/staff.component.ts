@@ -205,6 +205,7 @@ export class StaffComponent implements OnInit {
   }
 
   openImportCSVModal() : void{
+    
     const drawerRef = this.modalService.create<ImportCsvComponent>({
       nzTitle: 'Import From CSV',
       nzContent: ImportCsvComponent,
@@ -215,6 +216,9 @@ export class StaffComponent implements OnInit {
       }
     });
 
+    drawerRef.afterClose.subscribe((data: any) => {
+      this.listEmployee();
+    });
     
   }
 

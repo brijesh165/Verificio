@@ -93,3 +93,13 @@ nz-footer {
       margin-right: 20px;
       color: #343a40, !important;
   }
+
+  .notification-container{
+      padding: 10px;
+      border-bottom: 1px solid #efefef;
+  }
+  
+  .notification-container:hover{
+      background-color: #f9f9f9;
+      cursor: pointer;
+  }
