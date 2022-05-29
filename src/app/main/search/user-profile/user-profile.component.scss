@@ -1,0 +1,21 @@
+.userProfileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: #333333;
+
+        margin: 10px 0px;
+    }
+
+    .profileDiv {
+        border-top: 7px solid #3BE5BF;
+        margin-top: 10px;
+        background: #fff;
+        padding: 40px;
+    }
+}

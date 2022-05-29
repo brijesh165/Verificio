@@ -1,0 +1,209 @@
+<div class="searchContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/app/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">{{ title}}</div>
+
+    <div class="searchForm" *ngIf="!isSearch">
+        <form nz-form nzLayout="vertical" [formGroup]="searchForm">
+            <div nz-row [nzGutter]="16">
+                <div nz-col nzSpan="6">
+                    <!-- Email -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="searchWithEmail" class="inputLabel">Search with email
+                            address</nz-form-label>
+                        <nz-form-control [nzSpan]="null">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input nzSize="large" formControlName="searchWithEmail"
+                                    placeholder="Enter email address" class="inputStyle" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="6">
+                    <!-- Full Name -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="searchWithName" class="inputLabel">Search with name
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="null">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input nzSize="large" formControlName="searchWithName"
+                                    placeholder="Enter full name" class="inputStyle" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="6">
+                    <!-- Full Name -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="searchWithDob" class="inputLabel">Search with date of
+                            birth</nz-form-label>
+                        <nz-form-control [nzSpan]="null">
+                            <nz-input-group nzSize="large">
+                                <nz-date-picker nzSize="large" [nzFormat]="'dd-MMM-yyyy'"
+                                    formControlName="searchWithDob" class="inputStyle" style="width: 100%;">
+                                </nz-date-picker>
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="6">
+                    <!-- Full Name -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="searchWithFacebook" class="inputLabel">Search with
+                            facebook ID
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="null">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input nzSize="large" formControlName="searchWithFacebook"
+                                    placeholder="Enter facebook ID" class="inputStyle" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+
+            <div nz-row [nzGutter]="16">
+                <div nz-col nzSpan="6">
+                    <!-- Email -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="searchWithInstagram" class="inputLabel">Search with
+                            Instagram ID
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="null">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input nzSize="large" formControlName="searchWithInstagram"
+                                    placeholder="Enter instagram ID" class="inputStyle" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="6">
+                    <!-- Full Name -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="searchWithTwitter" class="inputLabel">Search with Twitter
+                            ID</nz-form-label>
+                        <nz-form-control [nzSpan]="null">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input nzSize="large" formControlName="searchWithTwitter"
+                                    placeholder="Enter twitter ID" class="inputStyle" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="6">
+                    <!-- Full Name -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="searchWithLinkedIn" class="inputLabel">Search with
+                            linkedin ID
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="null">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input nzSize="large" formControlName="searchWithLinkedIn"
+                                    placeholder="Enter twitter ID" class="inputStyle" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="6">
+                    <!-- Full Name -->
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="null" nzFor="searchWithPhone" class="inputLabel">Search with phone
+                            number</nz-form-label>
+                        <nz-form-control [nzSpan]="null">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input nzSize="large" formControlName="searchWithPhone"
+                                    placeholder="Enter phone number" class="inputStyle" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+
+            <div nz-row style="float: right;">
+                <button nz-button nzType="primary" (click)="onSearchNow()">Search Now</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="searchResult" *ngIf="isSearch" (click)="onUserInfo()">
+        <nz-card style="width:867px; border-radius: 18px;" [nzActions]="[actionEllipsis]">
+            <div class="personalInfoDiv">
+
+                <div nz-col nzSpan="24" style="text-align: center; margin-bottom: 20px;">
+                    <img [src]="profileImagePath" alt="profileImg" class="profileImg" />
+                </div>
+
+                <form nz-form nzLayout="vertical" [formGroup]="profileForm" style="margin-top: 10px;">
+                    <!-- First Name & Last Name-->
+                    <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8">
+                        <div nz-col nzSpan="12" style="text-align: left;">
+                            <nz-form-item style="margin: 0 0 2px">
+                                <nz-form-label [nzSpan]="null" nzFor="firstName" style="padding: 0px;">First Name
+                                </nz-form-label>
+                                <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                                    <nz-input-group nzSize="large">
+                                        <input type="text" nz-input nzBorderless formControlName="firstName"
+                                            [disabled]="true" placeholder="Enter your first name"
+                                            style="padding: 6.5px 0px" />
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
+                        <div nz-col nzSpan="12">
+                            <nz-form-item style="margin: 0 0 2px">
+                                <nz-form-label [nzSpan]="null" nzFor="lastName" style=" padding: 0px;">Last Name
+                                </nz-form-label>
+                                <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                                    <nz-input-group nzSize="large">
+                                        <input type="text" nz-input nzBorderless formControlName="lastName"
+                                            placeholder="Enter your last name" style="padding: 6.5px 0px" />
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+
+
+                    <!-- Email & Status-->
+                    <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                        <div nz-col nzSpan="12" style="text-align: left;">
+                            <nz-form-item style="margin: 0 0 2px">
+                                <nz-form-label [nzSpan]="null" nzFor="email" style="padding: 0px;">Email
+                                </nz-form-label>
+                                <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email.">
+                                    <nz-input-group nzSize="large">
+                                        <input type="text" nz-input nzBorderless formControlName="email"
+                                            placeholder="Enter your email address" style="padding: 6.5px 0px" />
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
+                        <div nz-col nzSpan="12" style="text-align: right;">
+                            <nz-form-item style="margin: 0 0 2px">
+                                <nz-form-label [nzSpan]="null" nzFor="status" style="padding: 0px;">Status
+                                </nz-form-label>
+                                <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email.">
+                                    <nz-input-group nzSize="large">
+                                        <input type="text" nz-input nzBorderless formControlName="status"
+                                            placeholder="Enter your email address" style="padding: 6.5px 0px" />
+                                    </nz-input-group>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </nz-card>
+        <ng-template #actionEllipsis>
+            <div style="float: left; margin-left: 10px">1 results</div>
+        </ng-template>
+    </div>
+</div>

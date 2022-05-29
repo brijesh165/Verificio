@@ -43,6 +43,8 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { FilterDatePipe } from './pipes/filter-date.pipe';
 import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change-modal/approve-reject-change-modal.component';
+import { SearchComponent } from './search/search.component';
+import { UserProfileComponent } from './search/user-profile/user-profile.component';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change
     ImportCsvComponent,
     NotificationsComponent,
     FilterDatePipe,
-    ApproveRejectChangeModalComponent
+    ApproveRejectChangeModalComponent,
+    SearchComponent,
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
