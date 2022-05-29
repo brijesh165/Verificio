@@ -104,8 +104,7 @@
                     <nz-form-item>
                         <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
                             <nz-form-control>
-                                <button nz-button nzType="primary" 
-                                nzSize="large"
+                                <button nz-button nzType="primary" nzSize="large"
                                     [disabled]="!changePasswordForm.valid">Save</button>
                             </nz-form-control>
                         </nz-form-item>
@@ -114,6 +113,7 @@
             </div>
         </nz-tab>
 
+        <!-- Personal Info -->
         <nz-tab nzTitle="Personal Info">
             <div class="pInfoContainer">
                 <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Profile Account</h3>
@@ -210,12 +210,11 @@
                                     </nz-form-control>
                                 </nz-form-item>
                                 <ng-template #addOnBeforeTemplate>
-                                    <nz-select 
-                                    nzShowSearch style="min-width: 75px"  nzPlaceHolder="Dial Code"
-
+                                    <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Dial Code"
                                         formControlName="phoneNumberPrefix" nzBorderless>
-                                        <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code" [nzValue]="country.dial_code"></nz-option>
-                                
+                                        <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code"
+                                            [nzValue]="country.dial_code"></nz-option>
+
                                     </nz-select>
                                 </ng-template>
                             </div>
@@ -292,8 +291,8 @@
                                         Birth</nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid date.">
                                         <nz-input-group nzSize="large">
-                                            <nz-date-picker nzSize="large" [nzFormat]="'dd-MMM-yyyy'" formControlName="dateOfBirth"
-                                                nzBorderless></nz-date-picker>
+                                            <nz-date-picker nzSize="large" [nzFormat]="'dd-MMM-yyyy'"
+                                                formControlName="dateOfBirth" nzBorderless></nz-date-picker>
                                             <!-- <input type="text" nz-input nzBorderless formControlName="dateOfBirth"
                                                 placeholder="Enter your email address" style="padding: 6.5px 0px" /> -->
                                         </nz-input-group>
@@ -307,7 +306,8 @@
                                     </nz-form-label>
                                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid gender.">
                                         <nz-input-group nzSize="large">
-                                            <nz-select nzSize="large" formControlName="gender" nzPlaceHolder="Gender" nzBorderless>
+                                            <nz-select nzSize="large" formControlName="gender" nzPlaceHolder="Gender"
+                                                nzBorderless>
 
                                                 <nz-option nzLabel="Male" nzValue="Male"></nz-option>
                                                 <nz-option nzLabel="Female" nzValue="Female"></nz-option>
@@ -321,8 +321,7 @@
                         <div nz-row class="rowStyle" style="margin-top: 20px; justify-content: flex-start;">
                             <nz-form-item *ngIf="!isEdit">
                                 <nz-form-control>
-                                    <button type="submit" nz-button nzType="primary" 
-                                    nzSize="large"
+                                    <button type="submit" nz-button nzType="primary" nzSize="large"
                                         [disabled]="!profileForm.valid">Save
                                         Changes</button>
                                 </nz-form-control>

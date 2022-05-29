@@ -47,11 +47,12 @@
             <li *ngIf="authenticatedUser.hasCompanyPermission('manage_survey')" nz-menu-item [nzMatchRouter]>
                 <i nz-icon nzType="file-zip" style="color: #AEB9DE"></i>
                 <span class="menuItem">Survey</span>
-            </li>
-            <li  routerLink="/app/search"  *ngIf="authenticatedUser.hasCompanyPermission('search')" nz-menu-item [nzMatchRouter]>
+            </li> -->
+            <li routerLink="/app/search" *ngIf="authenticatedUser.hasCompanyPermission('search')" nz-menu-item
+                [nzMatchRouter]>
                 <i nz-icon nzType="search" style="color: #AEB9DE"></i>
                 <span class="menuItem">Search</span>
-            </li> -->
+            </li>
             <li nz-menu-item routerLink="/app/setting" [nzMatchRouter]="true">
                 <i nz-icon nzType="setting" style="color: #AEB9DE"></i>
                 <span class="menuItem">Settings</span>

@@ -22,6 +22,7 @@
                     {{ item.createdAt | filterDate}}
                 </nz-list-item-extra>
             </nz-list-item>
+            <nz-list-empty *ngIf="notificationsList.length === 0"></nz-list-empty>
         </nz-list>
     </div>
 </div>
