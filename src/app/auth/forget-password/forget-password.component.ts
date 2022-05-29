@@ -67,6 +67,14 @@ export class ForgetPasswordComponent implements OnInit {
   }
 
   onSendAgain(): void {
-    console.log("On Send Again");
+    this.authService.forgetPassword({ "userName": this.forgetPasswordForm.value.username })
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          this.otp_id = res.data;
+          this.isVisible = true;
+        } else if (res.status === "error") {
+          this.messageService.error(res.message);
+        }
+      })
   }
 }
