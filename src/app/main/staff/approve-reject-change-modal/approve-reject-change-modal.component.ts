@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalRef } from 'ng-zorro-antd/modal';
+import { CountryService } from 'src/app/services/country.service';
 import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
 
@@ -17,11 +18,16 @@ export class ApproveRejectChangeModalComponent implements OnInit {
   userData:any;
   profileForm: any = FormGroup;
   profileImagePath:string = '';
-  constructor(private dataService: DataService,private fb: FormBuilder,private modalRef: NzModalRef, private messageService: NzMessageService) {
+  countryList:any[] = [];
+  constructor(private dataService: DataService,private fb: FormBuilder,private modalRef: NzModalRef, private messageService: NzMessageService, 
+    private countryService: CountryService) {
 
   }
 
   ngOnInit(): void {
+
+    
+    this.countryList = this.countryService.getCountryList();
 
     
     this.profileForm = this.fb.group({

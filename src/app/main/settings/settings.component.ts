@@ -6,6 +6,7 @@ import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { environment } from 'src/environments/environment';
+import { CountryService } from 'src/app/services/country.service';
 
 @Component({
   selector: 'app-settings',
@@ -48,11 +49,17 @@ export class SettingsComponent implements OnInit {
   isEdit: any = true;
   passwordVisible = false;
   isChangesPending = false;
+  countryList:any[] = [];
 
   constructor(private fb: FormBuilder, private authService: AuthService,
+    private countryService: CountryService,
     private dataService: DataService, private message: NzMessageService) { }
 
   ngOnInit(): void {
+
+    
+    this.countryList = this.countryService.getCountryList();
+
     this.changePasswordForm = this.fb.group({
       currPassword: [null, [Validators.required]],
       newPassword: [null, [Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)[A-Za-z\\d!$%@#£€*?&]{8,}$')]],

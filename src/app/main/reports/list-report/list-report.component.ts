@@ -13,6 +13,7 @@ import { Report } from 'src/app/models/Report';
 })
 export class ListReportComponent implements OnInit {
 
+  allData:any[] = [];
   allReportsTable: Report[] = [];
   allApprovedReportsTable: Report[] = [];
   allRejectedReportsTable: Report[] = [];
@@ -34,6 +35,7 @@ export class ListReportComponent implements OnInit {
     this.dataService.listReport()
       .subscribe((res: any) => {
         console.log("Report List: ", res.data);
+        this.allData = res.data;
         this.allReportsTable = res.data.map((item: any) => Report.fromMap(item));
 
         this.allApprovedReportsTable = res.data.filter(function (item: any) {
@@ -73,15 +75,17 @@ export class ListReportComponent implements OnInit {
 
   onSearch(searchTxt: any) {
     const targetValue: any[] = [];
-    this.allReportsTable.forEach((value: any) => {
-      let keys = Object.keys(value);
+    this.allData.forEach((value: any) => {
+      let keys = Object.keys(value.user);
       for (let i = 0; i < keys.length; i++) {
-        if (value[keys[i]] && value[keys[i]].toString().toLocaleLowerCase().includes(searchTxt)) {
+        if (value.user[keys[i]] && value.user[keys[i]].toString().toLocaleLowerCase().includes(searchTxt)) {
           targetValue.push(value);
           break;
         }
       }
     });
+
+    this.allReportsTable = targetValue.map((item: any) => Report.fromMap(item));
 
     this.allApprovedReportsTable = targetValue.filter(function (item: any) {
       return (item.approvedBy == null && item.isApproved === true)

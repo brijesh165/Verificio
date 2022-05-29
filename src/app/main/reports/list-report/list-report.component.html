@@ -29,7 +29,7 @@
         <nz-tabset>
             <nz-tab nzTitle="All">
                 <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allReportsTable"
-                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+                   >
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -65,7 +65,7 @@
             </nz-tab>
             <nz-tab nzTitle="Approved">
                 <nz-table #approvedTable nzShowPagination nzShowSizeChanger [nzData]="allApprovedReportsTable"
-                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+                 >
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -88,7 +88,7 @@
             </nz-tab>
             <nz-tab nzTitle="Rejected">
                 <nz-table #rejectedTable nzShowPagination nzShowSizeChanger [nzData]="allRejectedReportsTable"
-                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+                   >
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -111,7 +111,7 @@
             </nz-tab>
             <nz-tab nzTitle="Pending">
                 <nz-table #pendingTable nzShowPagination nzShowSizeChanger [nzData]="allPendingReportsTable"
-                    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+                    >
                     <thead>
                         <tr>
                             <th>Title</th>

@@ -6,6 +6,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ModelsComponent } from 'src/app/main/models/models.component';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CountryService } from 'src/app/services/country.service';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class RegistrationComponent implements OnInit {
   organizationForm: any = FormGroup;
   otp_id: any = "";
   otp: any = "";
+  countryList:any[] = [];
 
   isModalVisible: any = false;
   passwordVisible = false;
@@ -27,16 +29,20 @@ export class RegistrationComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router,
     private messageService: NzMessageService,
     private authService: AuthService, private notification: NzNotificationService,
+    private countryService:CountryService,
     private modalService: NzModalService) { }
 
   ngOnInit(): void {
+
+    this.countryList = this.countryService.getCountryList();
+
     this.registrationForm = this.fb.group({
       firstName: [null, [Validators.required]],
       lastName: [null, [Validators.required]],
       userName: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       password: [null, [Validators.required, Validators.minLength(6)]],
-      phoneNumberPrefix: ['+91', [Validators.required]],
+      phoneNumberPrefix: [null, [Validators.required]],
       phone: [null, [Validators.required]],
       regAck: [null, [Validators.required]]
     });

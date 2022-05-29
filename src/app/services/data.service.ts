@@ -3,11 +3,10 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DataService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   baseUrl: string = `${environment.apiUrl}/`;
   // baseUrl: string = 'http://192.168.75.137:3000';
@@ -33,50 +32,57 @@ export class DataService {
   }
 
   updateProfile(params: any) {
-    return this.http.post(this.baseUrl + "user/profile", params);
+    return this.http.post(this.baseUrl + 'user/profile', params);
   }
 
   createEmployee(params: any) {
-    return this.http.post(this.baseUrl + "user/employees/create", params)
+    return this.http.post(this.baseUrl + 'user/employees/create', params);
   }
 
   updateEmployee(params: any) {
-    return this.http.put(this.baseUrl + `user/employees/${params.id}`, params.body)
+    return this.http.put(
+      this.baseUrl + `user/employees/${params.id}`,
+      params.body
+    );
   }
-  
-  approveEmployeeProfileChange(params:any){
-    return this.http.post(this.baseUrl + "user/profile/approve",params);
+
+  getCompanyById(companyId: string) {
+    return this.http.get(this.baseUrl + `company/${companyId}`);
+  }
+
+  approveEmployeeProfileChange(params: any) {
+    return this.http.post(this.baseUrl + 'user/profile/approve', params);
   }
 
   listEmployee() {
-    return this.http.get(this.baseUrl + "user/employees/list")
+    return this.http.get(this.baseUrl + 'user/employees/list');
   }
 
   deleteEmployee(params: any) {
-    return this.http.post(this.baseUrl + "user/employees/archive", params);
+    return this.http.post(this.baseUrl + 'user/employees/archive', params);
   }
 
   reportTypeList() {
-    return this.http.get(this.baseUrl + "report/type/all");
+    return this.http.get(this.baseUrl + 'report/type/all');
   }
 
   listReport() {
-    return this.http.get(this.baseUrl + "report/company/list");
+    return this.http.get(this.baseUrl + 'report/company/list');
   }
 
   createReport(params: any) {
-    return this.http.post(this.baseUrl + "report/create", params);
+    return this.http.post(this.baseUrl + 'report/create', params);
   }
 
   reportAction(params: any) {
-    return this.http.post(this.baseUrl + "report/approve", params);
+    return this.http.post(this.baseUrl + 'report/approve', params);
   }
 
   updateReport(params: any) {
-    return this.http.post(this.baseUrl + "report/type/update", params);
+    return this.http.post(this.baseUrl + 'report/type/update', params);
   }
 
   archiveReport(params: any) {
-    return this.http.post(this.baseUrl + "report/type/delete", params)
+    return this.http.post(this.baseUrl + 'report/type/delete', params);
   }
-} 
+}

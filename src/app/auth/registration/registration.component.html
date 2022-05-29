@@ -117,10 +117,8 @@
                                     </nz-form-control>
                                 </nz-form-item>
                                 <ng-template #addOnBeforeTemplate>
-                                    <nz-select formControlName="phoneNumberPrefix">
-                                        <nz-option nzLabel="+91" nzValue="+91"></nz-option>
-                                        <nz-option nzLabel="+86" nzValue="+86"></nz-option>
-                                        <nz-option nzLabel="+87" nzValue="+87"></nz-option>
+                                    <nz-select nzShowSearch style="min-width: 75px"  nzPlaceHolder="Dial Code" formControlName="phoneNumberPrefix">
+                                        <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code" [nzValue]="country.dial_code"></nz-option>
                                     </nz-select>
                                 </ng-template>
                             </div>

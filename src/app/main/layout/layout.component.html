@@ -78,6 +78,10 @@
 
                     </div>
 
+                    <div *ngIf="notificationList.length==0">
+                        <nz-empty></nz-empty>
+                    </div>
+
                 </ng-template>
 
                 <div style="display: flex; align-items: center; margin-right: 20px;">

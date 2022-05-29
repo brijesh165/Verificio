@@ -47,6 +47,8 @@ export class LayoutComponent implements OnInit {
           userId: data.params.userId
         }
       });
+    }else if(data.actionType=='employeeReported'){
+      this.router.navigate(["app/reports"])
     }
   }
 

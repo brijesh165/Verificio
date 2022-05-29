@@ -8,6 +8,7 @@ export class User {
     role: String = "";
     permissions: String[] = [];
     profilePicture: String = "";
+    companyId:string = "";
 
     getProfilePictureUrl() {
         return environment.apiUrl + "/" + (this.profilePicture ? this.profilePicture : '');

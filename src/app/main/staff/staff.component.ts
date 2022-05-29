@@ -40,6 +40,7 @@ export class StaffComponent implements OnInit {
     { label: 'Delete User', value: 'delete_user' },
     { label: 'Approve User Update', value: 'approve_user_update' },
     { label: 'Search', value: 'search' },
+    { label: 'Manage Report', value: 'manage_report' },
     { label: 'Create Report', value: 'create_report' },
     { label: 'Approve Report', value: 'approve_report' },
     { label: 'Delete Report', value: 'delete_report' },

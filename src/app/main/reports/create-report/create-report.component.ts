@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { User } from 'src/app/models/User';
 import { DataService } from 'src/app/services/data.service';
@@ -16,21 +17,28 @@ export class CreateReportComponent implements OnInit {
   userList: any = [];
   showPreview: any = false;
   authenticatedUser: User;
+  company:any;
+
+   previewData:any = {};
 
   constructor(private fb: FormBuilder, private dataService: DataService,
-    private message: NzMessageService) { }
+    private message: NzMessageService, private router: Router) { }
 
   ngOnInit(): void {
     this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'))
     this.reportForm = this.fb.group({
-      // email: [null, [Validators.required, Validators.email]],
       staff: [null, [Validators.required]],
       category: [null, [Validators.required]],
-      reportMsg: [null]
+      reportMsg: [null,[Validators.required]]
     });
 
     this.getEmployeeList();
     this.getReportTypeList();
+
+    this.dataService.getCompanyById(this.authenticatedUser.companyId).subscribe((data:any)=> {
+      this.company = data.data;
+    });
+
   }
 
   getEmployeeList() {
@@ -50,6 +58,10 @@ export class CreateReportComponent implements OnInit {
   }
 
   onReportSubmit() {
+    this.previewData.companyName = this.company.name;
+    this.previewData.reportCategory = this.reportTypeList.find( (item: any) => { return item.value==this.reportForm.value.category}).label;
+    this.previewData.reportedUser = this.userList.find( (item: any) => { return item.value==this.reportForm.value.staff}).label;
+    this.previewData.message = this.reportForm.value.reportMsg;
     this.showPreview = true;
   }
 
@@ -69,6 +81,7 @@ export class CreateReportComponent implements OnInit {
         console.log("Response: ", res);
         if (res.status === "success") {
           this.message.create('success', res.message);
+          this.router.navigateByUrl('/app/reports');
         } else if (res.status === "error") {
           this.message.create('error', res.message);
         }

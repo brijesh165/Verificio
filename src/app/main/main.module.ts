@@ -21,6 +21,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -65,7 +66,7 @@ import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change
     FormsModule,
     NzTypographyModule,
     ReactiveFormsModule,
-
+    NzEmptyModule,
     NgOtpInputModule,
     NzPopoverModule,
     NzAlertModule,
