@@ -332,6 +332,266 @@
                 </div>
             </div>
         </nz-tab>
-        <!-- <nz-tab nzTitle="Business Info">Content of Tab Pane 3</nz-tab> -->
+
+        <!-- Business Info -->
+        <nz-tab nzTitle="Business Info">
+            <div class="pInfoContainer">
+                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Business Information</h3>
+                <span class="subTitle">Manage your Business information All changes in your account
+                    will be applied to all of your workspace.</span>
+
+                <div *ngIf="isChangesPending">
+                    <nz-alert nzType="info" nzMessage="Your profile changes are awaiting approval from admin.">
+                    </nz-alert>
+                </div>
+                <br>
+                <div style="width: 100%;">
+                    <div nz-row class="rowStyle">
+                        <div nz-col nzSpan="12" style="text-align: left;">
+                            <!-- <button nz-button nzType="text">Change image</button> -->
+                            <div style="display: flex; flex-direction: column">
+
+
+                                <nz-upload [nzCustomRequest]="handleBusinessUpload" [nzShowUploadList]="false"
+                                    [nzBeforeUpload]="beforeUpload"
+                                    nzFileType="image/png,image/jpeg,image/gif,image/bmp" style="display: flex !important; flex-direction: column;
+                                    align-items: cente">
+                                    <svg width="34" height="24" viewBox="0 0 34 24" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M28.574 10.5226C27.8457 4.78594 22.934 0.335938 17.0007 0.335938C12.4073 0.335938 8.41732 3.02094 6.59565 7.2526C3.01565 8.3226 0.333984 11.7026 0.333984 15.3359C0.333984 19.9309 4.07232 23.6693 8.66732 23.6693H27.0007C30.6773 23.6693 33.6673 20.6793 33.6673 17.0026C33.6648 15.5086 33.1617 14.0586 32.2385 12.884C31.3152 11.7094 30.0251 10.878 28.574 10.5226ZM18.6673 15.3359V20.3359H15.334V15.3359H10.334L17.0007 7.0026L23.6673 15.3359H18.6673Z"
+                                            fill="#3781EE" />
+                                    </svg>
+                                    <br />
+                                    <a>Upload proof of company</a>
+                                </nz-upload>
+                            </div>
+                        </div>
+                        <div nz-col nzSpan="12" style="text-align: right;">
+                            <button nz-button nzType="link" class="editBtn" style="color: #29B475;"
+                                (click)="handleBusinessEdit()">
+                                <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; "></i> Edit
+                                Profile</button>
+                            <!-- <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; margin-right: 7px;"></i>
+                            <span class="editBtn">Edit Profile</span> -->
+                        </div>
+                    </div>
+
+                    <form nz-form nzLayout="vertical" [formGroup]="businessInfoForm" (ngSubmit)="submitBusinessForm()"
+                        style="margin-top: 10px;">
+
+                        <!-- First Name & Last Name-->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8">
+                            <div nz-col nzSpan="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="name" style="padding: 0px;">Business Name
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="name"
+                                                placeholder="Enter your business name" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzSpan="12">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="regNo" style=" padding: 0px;">Registration
+                                        Number
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="regNo"
+                                                placeholder="Enter your registration number"
+                                                style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+
+
+                        <!-- Email & Phone-->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzSpan="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="compEmail" style="padding: 0px;">Company Email
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid company email.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="compEmail"
+                                                placeholder="Enter your company email address"
+                                                style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzSpan="12" style="text-align: right;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="phone" style="padding: 0px;">Phone Number
+                                    </nz-form-label>
+                                    <nz-form-control nzErrorTip="Please enter your phone number!">
+                                        <nz-input-group [nzAddOnBefore]="addOnBusinessBeforeTemplate" nzSize="large">
+                                            <input formControlName="phone" placeholder="Enter phone number" nzBorderless
+                                                id="phoneNumber" nz-input nzSize="large" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <ng-template #addOnBusinessBeforeTemplate>
+                                    <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Dial Code"
+                                        formControlName="businessPhoneNumberPrefix" nzBorderless>
+                                        <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code"
+                                            [nzValue]="country.dial_code"></nz-option>
+                                    </nz-select>
+                                </ng-template>
+                            </div>
+                        </div>
+
+
+                        <!-- address -->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzSpan="24" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="address" style="padding: 0px;">Business
+                                        Address
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid address.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="address"
+                                                placeholder="Enter your house address" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+
+
+                        <!-- State -->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzSpan="8" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">State
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="state"
+                                                placeholder="State" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzSpan="8" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="stateOfOrigin"
+                                        style="text-align: left; padding: 0px;">State of Origin
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state of origin.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="stateOfOrigin"
+                                                placeholder="State of origin" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzSpan="8" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="lga" style="text-align: left; padding: 0px;">
+                                        LGA
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="lga"
+                                                placeholder="LGA" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+
+
+                        <!-- Dob & Gender-->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzSpan="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="industry" style="padding: 0px;">Industries
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid number of staff.">
+                                        <nz-input-group nzSize="large">
+                                            <nz-select nzSize="large" formControlName="industry"
+                                                nzPlaceHolder="Industries" nzBorderless>
+                                                <nz-option nzLabel="Arts / Entertainment"
+                                                    nzValue="Arts / Entertainment"></nz-option>
+                                                <nz-option nzLabel="Business Services" nzValue="Business Services">
+                                                </nz-option>
+                                                <nz-option nzLabel="Construction" nzValue="Construction"></nz-option>
+                                                <nz-option nzLabel="Consumer Goods / Retail"
+                                                    nzValue="Consumer Goods / Retail"></nz-option>
+                                                <nz-option nzLabel="Education" nzValue="Education"></nz-option>
+                                                <nz-option nzLabel="Financial" nzValue="Financial"></nz-option>
+                                                <nz-option nzLabel="Fitness / Sports" nzValue="Fitness / Sports">
+                                                </nz-option>
+                                                <nz-option nzLabel="Food / Hospitality" nzValue="Food / Hospitality">
+                                                </nz-option>
+                                                <nz-option nzLabel="Government" nzValue="Government"></nz-option>
+                                                <nz-option nzLabel="Home Services" nzValue="Home Services"></nz-option>
+                                                <nz-option nzLabel="Consumer Goods / Retail"
+                                                    nzValue="Consumer Goods / Retail"></nz-option>
+                                                <nz-option nzLabel="Legal" nzValue="Legal"></nz-option>
+                                                <nz-option nzLabel="Manufacturing" nzValue="Manufacturing"></nz-option>
+                                                <nz-option nzLabel="Marketing" nzValue="Marketing"></nz-option>
+                                                <nz-option nzLabel="Medical / Healthcare"
+                                                    nzValue="Medical / Healthcare"></nz-option>
+                                                <nz-option nzLabel="Non-Profit" nzValue="Non-Profit"></nz-option>
+                                                <nz-option nzLabel="Other" nzValue="Other"></nz-option>
+                                                <nz-option nzLabel="Real Estate" nzValue="Real Estate"></nz-option>
+                                                <nz-option nzLabel="Software / Technology"
+                                                    nzValue="Software / Technology"></nz-option>
+                                            </nz-select>
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzSpan="12">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="numberOfStaff" style="padding: 0px;">Number of
+                                        Staff
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid number of staff.">
+                                        <nz-input-group nzSize="large">
+                                            <nz-select nzSize="large" formControlName="numberOfStaff"
+                                                nzPlaceHolder="Number Of Staff" nzBorderless>
+                                                <nz-option nzLabel="10 or less" nzValue="10orless"></nz-option>
+                                                <nz-option nzLabel="10 - 25" nzValue="10-25"></nz-option>
+                                                <nz-option nzLabel="26 - 100" nzValue="26-100"></nz-option>
+                                                <nz-option nzLabel="101 - 250" nzValue="101-250"></nz-option>
+                                                <nz-option nzLabel="251 - 1,000" nzValue="251-1,000"></nz-option>
+                                                <nz-option nzLabel="1,001 - 5,000" nzValue="1,001-5,000"></nz-option>
+                                                <nz-option nzLabel="5,000+" nzValue="5,000+"></nz-option>
+                                            </nz-select>
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+
+                        <div nz-row class="rowStyle" style="margin-top: 20px; justify-content: flex-start;">
+                            <nz-form-item *ngIf="!isBusinessEdit">
+                                <nz-form-control>
+                                    <button type="submit" nz-button nzType="primary" nzSize="large"
+                                        [disabled]="!businessInfoForm.valid">Save
+                                        Changes</button>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </nz-tab>
     </nz-tabset>
 </div>

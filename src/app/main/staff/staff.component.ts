@@ -38,6 +38,7 @@ export class StaffComponent implements OnInit {
     { label: 'Add User', value: 'create_user' },
     { label: 'Edit User', value: 'edit_user' },
     { label: 'Delete User', value: 'delete_user' },
+    { label: 'Activate User', value: 'activate_user' },
     { label: 'Approve User Update', value: 'approve_user_update' },
     { label: 'Search', value: 'search' },
     { label: 'Manage Report', value: 'manage_report' },
@@ -202,25 +203,27 @@ export class StaffComponent implements OnInit {
       this.onEdit(id);
     } else if (value === "delete") {
       this.onDelete(id);
+    } else if (value === "activate") {
+      this.onActivate(id);
     }
   }
 
-  openImportCSVModal() : void{
-    
+  openImportCSVModal(): void {
+
     const drawerRef = this.modalService.create<ImportCsvComponent>({
       nzTitle: 'Import From CSV',
       nzContent: ImportCsvComponent,
       nzWidth: 444,
       nzFooter: null,
       nzComponentParams: {
-      
+
       }
     });
 
     drawerRef.afterClose.subscribe((data: any) => {
       this.listEmployee();
     });
-    
+
   }
 
   onEdit(id: any): void {
@@ -288,5 +291,33 @@ export class StaffComponent implements OnInit {
           })
       }
     })
+  }
+
+  onActivate(id: any): void {
+    this.dataService.activateEmployee({ "employeeId": [id] })
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          this.bulkActionForm.patchValue({
+            action: null
+          })
+
+          const drawerRef = this.modalService.create<ModelsComponent>({
+            nzTitle: '',
+            nzContent: ModelsComponent,
+            nzWidth: 444,
+            nzFooter: null,
+            nzComponentParams: {
+              modelType: "success",
+              modelTitle: "User account has been activated.",
+              modelSubTitle: ""
+            }
+          });
+
+          this.listEmployee()
+
+        } else if (res.status === "error") {
+          this.message.create('error', res.message);
+        }
+      })
   }
 }

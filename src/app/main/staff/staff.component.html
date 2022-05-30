@@ -152,7 +152,7 @@
                                         <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('edit_user')"
                                             (click)="changeAction('edit', data._id)">Edit</li>
                                         <li nz-menu-item *ngIf="authenticatedUser.hasCompanyPermission('delete_user')"
-                                            (click)="changeAction('delete', data._id)">Deactivate</li>
+                                            (click)="changeAction('activate', data._id)">Activate</li>
                                     </ul>
                                 </nz-dropdown-menu>
                             </td>

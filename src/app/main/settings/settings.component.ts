@@ -7,6 +7,7 @@ import * as moment from 'moment';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { environment } from 'src/environments/environment';
 import { CountryService } from 'src/app/services/country.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-settings',
@@ -42,22 +43,25 @@ export class SettingsComponent implements OnInit {
     }
   ];
 
+  authenticatedUser: User;
   changePasswordForm: any = FormGroup;
   profileImagePath: any = "";
   profileForm: any = FormGroup;
+  businessInfoForm: any = FormGroup;
   uploadFileName: any = '';
   isEdit: any = true;
+  isBusinessEdit: any = true;
   passwordVisible = false;
   isChangesPending = false;
-  countryList:any[] = [];
+  countryList: any[] = [];
 
   constructor(private fb: FormBuilder, private authService: AuthService,
     private countryService: CountryService,
     private dataService: DataService, private message: NzMessageService) { }
 
   ngOnInit(): void {
+    this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'))
 
-    
     this.countryList = this.countryService.getCountryList();
 
     this.changePasswordForm = this.fb.group({
@@ -70,7 +74,7 @@ export class SettingsComponent implements OnInit {
       firstName: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       lastName: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       email: [{ value: null, disabled: true }, [Validators.required]],
-      phoneNumberPrefix: ['+91', [Validators.required]],
+      phoneNumberPrefix: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       phone: [{ value: null, disabled: this.isEdit }, [Validators.required, Validators.maxLength(10)]],
       address: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       state: [{ value: null, disabled: this.isEdit }, [Validators.required]],
@@ -80,7 +84,22 @@ export class SettingsComponent implements OnInit {
       gender: [{ value: null, disabled: this.isEdit }, [Validators.required]]
     })
 
+    this.businessInfoForm = this.fb.group({
+      name: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      regNo: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      compEmail: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      businessPhoneNumberPrefix: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      phone: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required, Validators.maxLength(10)]],
+      address: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      state: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      stateOfOrigin: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      lga: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      industry: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      numberOfStaff: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+    })
+
     this.getEmployeeDetails();
+    this.getBusinessInfo();
   }
 
   getEmployeeDetails() {
@@ -110,6 +129,26 @@ export class SettingsComponent implements OnInit {
       })
   }
 
+  getBusinessInfo() {
+    this.dataService.getCompanyById(this.authenticatedUser.companyId)
+      .subscribe((res: any) => {
+        console.log("Business Info: ", res.data)
+        this.businessInfoForm.patchValue({
+          name: res.data?.name,
+          regNo: res.data?.registrationNo,
+          compEmail: res.data?.email,
+          businessPhoneNumberPrefix: res.data?.countryCode,
+          phone: res.data?.phoneNo,
+          address: res.data.address?.address,
+          state: res.data.address?.state,
+          stateOfOrigin: res.data.address?.stateOfOrigin,
+          lga: res.data.address?.lga,
+          industry: res.data?.industry,
+          numberOfStaff: res.data?.employees
+        })
+      })
+  }
+
   onSwitchClick(index: any): void {
     this.notificationList[index].status = !this.notificationList[index].status
   }
@@ -136,6 +175,20 @@ export class SettingsComponent implements OnInit {
     const formData = new FormData();
     formData.append("image", item.file);
     this.authService.uploadProfilePicture(formData)
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          this.message.create('success', res.message);
+          this.getEmployeeDetails();
+        } else if (res.status === "error") {
+          this.message.create('error', res.message);
+        }
+      })
+  }
+
+  handleBusinessUpload = (item: any): any => {
+    const formData = new FormData();
+    formData.append("proof", item.file);
+    this.dataService.uploadCompanyProof({ id: this.authenticatedUser.companyId, formData: formData })
       .subscribe((res: any) => {
         if (res.status === "success") {
           this.message.create('success', res.message);
@@ -178,11 +231,42 @@ export class SettingsComponent implements OnInit {
       })
   }
 
+  submitBusinessForm(): void {
+    const params = {
+      companyId: this.authenticatedUser.companyId,
+      name: this.businessInfoForm.value.name,
+      registrationNo: this.businessInfoForm.value.regNo,
+      email: this.businessInfoForm.value.compEmail,
+      countryCode: this.businessInfoForm.value.businessPhoneNumberPrefix,
+      phoneNo: this.businessInfoForm.value.phone,
+      address: {
+        address: this.businessInfoForm.value.address,
+        state: this.businessInfoForm.value.state,
+        stateOfOrigin: this.businessInfoForm.value.stateOfOrigin,
+        lga: this.businessInfoForm.value.lga,
+      },
+      industry: this.businessInfoForm.value.industry,
+      employees: this.businessInfoForm.value.numberOfStaff
+    };
+    this.dataService.updateBusinessProfile(params)
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          this.message.create('success', res.message);
+          this.handleBusinessEdit();
+          this.getBusinessInfo();
+        } else if (res.status === "error") {
+          this.message.create('error', res.message);
+        }
+      })
+  }
+
+
   handleEdit(): void {
     this.isEdit = !this.isEdit;
     if (!this.isEdit) {
       this.profileForm.controls['firstName'].enable();
       this.profileForm.controls['lastName'].enable();
+      this.profileForm.controls['phoneNumberPrefix'].enable();
       this.profileForm.controls['phone'].enable();
       this.profileForm.controls['address'].enable();
       this.profileForm.controls['state'].enable();
@@ -193,6 +277,7 @@ export class SettingsComponent implements OnInit {
     } else {
       this.profileForm.controls['firstName'].disable();
       this.profileForm.controls['lastName'].disable();
+      this.profileForm.controls['phoneNumberPrefix'].disable();
       this.profileForm.controls['phone'].disable();
       this.profileForm.controls['address'].disable();
       this.profileForm.controls['state'].disable();
@@ -202,5 +287,35 @@ export class SettingsComponent implements OnInit {
       this.profileForm.controls['gender'].disable();
     }
 
+  }
+
+  handleBusinessEdit(): void {
+    this.isBusinessEdit = !this.isBusinessEdit;
+
+    if (!this.isBusinessEdit) {
+      this.businessInfoForm.controls['name'].enable();
+      this.businessInfoForm.controls['regNo'].enable();
+      this.businessInfoForm.controls['compEmail'].enable();
+      this.businessInfoForm.controls['businessPhoneNumberPrefix'].enable();
+      this.businessInfoForm.controls['phone'].enable();
+      this.businessInfoForm.controls['address'].enable();
+      this.businessInfoForm.controls['state'].enable();
+      this.businessInfoForm.controls['stateOfOrigin'].enable();
+      this.businessInfoForm.controls['lga'].enable();
+      this.businessInfoForm.controls['industry'].enable();
+      this.businessInfoForm.controls['numberOfStaff'].enable();
+    } else {
+      this.businessInfoForm.controls['name'].disable();
+      this.businessInfoForm.controls['regNo'].disable();
+      this.businessInfoForm.controls['compEmail'].disable();
+      this.businessInfoForm.controls['businessPhoneNumberPrefix'].disable();
+      this.businessInfoForm.controls['phone'].disable();
+      this.businessInfoForm.controls['address'].disable();
+      this.businessInfoForm.controls['state'].disable();
+      this.businessInfoForm.controls['stateOfOrigin'].disable();
+      this.businessInfoForm.controls['lga'].disable();
+      this.businessInfoForm.controls['industry'].disable();
+      this.businessInfoForm.controls['numberOfStaff'].disable();
+    }
   }
 }
