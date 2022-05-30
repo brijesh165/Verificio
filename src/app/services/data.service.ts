@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class DataService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   baseUrl: string = `${environment.apiUrl}/`;
   // baseUrl: string = 'http://192.168.75.137:3000';
@@ -35,6 +35,15 @@ export class DataService {
     return this.http.post(this.baseUrl + 'user/profile', params);
   }
 
+  uploadCompanyProof(params: any) {
+    console.log("Params: ", params)
+    return this.http.post(this.baseUrl + `company/update/proof/${params.id}`, params.formData)
+  }
+
+  updateBusinessProfile(params: any) {
+    return this.http.post(this.baseUrl + 'company/update', params);
+  }
+
   createEmployee(params: any) {
     return this.http.post(this.baseUrl + 'user/employees/create', params);
   }
@@ -60,6 +69,10 @@ export class DataService {
 
   deleteEmployee(params: any) {
     return this.http.post(this.baseUrl + 'user/employees/archive', params);
+  }
+
+  activateEmployee(params: any) {
+    return this.http.post(this.baseUrl + 'user/employees/activate', params);
   }
 
   reportTypeList() {
