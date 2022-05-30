@@ -98,4 +98,12 @@ export class DataService {
   archiveReport(params: any) {
     return this.http.post(this.baseUrl + 'report/type/delete', params);
   }
+
+  search(params: any) {
+    return this.http.post(this.baseUrl + 'search', params);
+  }
+
+  searchDetails(params: any) {
+    return this.http.get(this.baseUrl + `search${params}`)
+  }
 }

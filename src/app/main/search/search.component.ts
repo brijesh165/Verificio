@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-search',
@@ -15,18 +17,22 @@ export class SearchComponent implements OnInit {
   title: any = "Search User";
   isSearch: any = false;
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  searchResult: any = [];
+
+  constructor(private router: Router, private fb: FormBuilder,
+    private dataService: DataService) { }
 
   ngOnInit(): void {
     this.searchForm = this.fb.group({
       searchWithEmail: [null, [Validators.email]],
       searchWithName: [null, []],
       searchWithDob: [null, []],
-      searchWithFacebook: [null, []],
-      searchWithInstagram: [null, []],
-      searchWithTwitter: [null, []],
-      searchWithLinkedIn: [null, []],
-      searchWithPhone: [null, []]
+      searchWithPhone: [null, []],
+
+      // searchWithFacebook: [null, []],
+      // searchWithInstagram: [null, []],
+      // searchWithTwitter: [null, []],
+      // searchWithLinkedIn: [null, []],
     })
 
     this.profileForm = this.fb.group({
@@ -38,12 +44,26 @@ export class SearchComponent implements OnInit {
   }
 
   onSearchNow() {
-    this.title = "Search Result";
-    this.isSearch = true;
+    this.dataService.search({
+      "name": this.searchForm.value.searchWithName,
+      "dob": this.searchForm.value.searchWithDob && moment(this.searchForm.value.searchWithDob).format("DD-MM-yyyy"),
+      "phoneNo": this.searchForm.value.searchWithPhone,
+      "email": this.searchForm.value.searchWithEmail
+    })
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          console.log("Search Response: ", res.data);
+          this.title = "Search Result";
+          this.isSearch = true;
+
+          this.searchResult = res.data;
+        }
+      })
+
   }
 
-  onUserInfo() {
-    this.router.navigate(['app/user-profile'])
+  onUserInfo(userId: any) {
+    // this.router.navigate(['app/user-profile', { state: { userId: userId } }])
   }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -10,8 +12,13 @@ export class UserProfileComponent implements OnInit {
 
   profileForm: any = FormGroup;
   profileImagePath: any = "";
+  paramsFromParent: any = "";
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router,
+    private dataService: DataService) {
+    const routeParams: any = this.router.getCurrentNavigation();
+    this.paramsFromParent = routeParams.extras.state;
+  }
 
   ngOnInit(): void {
     this.profileForm = this.fb.group({
@@ -32,6 +39,17 @@ export class UserProfileComponent implements OnInit {
       dateOfBirth: [{ value: null, disabled: true }],
       gender: [{ value: null, disabled: true }]
     })
+
+    this.getProfileDetails();
+  }
+
+  getProfileDetails() {
+    this.dataService.searchDetails({ id: this.paramsFromParent.userId })
+      .subscribe((res: any) => {
+        if (res.status == "success") {
+          console.log("Response: ", res.data);
+        }
+      })
   }
 
   onDownloadCsv() {

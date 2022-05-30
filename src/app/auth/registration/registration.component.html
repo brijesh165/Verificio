@@ -1,8 +1,8 @@
 <div class="registration">
     <div class="registrationHeader" style="margin-top: 20px;">
         <a class="title" href="/">
-            <img src="assets/logo.svg"  style="height: 75px;" alt="">
-          </a>
+            <img src="assets/logo.svg" style="height: 75px;" alt="">
+        </a>
     </div>
 
     <div nz-row style="width:100%; margin-top: 15px;" nzJustify="center">
@@ -88,8 +88,10 @@
                                     </nz-form-control>
                                 </nz-form-item>
                                 <ng-template #addOnBeforeTemplate>
-                                    <nz-select nzShowSearch style="min-width: 75px"  nzPlaceHolder="Dial Code" formControlName="phoneNumberPrefix">
-                                        <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code" [nzValue]="country.dial_code"></nz-option>
+                                    <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Dial Code"
+                                        formControlName="phoneNumberPrefix">
+                                        <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code"
+                                            [nzValue]="country.dial_code"></nz-option>
                                     </nz-select>
                                 </ng-template>
                             </div>
@@ -160,11 +162,13 @@
                                 <nz-form-control nzErrorTip="Please select your company size!">
                                     <nz-select id="plan" nzSize="large" formControlName="companySize"
                                         nzPlaceHolder="Select" (ngModelChange)="planChange($event)">
-                                        <nz-option nzValue="0-50" nzLabel="0-50"></nz-option>
-                                        <nz-option nzValue="50-100" nzLabel="50-100"></nz-option>
-                                        <nz-option nzValue="100-200" nzLabel="100-200"></nz-option>
-                                        <nz-option nzValue="200-300" nzLabel="200-300"></nz-option>
-                                        <nz-option nzValue="300-400" nzLabel="300-400"></nz-option>
+                                        <nz-option nzLabel="10 or less" nzValue="10orless"></nz-option>
+                                        <nz-option nzLabel="10 - 25" nzValue="10-25"></nz-option>
+                                        <nz-option nzLabel="26 - 100" nzValue="26-100"></nz-option>
+                                        <nz-option nzLabel="101 - 250" nzValue="101-250"></nz-option>
+                                        <nz-option nzLabel="251 - 1,000" nzValue="251-1,000"></nz-option>
+                                        <nz-option nzLabel="1,001 - 5,000" nzValue="1,001-5,000"></nz-option>
+                                        <nz-option nzLabel="5,000+" nzValue="5,000+"></nz-option>
                                     </nz-select>
                                 </nz-form-control>
                             </nz-form-item>
@@ -175,26 +179,48 @@
                                 <nz-form-control nzErrorTip="Please select your industry type!">
                                     <nz-select id="plan" nzSize="large" formControlName="industry"
                                         nzPlaceHolder="Select" (ngModelChange)="planChange($event)">
-                                        <nz-option nzValue="fashion" nzLabel="Fashion"></nz-option>
-                                        <nz-option nzValue="oil&gas" nzLabel="Oil & Gas"></nz-option>
-                                        <nz-option nzValue="realEstate" nzLabel="Real Estate"></nz-option>
-                                        <nz-option nzValue="tell&communication" nzLabel="Tell & Communication">
-                                        </nz-option>
-                                        <nz-option nzValue="itIndustries" nzLabel="IT Industries"></nz-option>
+                                        <nz-select nzSize="large" formControlName="industry" nzPlaceHolder="Industries"
+                                            nzBorderless>
+                                            <nz-option nzLabel="Arts / Entertainment" nzValue="Arts / Entertainment">
+                                            </nz-option>
+                                            <nz-option nzLabel="Business Services" nzValue="Business Services">
+                                            </nz-option>
+                                            <nz-option nzLabel="Construction" nzValue="Construction"></nz-option>
+                                            <nz-option nzLabel="Consumer Goods / Retail"
+                                                nzValue="Consumer Goods / Retail"></nz-option>
+                                            <nz-option nzLabel="Education" nzValue="Education"></nz-option>
+                                            <nz-option nzLabel="Financial" nzValue="Financial"></nz-option>
+                                            <nz-option nzLabel="Fitness / Sports" nzValue="Fitness / Sports">
+                                            </nz-option>
+                                            <nz-option nzLabel="Food / Hospitality" nzValue="Food / Hospitality">
+                                            </nz-option>
+                                            <nz-option nzLabel="Government" nzValue="Government"></nz-option>
+                                            <nz-option nzLabel="Home Services" nzValue="Home Services"></nz-option>
+                                            <nz-option nzLabel="Consumer Goods / Retail"
+                                                nzValue="Consumer Goods / Retail"></nz-option>
+                                            <nz-option nzLabel="Legal" nzValue="Legal"></nz-option>
+                                            <nz-option nzLabel="Manufacturing" nzValue="Manufacturing"></nz-option>
+                                            <nz-option nzLabel="Marketing" nzValue="Marketing"></nz-option>
+                                            <nz-option nzLabel="Medical / Healthcare" nzValue="Medical / Healthcare">
+                                            </nz-option>
+                                            <nz-option nzLabel="Non-Profit" nzValue="Non-Profit"></nz-option>
+                                            <nz-option nzLabel="Other" nzValue="Other"></nz-option>
+                                            <nz-option nzLabel="Real Estate" nzValue="Real Estate"></nz-option>
+                                            <nz-option nzLabel="Software / Technology" nzValue="Software / Technology">
+                                            </nz-option>
+                                        </nz-select>
                                     </nz-select>
                                 </nz-form-control>
                             </nz-form-item>
 
-                            <nz-form-item>
+                            <!-- <nz-form-item>
                                 <label nz-checkbox formControlName="orgAck"> I acknowledge that I have read and hereby
                                     accept the terms and
                                     conditions in
                                     verificio and its <span class="ackTxt">third party partners, Terms of Use, and
                                         Privacy
                                         Policy.</span></label>
-                            </nz-form-item>
-
-
+                            </nz-form-item> -->
                         </form>
 
                     </div>

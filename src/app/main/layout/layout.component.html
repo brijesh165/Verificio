@@ -49,7 +49,7 @@
                 <span class="menuItem">Survey</span>
             </li> -->
             <li routerLink="/app/search" *ngIf="authenticatedUser.hasCompanyPermission('search')" nz-menu-item
-                [nzMatchRouter]>
+                [nzMatchRouter]="true">
                 <i nz-icon nzType="search" style="color: #AEB9DE"></i>
                 <span class="menuItem">Search</span>
             </li>

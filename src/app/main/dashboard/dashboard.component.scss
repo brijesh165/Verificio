@@ -12,7 +12,14 @@
     align-items: center;
     justify-content: space-between;
 
+    width: 100%;
     margin: 25px 0px;
+
+    .cards {
+        flex-grow: 1; // width: 316px;
+        height: 142px;
+        border-radius: 10px;
+    }
 
     .cardCol1 {
         min-height: 110px;
@@ -70,8 +77,8 @@
 
         .imgDiv {
             display: flex;
-    align-items: center;
-    justify-content: center;
+            align-items: center;
+            justify-content: center;
             height: 40px;
             width: 40px;
             background: #FFB03C;

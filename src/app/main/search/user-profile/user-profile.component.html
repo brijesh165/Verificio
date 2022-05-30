@@ -11,7 +11,7 @@
 
     <div class="profileDiv">
         <div nz-col nzSpan="24" style="text-align: center; margin-bottom: 20px;">
-            <img [src]="profileImagePath" alt="profileImg" class="profileImg" />
+            <nz-avatar nzIcon="user" [nzSize]="90" [nzSrc]="profileImagePath"></nz-avatar>
         </div>
 
         <form nz-form nzLayout="vertical" [formGroup]="profileForm" style="margin-top: 10px;">

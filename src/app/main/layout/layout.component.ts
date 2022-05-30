@@ -24,6 +24,11 @@ export class LayoutComponent implements OnInit {
     this.userInitials = this.authenticatedUser.firstName.charAt(0).toUpperCase() + "" + this.authenticatedUser.lastName.charAt(0).toUpperCase();
     console.log("Initial: ", this.userInitials)
     this.getNotificationList();
+
+    if (window.innerWidth < 550) {
+      this.isCollapsed = true;
+    }
+
   }
 
   getNotificationList(): void {
@@ -47,7 +52,7 @@ export class LayoutComponent implements OnInit {
           userId: data.params.userId
         }
       });
-    }else if(data.actionType=='employeeReported'){
+    } else if (data.actionType == 'employeeReported') {
       this.router.navigate(["app/reports"])
     }
   }

@@ -334,7 +334,7 @@
         </nz-tab>
 
         <!-- Business Info -->
-        <nz-tab nzTitle="Business Info">
+        <nz-tab nzTitle="Business Info" *ngIf="authenticatedUser.role === 'company-owner'">
             <div class="pInfoContainer">
                 <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Business Information</h3>
                 <span class="subTitle">Manage your Business information All changes in your account
