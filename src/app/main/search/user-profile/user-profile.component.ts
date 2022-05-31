@@ -53,17 +53,17 @@ export class UserProfileComponent implements OnInit {
           console.log("Response: ", res.data);
 
           this.profileForm.patchValue({
-            firstName: res.data.firstName,
-            lastName: res.data.lastName,
-            email: res.data.email,
-            phoneNumberPrefix: res.data.countryCode,
-            phone: res.data.phoneNo,
-            address: res.data.addressList.address,
-            state: res.data.addressList.state,
-            stateOfOrigin: res.data.addressList.stateOfOrigin,
-            lga: res.data.addressList.lga,
-            dateOfBirth: res.data.dob && moment(res.data.dob).format("dd-MMM-yyyy"),
-            gender: res.data.gender,
+            firstName: res.data?.firstName,
+            lastName: res.data?.lastName,
+            email: res.data?.email,
+            phoneNumberPrefix: res.data?.countryCode,
+            phone: res.data?.phoneNo,
+            address: res.data?.addressList?.address,
+            state: res.data?.addressList?.state,
+            stateOfOrigin: res.data?.addressList?.stateOfOrigin,
+            lga: res.data?.addressList?.lga,
+            dateOfBirth: res.data?.dob && moment(res.data.dob).format("dd-MMM-yyyy"),
+            gender: res.data?.gender,
           })
 
           this.profileImagePath = res.data.profilePicture && `${environment.apiUrl}/${res.data.profilePicture}`;
