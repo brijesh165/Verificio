@@ -14,6 +14,10 @@ import { CreateReportComponent } from './reports/create-report/create-report.com
 import { ModelsComponent } from './models/models.component';
 import { ImportCsvComponent } from './staff/import-csv/import-csv.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { FilterDatePipe } from './pipes/filter-date.pipe';
+import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change-modal/approve-reject-change-modal.component';
+import { SearchComponent } from './search/search.component';
+import { UserProfileComponent } from './search/user-profile/user-profile.component';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -41,10 +45,8 @@ import { NzAlertModule } from 'ng-zorro-antd/alert';
 import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NgOtpInputModule } from 'ng-otp-input';
-import { FilterDatePipe } from './pipes/filter-date.pipe';
-import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change-modal/approve-reject-change-modal.component';
-import { SearchComponent } from './search/search.component';
-import { UserProfileComponent } from './search/user-profile/user-profile.component';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+
 
 
 @NgModule({
@@ -68,6 +70,7 @@ import { UserProfileComponent } from './search/user-profile/user-profile.compone
     CommonModule,
     MainRoutingModule,
     FormsModule,
+
     NzTypographyModule,
     ReactiveFormsModule,
     NzEmptyModule,
@@ -95,6 +98,7 @@ import { UserProfileComponent } from './search/user-profile/user-profile.compone
     NzDatePickerModule,
     NzMessageModule,
     NzResultModule,
+    NzDescriptionsModule,
   ]
 })
 export class MainModule { }

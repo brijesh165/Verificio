@@ -104,6 +104,6 @@ export class DataService {
   }
 
   searchDetails(params: any) {
-    return this.http.get(this.baseUrl + `search${params}`)
+    return this.http.get(this.baseUrl + `search/${params.id}`)
   }
 }

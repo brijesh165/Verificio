@@ -74,7 +74,8 @@
                     <ng-template #addOnBeforeTemplate>
                         <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Dial Code"
                             formControlName="phoneNumberPrefix" nzBorderless>
-                            <nz-option formControlName="phoneNumberPrefix"></nz-option>
+                            <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code"
+                                [nzValue]="country.dial_code"></nz-option>
                         </nz-select>
                     </ng-template>
                 </div>
@@ -99,7 +100,7 @@
 
             <!-- State -->
             <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                <div nz-col nzSpan="12" style="text-align: left;">
+                <div nz-col nzSpan="8" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">State
                         </nz-form-label>
@@ -112,7 +113,21 @@
                     </nz-form-item>
                 </div>
 
-                <div nz-col nzSpan="12" style="text-align: left;">
+                <div nz-col nzSpan="8" style="text-align: left;">
+                    <nz-form-item style="margin: 0 0 2px">
+                        <nz-form-label [nzSpan]="null" nzFor="stateOfOrigin" style="text-align: left; padding: 0px;">
+                            State Of Origin
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input nzBorderless formControlName="stateOfOrigin"
+                                    placeholder="State Of Origin" style="padding: 6.5px 0px" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+
+                <div nz-col nzSpan="8" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="lga" style="text-align: left; padding: 0px;">
                             LGA
@@ -121,96 +136,6 @@
                             <nz-input-group nzSize="large">
                                 <input type="text" nz-input nzBorderless formControlName="lga" placeholder="LGA"
                                     style="padding: 6.5px 0px" />
-                            </nz-input-group>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-            </div>
-
-            <!-- Current Company -->
-            <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                <div nz-col nzSpan="8" style="text-align: left;">
-                    <nz-form-item style="margin: 0 0 2px">
-                        <nz-form-label [nzSpan]="null" nzFor="currentCompany" style="padding: 0px;">Current Company
-                        </nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state.">
-                            <nz-input-group nzSize="large">
-                                <input type="text" nz-input nzBorderless formControlName="currentCompany"
-                                    placeholder="State" style="padding: 6.5px 0px" />
-                            </nz-input-group>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-
-                <div nz-col nzSpan="8" style="text-align: left;">
-                    <nz-form-item style="margin: 0 0 2px">
-                        <nz-form-label [nzSpan]="null" nzFor="currEmploymentType"
-                            style="text-align: left; padding: 0px;">
-                            Employment Type
-                        </nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
-                            <nz-input-group nzSize="large">
-                                <input type="text" nz-input nzBorderless formControlName="currEmploymentType"
-                                    placeholder="LGA" style="padding: 6.5px 0px" />
-                            </nz-input-group>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-
-                <div nz-col nzSpan="8" style="text-align: left;">
-                    <nz-form-item style="margin: 0 0 2px">
-                        <nz-form-label [nzSpan]="null" nzFor="currPosition" style="text-align: left; padding: 0px;">
-                            Position
-                        </nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
-                            <nz-input-group nzSize="large">
-                                <input type="text" nz-input nzBorderless formControlName="currPosition"
-                                    placeholder="LGA" style="padding: 6.5px 0px" />
-                            </nz-input-group>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-            </div>
-
-            <!-- Last Company -->
-            <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                <div nz-col nzSpan="8" style="text-align: left;">
-                    <nz-form-item style="margin: 0 0 2px">
-                        <nz-form-label [nzSpan]="null" nzFor="lastCompany" style="padding: 0px;">Current Company
-                        </nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state.">
-                            <nz-input-group nzSize="large">
-                                <input type="text" nz-input nzBorderless formControlName="lastCompany"
-                                    placeholder="State" style="padding: 6.5px 0px" />
-                            </nz-input-group>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-
-                <div nz-col nzSpan="8" style="text-align: left;">
-                    <nz-form-item style="margin: 0 0 2px">
-                        <nz-form-label [nzSpan]="null" nzFor="lastEmploymentType"
-                            style="text-align: left; padding: 0px;">
-                            Employment Type
-                        </nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
-                            <nz-input-group nzSize="large">
-                                <input type="text" nz-input nzBorderless formControlName="lastEmploymentType"
-                                    placeholder="LGA" style="padding: 6.5px 0px" />
-                            </nz-input-group>
-                        </nz-form-control>
-                    </nz-form-item>
-                </div>
-
-                <div nz-col nzSpan="8" style="text-align: left;">
-                    <nz-form-item style="margin: 0 0 2px">
-                        <nz-form-label [nzSpan]="null" nzFor="lastPosition" style="text-align: left; padding: 0px;">
-                            Position
-                        </nz-form-label>
-                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
-                            <nz-input-group nzSize="large">
-                                <input type="text" nz-input nzBorderless formControlName="lastPosition"
-                                    placeholder="LGA" style="padding: 6.5px 0px" />
                             </nz-input-group>
                         </nz-form-control>
                     </nz-form-item>
@@ -250,10 +175,23 @@
                     </nz-form-item>
                 </div>
             </div>
-
-            <div nz-row style="float: left; margin-top: 20px;">
-                <button nz-button nzType="primary" (click)="onDownloadCsv()">Download csv file</button>
-            </div>
         </form>
+
+
+        <div *ngIf="companyList.length > 0">
+            <div *ngFor="let item of companyList">
+                <nz-descriptions nzTitle="Work Experience" nzLayout="vertical"
+                    style="margin-top: 10px; border-bottom: 1px solid #c7c7c7;">
+                    <nz-descriptions-item nzTitle="Location">{{item.company.address ? item.company.address.state :
+                        "-"}}</nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Company Name">{{item.company.name ? item.company.name : "-"}}
+                    </nz-descriptions-item>
+                    <nz-descriptions-item nzTitle="Position Title">{{item.designation ? item.designation : "-"}}
+                    </nz-descriptions-item>
+                </nz-descriptions>
+            </div>
+
+        </div>
+
     </div>
 </div>

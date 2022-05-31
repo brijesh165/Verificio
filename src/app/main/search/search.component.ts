@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { DataService } from 'src/app/services/data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-search',
@@ -16,6 +17,7 @@ export class SearchComponent implements OnInit {
   profileImagePath: any = "";
   title: any = "Search User";
   isSearch: any = false;
+  environment = environment;
 
   searchResult: any = [];
 
@@ -28,11 +30,6 @@ export class SearchComponent implements OnInit {
       searchWithName: [null, []],
       searchWithDob: [null, []],
       searchWithPhone: [null, []],
-
-      // searchWithFacebook: [null, []],
-      // searchWithInstagram: [null, []],
-      // searchWithTwitter: [null, []],
-      // searchWithLinkedIn: [null, []],
     })
 
     this.profileForm = this.fb.group({
@@ -63,7 +60,7 @@ export class SearchComponent implements OnInit {
   }
 
   onUserInfo(userId: any) {
-    // this.router.navigate(['app/user-profile', { state: { userId: userId } }])
+    this.router.navigate(["app/user-profile"], { state: { userId: userId } });
   }
 
 }

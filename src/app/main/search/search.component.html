@@ -128,20 +128,20 @@
     </div>
 
     <div class="searchResult" *ngIf="isSearch">
-        <div nz-row>
-            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="11" style="margin: 10px"
-                *ngFor="let item of searchResult" (click)="onUserInfo(item._id)">
-                <nz-card style="border-radius: 18px;" [nzActions]="[actionEllipsis]">
-                    <div class="personalInfoDiv">
 
+        <nz-card [nzBorderless]="true" [nzActions]="[actionEllipsis]">
+            <div nz-row>
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="11" style="margin: 10px"
+                    *ngFor="let item of searchResult" (click)="onUserInfo(item._id)">
+                    <div class="personalInfoDiv">
                         <div nz-col nzSpan="24" style="text-align: center; margin-bottom: 20px;">
-                            <nz-avatar nzIcon="user" [nzSize]="90" [nzSrc]="item.profilePicture"></nz-avatar>
+                            <nz-avatar nzIcon="user" [nzSize]="90"
+                                nzSrc="{{ environment.apiUrl + item.profilePicture}}"></nz-avatar>
                             <!-- <img [src]="item.profilePicture" alt="profileImg" class="profileImg" /> -->
                         </div>
 
                         <!-- <form nz-form nzLayout="vertical" [formGroup]="profileForm" style="margin-top: 10px;"> -->
                         <!-- First Name & Last Name-->
-
                         <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8">
                             <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" style="text-align: left;">
                                 <nz-form-item style="margin: 0 0 2px">
@@ -202,12 +202,13 @@
                         </div>
                         <!-- </form> -->
                     </div>
-                </nz-card>
-                <ng-template #actionEllipsis>
-                    <div style="float: left; margin-left: 10px">{{searchResult.length}} results</div>
-                </ng-template>
+                </div>
             </div>
-        </div>
+
+        </nz-card>
+        <ng-template #actionEllipsis>
+            <div style="float: left; margin-left: 10px">{{searchResult.length}} results</div>
+        </ng-template>
 
     </div>
 </div>
