@@ -9,10 +9,12 @@
 
     <div class="title">Create Report</div>
 
-    <form nz-form nzLayout="vertical" [formGroup]="reportForm" style="width: 30%; text-align: left"
-        *ngIf="!showPreview">
-        <!-- Email -->
-        <!-- <nz-form-item>
+    <div class="formContainer">
+
+        <form nz-form nzLayout="vertical" [formGroup]="reportForm" style="width: 100%; padding: 10px; text-align: left"
+            *ngIf="!showPreview">
+            <!-- Email -->
+            <!-- <nz-form-item>
             <nz-form-label [nzSpan]="null" nzFor="email">Email Address of Employee</nz-form-label>
             <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email address.">
                 <nz-input-group nzSize="large">
@@ -22,32 +24,33 @@
             </nz-form-control>
         </nz-form-item> -->
 
-        <nz-form-item>
-            <nz-form-label [nzSpan]="null" nzFor="staff">Select from staff List</nz-form-label>
-            <nz-select nzShowSearch nzSize="large" nzPlaceHolder="Select" formControlName="staff">
-                <nz-option *ngFor="let o of userList" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="null" nzFor="staff">Select from staff List</nz-form-label>
+                <nz-select nzShowSearch nzSize="large" nzPlaceHolder="Select" formControlName="staff">
+                    <nz-option *ngFor="let o of userList" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
 
-            </nz-select>
-        </nz-form-item>
+                </nz-select>
+            </nz-form-item>
 
-        <nz-form-item>
-            <nz-form-label [nzSpan]="null" nzFor="category">Report Category</nz-form-label>
-            <nz-select nzShowSearch nzSize="large"  nzPlaceHolder="Select" formControlName="category">
-                <nz-option *ngFor="let o of reportTypeList" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
-            </nz-select>
-        </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="null" nzFor="category">Report Category</nz-form-label>
+                <nz-select nzShowSearch nzSize="large" nzPlaceHolder="Select" formControlName="category">
+                    <nz-option *ngFor="let o of reportTypeList" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
+                </nz-select>
+            </nz-form-item>
 
-        <nz-form-item>
-            <nz-form-label [nzSpan]="null" nzFor="reportMsg">Write a report(optional)</nz-form-label>
-            <textarea  nzSize="large"  nz-input formControlName="reportMsg" placeholder="Write a report(optional)"
-                [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
-        </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="null" nzFor="reportMsg">Write a report(optional)</nz-form-label>
+                <textarea nzSize="large" nz-input formControlName="reportMsg" placeholder="Write a report(optional)"
+                    [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
+            </nz-form-item>
 
-        <nz-form-item style="display: flex; align-items: flex-end;">
-            <button nz-button  nzSize="large"  nzType="primary" [disabled]="!reportForm.valid"  style="width: min-content;"
-                (click)="onReportSubmit()">Submit</button>
-        </nz-form-item>
-    </form>
+            <nz-form-item style="display: flex; align-items: flex-end;">
+                <button nz-button nzSize="large" nzType="primary" [disabled]="!reportForm.valid"
+                    style="width: min-content;" (click)="onReportSubmit()">Submit</button>
+            </nz-form-item>
+        </form>
+    </div>
 
     <div class="preview" *ngIf="showPreview">
         <p class="title">Report</p>
@@ -58,7 +61,7 @@
 
                 <div class="previewItem">
                     <p class="previewTitle">Preview</p>
-    
+
                     <div style="margin-bottom: 15px">
                         <span class="description-title">{{previewData.companyName}}</span> <br>
                     </div>
@@ -77,8 +80,8 @@
                         <span class="description-title">Report</span> <br>
                         {{previewData.message}}
                     </div>
-    
-                   
+
+
                 </div>
             </div>
 
@@ -86,14 +89,14 @@
 
         <div nz-row>
 
-            <div nz-col  style="margin-top: 20px" [nzSm]="24" [nzLg]="12" [nzMd]="15">
+            <div nz-col style="margin-top: 20px" [nzSm]="24" [nzLg]="12" [nzMd]="15">
                 <button nz-button nzType="default" class="backBtn" style="width: min-content;"
-                (click)="onPreviewReportBack()">Back</button>
-            <button nz-button nzType="primary" class="btn" style="width: min-content;"
-                (click)="onPreviewReportSubmit()">Submit</button>
-</div>
-</div>
+                    (click)="onPreviewReportBack()">Back</button>
+                <button nz-button nzType="primary" class="btn" style="width: min-content;"
+                    (click)="onPreviewReportSubmit()">Submit</button>
+            </div>
+        </div>
 
-       
+
     </div>
 </div>

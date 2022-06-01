@@ -3,6 +3,8 @@
     flex-direction: column;
     align-items: flex-start;
 
+    margin-top: 30px;
+
     .title {
         font-size: 18px;
         font-weight: 600;
@@ -27,7 +29,7 @@
         }
     }
 
-   
+
     .profileImg {
         max-width: 40px;
         max-height: 40px;
@@ -45,4 +47,3 @@
     border: #29B475;
     padding: 10px 20px;
 }
-

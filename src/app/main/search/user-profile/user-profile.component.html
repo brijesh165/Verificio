@@ -16,8 +16,8 @@
 
         <form nz-form nzLayout="vertical" [formGroup]="profileForm" style="margin-top: 10px;">
             <!-- First Name & Last Name-->
-            <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8">
-                <div nz-col nzSpan="12" style="text-align: left;">
+            <div nz-row class="rowStyle" style="border-bottom: 1px solid D4E1E8">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="firstName" style="padding: 0px;">First Name
                         </nz-form-label>
@@ -30,7 +30,7 @@
                     </nz-form-item>
                 </div>
 
-                <div nz-col nzSpan="12">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="lastName" style=" padding: 0px;">Last Name
                         </nz-form-label>
@@ -47,7 +47,7 @@
 
             <!-- Email & Phone-->
             <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                <div nz-col nzSpan="12" style="text-align: left;">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="email" style="padding: 0px;">Email
                         </nz-form-label>
@@ -60,7 +60,7 @@
                     </nz-form-item>
                 </div>
 
-                <div nz-col nzSpan="12" style="text-align: right;">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: right;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="phone" style="padding: 0px;">Phone Number
                         </nz-form-label>
@@ -72,7 +72,7 @@
                         </nz-form-control>
                     </nz-form-item>
                     <ng-template #addOnBeforeTemplate>
-                        <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Dial Code"
+                        <nz-select nzShowSearch class="phoneDropdown" nzPlaceHolder="Dial Code"
                             formControlName="phoneNumberPrefix" nzBorderless>
                             <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code"
                                 [nzValue]="country.dial_code"></nz-option>
@@ -83,7 +83,7 @@
 
             <!-- address -->
             <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                <div nz-col nzSpan="24" style="text-align: left;">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="address" style="padding: 0px;">House Address
                         </nz-form-label>
@@ -100,7 +100,7 @@
 
             <!-- State -->
             <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                <div nz-col nzSpan="8" style="text-align: left;">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">State
                         </nz-form-label>
@@ -113,7 +113,7 @@
                     </nz-form-item>
                 </div>
 
-                <div nz-col nzSpan="8" style="text-align: left;">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="stateOfOrigin" style="text-align: left; padding: 0px;">
                             State Of Origin
@@ -127,7 +127,7 @@
                     </nz-form-item>
                 </div>
 
-                <div nz-col nzSpan="8" style="text-align: left;">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="lga" style="text-align: left; padding: 0px;">
                             LGA
@@ -144,7 +144,7 @@
 
             <!-- Dob & Gender-->
             <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                <div nz-col nzSpan="12" style="text-align: left;">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="dateOfBirth" style="padding: 0px;">Date of
                             Birth</nz-form-label>
@@ -159,7 +159,7 @@
                     </nz-form-item>
                 </div>
 
-                <div nz-col nzSpan="12">
+                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
                     <nz-form-item style="margin: 0 0 2px">
                         <nz-form-label [nzSpan]="null" nzFor="gender" style="padding: 0px;">Gender
                         </nz-form-label>

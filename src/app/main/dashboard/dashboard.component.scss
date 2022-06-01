@@ -1,125 +1,134 @@
-.title {
+.dashboardContainer {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 22px;
-    color: #333333;
-}
+    margin-top: 30px;
 
-.dashboardCards {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 
-    width: 100%;
-    margin: 25px 0px;
-
-    .cards {
-        flex-grow: 1; // width: 316px;
-        height: 142px;
-        border-radius: 10px;
-    }
-
-    .cardCol1 {
-        min-height: 110px;
-        border-radius: 5px;
-        border-left: 7px solid #FFB03C;
-        margin-right: -7px;
-        z-index: 1000;
-    }
-
-    .infoDivForCol1 {
+    .title {
         display: flex;
-        flex-direction: column;
-        align-items: flex-start;
 
-        padding: 10px 15px;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: #333333;
+    }
 
-        .counter {
-            font-size: 20px;
-            font-weight: 700;
-            line-height: 24px;
-            color: #3A3A3A;
+    .dashboardCards {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-            margin-bottom: 10px;
+        width: 100%;
+        margin: 25px 0px;
+
+        .cards {
+            flex-grow: 1; // width: 316px;
+            height: 142px;
+            border-radius: 10px;
         }
 
-        .counterInfo {
-            font-size: 16px;
-            font-weight: 400;
-            line-height: 19px;
-            color: #969696;
+        .cardCol1 {
+            min-height: 110px;
+            border-radius: 5px;
+            border-left: 7px solid #FFB03C;
+            margin-right: -7px;
+            z-index: 1000;
         }
-    }
 
-    .cardCol2 {
-        min-height: 110px;
-        border-radius: 5px;
-        border-left: 7px solid #806BFF;
-        margin-right: -7px;
-        z-index: 1000;
-    }
-
-    .cardCol3 {
-        min-height: 110px;
-        border-radius: 5px;
-        border-left: 7px solid #589CFF;
-        margin-right: -7px;
-        z-index: 1000;
-    }
-
-    .card1Col2 {
-        display: flex;
-        justify-content: center;
-
-        margin-top: 10px;
-
-        .imgDiv {
+        .infoDivForCol1 {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 40px;
-            width: 40px;
-            background: #FFB03C;
+            flex-direction: column;
+            align-items: flex-start;
 
-            border-radius: 50%;
+            padding: 10px 15px;
+
+            .counter {
+                font-size: 20px;
+                font-weight: 700;
+                line-height: 24px;
+                color: #3A3A3A;
+
+                margin-bottom: 10px;
+            }
+
+            .counterInfo {
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 19px;
+                color: #969696;
+            }
         }
-    }
 
-    .card2Col2 {
-        display: flex;
-        justify-content: center;
-
-        margin-top: 10px;
-
-        .imgDiv {
-            height: 40px;
-            width: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #806BFF;
-
-            border-radius: 50%;
+        .cardCol2 {
+            min-height: 110px;
+            border-radius: 5px;
+            border-left: 7px solid #806BFF;
+            margin-right: -7px;
+            z-index: 1000;
         }
-    }
 
-    .card3Col2 {
-        display: flex;
-        justify-content: center;
+        .cardCol3 {
+            min-height: 110px;
+            border-radius: 5px;
+            border-left: 7px solid #589CFF;
+            margin-right: -7px;
+            z-index: 1000;
+        }
 
-        margin-top: 10px;
-
-        .imgDiv {
+        .card1Col2 {
             display: flex;
-            align-items: center;
             justify-content: center;
-            height: 40px;
-            width: 40px;
-            background: #589CFF;
 
-            border-radius: 50%;
+            margin-top: 10px;
+
+            .imgDiv {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 40px;
+                width: 40px;
+                background: #FFB03C;
+
+                border-radius: 50%;
+            }
+        }
+
+        .card2Col2 {
+            display: flex;
+            justify-content: center;
+
+            margin-top: 10px;
+
+            .imgDiv {
+                height: 40px;
+                width: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #806BFF;
+
+                border-radius: 50%;
+            }
+        }
+
+        .card3Col2 {
+            display: flex;
+            justify-content: center;
+
+            margin-top: 10px;
+
+            .imgDiv {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 40px;
+                width: 40px;
+                background: #589CFF;
+
+                border-radius: 50%;
+            }
         }
     }
 }

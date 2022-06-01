@@ -1,6 +1,7 @@
 .reportContainer {
     display: flex;
     flex-direction: column;
+    margin-top: 30px;
 
     .title {
         font-size: 18px;
@@ -11,21 +12,29 @@
         margin: 10px 0px;
     }
 
+    .formContainer {
+        border-top: 10px solid #3BE5BF;
+        background: #FFFFFF;
+        border-radius: 5px;
+        padding: 20px;
+        width: 550px;
+    }
+
 }
 
-.previewTitle{
+.previewTitle {
     margin-top: 15px;
     margin-bottom: 15px;
     text-align: center;
     color: #002A6A;
-    
+
     font-weight: 700;
     font-size: 19px;
 }
 
-.description-title{
+.description-title {
     font-weight: 500;
-font-size: 16px;
+    font-size: 16px;
 }
 
 
@@ -34,6 +43,7 @@ font-size: 16px;
     padding: 20px;
     border-top: 7px solid #3BE5BF;
 }
+
 .btn {
     min-height: 40px;
     background: #29B475;
@@ -47,4 +57,14 @@ font-size: 16px;
     border-radius: 5px;
     padding: 10px 20px;
     margin-right: 10px;
+}
+
+@media screen and (max-width: 550px) {
+    .reportContainer {
+        margin-top: 40px;
+
+        .formContainer {
+            width: inherit;
+        }
+    }
 }

@@ -11,10 +11,11 @@
     }
 }
 
-nz-layout{
+nz-layout {
     min-height: calc(100vh);
-    background-color:  #EFF3FB;
+    background-color: #EFF3FB;
 }
+
 .menuItem {
     font-size: 16px;
     font-weight: 600;
@@ -26,12 +27,13 @@ nz-layout{
     background: #4A6998 !important;
     border-radius: 0px 25px 25px 0px;
     border-left: 7px solid #29B475;
-    padding-left: 17px!important;
-    background: #4a699852!important;
+    padding-left: 17px !important;
+    background: #4a699852 !important;
     font-weight: 600;
-    color:#AEB9DE;
+    color: #AEB9DE;
+
     .anticon {
-        color:#29B475!important;
+        color: #29B475 !important;
     }
 }
 
@@ -49,13 +51,24 @@ ul {
     font-weight: 500;
     margin-left: 10px;
     line-height: 24px;
-    color: #343A40!important;
+    color: #343A40 !important;
 }
 
-.page-header{
+.page-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    position: fixed;
+    width: calc(100vw - 250px);
+    z-index: 1000;
+
+}
+
+@media screen and (max-width: 500px) {
+    .page-header {
+        width: calc(100vw - 80px);
+    }
 }
 
 nz-header {
@@ -83,23 +96,24 @@ nz-footer {
     padding: 0 24px;
     cursor: pointer;
     transition: color 0.3s;
-  }
+}
 
-  .trigger:hover {
+.trigger:hover {
     color: #1890ff;
-  }
-  .notification-btn{
-      font-size:22px;
-      margin-right: 20px;
-      color: #343a40, !important;
-  }
+}
 
-  .notification-container{
-      padding: 10px;
-      border-bottom: 1px solid #efefef;
-  }
-  
-  .notification-container:hover{
-      background-color: #f9f9f9;
-      cursor: pointer;
-  }
+.notification-btn {
+    font-size: 22px;
+    margin-right: 20px;
+    color: #343a40,  !important;
+}
+
+.notification-container {
+    padding: 10px;
+    border-bottom: 1px solid #efefef;
+}
+
+.notification-container:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
