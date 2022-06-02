@@ -104,7 +104,6 @@ export class StaffComponent implements OnInit {
 
   onAddNewUser() {
     const permissions = this.newEmployeeForm.value.role === "admin" ? [] : this.newEmployeeForm.value.permission.filter((item: any) => item.checked).map((item: any) => item.value);
-    console.log("Permissions: ", permissions)
     const params = {
       firstName: this.newEmployeeForm.value.firstName,
       lastName: this.newEmployeeForm.value.lastName,
@@ -117,7 +116,6 @@ export class StaffComponent implements OnInit {
     if (this.isEdit) {
       this.dataService.updateEmployee({ id: this.editId, body: params })
         .subscribe((res: any) => {
-          console.log("Response: ", res);
           if (res.status === "success") {
             this.isVisible = false;
             const drawerRef = this.modalService.create<ModelsComponent>({
@@ -148,7 +146,6 @@ export class StaffComponent implements OnInit {
     } else {
       this.dataService.createEmployee(params)
         .subscribe((res: any) => {
-          console.log("Response: ", res);
           if (res.status === "success") {
             const drawerRef = this.modalService.create<ModelsComponent>({
               nzTitle: '',

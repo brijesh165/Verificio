@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: any = FormGroup;
   passwordVisible = false;
-  hideCompany=true;
-  companyList : any[] = [];
+  hideCompany = true;
+  companyList: any[] = [];
 
   constructor(private fb: FormBuilder, private router: Router,
     private authService: AuthService, private notification: NzNotificationService) { }
@@ -29,13 +29,12 @@ export class LoginComponent implements OnInit {
   }
 
   onForgetPassword(): void {
-    console.log("Forget Password");
     this.router.navigateByUrl('/auth/forget-password');
   }
 
   submitForm(): void {
 
-    const params =this.loginForm.value;
+    const params = this.loginForm.value;
 
     this.authService.login(params)
       .subscribe((response: any) => {
@@ -44,9 +43,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('user', JSON.stringify(response.data.user));
           this.notification.create('success', response.message, '');
           this.router.navigateByUrl('/app/dashboard');
-        }else if(response.status === "select-company"){
-            this.companyList = response.data;
-            this.hideCompany = false;
+        } else if (response.status === "select-company") {
+          this.companyList = response.data;
+          this.hideCompany = false;
         } else if (response.status === "error") {
           this.notification.create('error', response.message, '');
         }

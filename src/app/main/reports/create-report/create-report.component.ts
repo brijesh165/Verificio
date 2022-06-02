@@ -17,9 +17,9 @@ export class CreateReportComponent implements OnInit {
   userList: any = [];
   showPreview: any = false;
   authenticatedUser: User;
-  company:any;
+  company: any;
 
-   previewData:any = {};
+  previewData: any = {};
 
   constructor(private fb: FormBuilder, private dataService: DataService,
     private message: NzMessageService, private router: Router) { }
@@ -29,13 +29,13 @@ export class CreateReportComponent implements OnInit {
     this.reportForm = this.fb.group({
       staff: [null, [Validators.required]],
       category: [null, [Validators.required]],
-      reportMsg: [null,[Validators.required]]
+      reportMsg: [null, [Validators.required]]
     });
 
     this.getEmployeeList();
     this.getReportTypeList();
 
-    this.dataService.getCompanyById(this.authenticatedUser.companyId).subscribe((data:any)=> {
+    this.dataService.getCompanyById(this.authenticatedUser.companyId).subscribe((data: any) => {
       this.company = data.data;
     });
 
@@ -59,8 +59,8 @@ export class CreateReportComponent implements OnInit {
 
   onReportSubmit() {
     this.previewData.companyName = this.company.name;
-    this.previewData.reportCategory = this.reportTypeList.find( (item: any) => { return item.value==this.reportForm.value.category}).label;
-    this.previewData.reportedUser = this.userList.find( (item: any) => { return item.value==this.reportForm.value.staff}).label;
+    this.previewData.reportCategory = this.reportTypeList.find((item: any) => { return item.value == this.reportForm.value.category }).label;
+    this.previewData.reportedUser = this.userList.find((item: any) => { return item.value == this.reportForm.value.staff }).label;
     this.previewData.message = this.reportForm.value.reportMsg;
     this.showPreview = true;
   }
@@ -78,7 +78,6 @@ export class CreateReportComponent implements OnInit {
 
     this.dataService.createReport(params)
       .subscribe((res: any) => {
-        console.log("Response: ", res);
         if (res.status === "success") {
           this.message.create('success', res.message);
           this.router.navigateByUrl('/app/reports');

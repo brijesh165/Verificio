@@ -49,7 +49,6 @@ export class SearchComponent implements OnInit {
     })
       .subscribe((res: any) => {
         if (res.status === "success") {
-          console.log("Search Response: ", res.data);
           this.title = "Search Result";
           this.isSearch = true;
 

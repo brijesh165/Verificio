@@ -46,11 +46,9 @@ export class UserProfileComponent implements OnInit {
   }
 
   getProfileDetails() {
-    console.log("Route Params: ", this.paramsFromParent.userId);
     this.dataService.searchDetails({ id: this.paramsFromParent.userId })
       .subscribe((res: any) => {
         if (res.status == "success") {
-          console.log("Response: ", res.data);
 
           this.profileForm.patchValue({
             firstName: res.data?.firstName,

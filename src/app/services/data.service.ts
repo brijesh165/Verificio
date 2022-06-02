@@ -36,7 +36,6 @@ export class DataService {
   }
 
   uploadCompanyProof(params: any) {
-    console.log("Params: ", params)
     return this.http.post(this.baseUrl + `company/update/proof/${params.id}`, params.formData)
   }
 

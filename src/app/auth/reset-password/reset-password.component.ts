@@ -30,7 +30,6 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   submitForm() {
-    console.log("Params: ", this.paramsFromParent)
     if (this.resetPasswordForm.value.password === this.resetPasswordForm.value.confirmPassword) {
       this.authService.resetPassword({
         "otpId": this.paramsFromParent.opt_id,

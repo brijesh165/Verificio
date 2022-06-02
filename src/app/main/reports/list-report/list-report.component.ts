@@ -13,7 +13,7 @@ import { Report } from 'src/app/models/Report';
 })
 export class ListReportComponent implements OnInit {
 
-  allData:any[] = [];
+  allData: any[] = [];
   allReportsTable: Report[] = [];
   allApprovedReportsTable: Report[] = [];
   allRejectedReportsTable: Report[] = [];
@@ -34,7 +34,6 @@ export class ListReportComponent implements OnInit {
   getReports() {
     this.dataService.listReport()
       .subscribe((res: any) => {
-        console.log("Report List: ", res.data);
         this.allData = res.data;
         this.allReportsTable = res.data.map((item: any) => Report.fromMap(item));
 

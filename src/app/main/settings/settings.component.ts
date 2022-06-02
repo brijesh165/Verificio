@@ -9,6 +9,8 @@ import { environment } from 'src/environments/environment';
 import { CountryService } from 'src/app/services/country.service';
 import { User } from 'src/app/models/User';
 
+import { NzIconService } from 'ng-zorro-antd/icon';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -45,19 +47,28 @@ export class SettingsComponent implements OnInit {
 
   authenticatedUser: User;
   changePasswordForm: any = FormGroup;
-  profileImagePath: any = "";
   profileForm: any = FormGroup;
   businessInfoForm: any = FormGroup;
+  socialMedialForm: any = FormGroup;
+  profileImagePath: any = "";
   uploadFileName: any = '';
+
   isEdit: any = true;
   isBusinessEdit: any = true;
+  isSocialEdit: any = true;
+
   passwordVisible = false;
   isChangesPending = false;
   countryList: any[] = [];
 
   constructor(private fb: FormBuilder, private authService: AuthService,
     private countryService: CountryService,
-    private dataService: DataService, private message: NzMessageService) { }
+    private dataService: DataService, private message: NzMessageService,
+    private iconService: NzIconService) {
+    this.iconService.fetchFromIconfont({
+      scriptUrl: 'https://at.alicdn.com/t/font_8d5l8fzk5b87iudi.js'
+    });
+  }
 
   ngOnInit(): void {
     this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'))
@@ -98,6 +109,15 @@ export class SettingsComponent implements OnInit {
       numberOfStaff: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
     })
 
+    this.socialMedialForm = this.fb.group({
+      linkedIn: [{ value: null, disabled: this.isSocialEdit }],
+      youtube: [{ value: null, disabled: this.isSocialEdit }],
+      instagram: [{ value: null, disabled: this.isSocialEdit }],
+      facebook: [{ value: null, disabled: this.isSocialEdit }],
+      twitter: [{ value: null, disabled: this.isSocialEdit }],
+      pinterest: [{ value: null, disabled: this.isSocialEdit }]
+    })
+
     this.getEmployeeDetails();
     this.getBusinessInfo();
   }
@@ -132,7 +152,6 @@ export class SettingsComponent implements OnInit {
   getBusinessInfo() {
     this.dataService.getCompanyById(this.authenticatedUser.companyId)
       .subscribe((res: any) => {
-        console.log("Business Info: ", res.data)
         this.businessInfoForm.patchValue({
           name: res.data?.name,
           regNo: res.data?.registrationNo,
@@ -147,6 +166,25 @@ export class SettingsComponent implements OnInit {
           numberOfStaff: res.data?.employees
         })
       })
+  }
+
+  getSocialInfo() {
+    this.dataService.getCompanyById(this.authenticatedUser.companyId)
+      .subscribe((res: any) => {
+        this.profileForm.patchValue({
+          firstName: res.data.firstName,
+          lastName: res.data.lastName,
+          email: res.data.email,
+          phoneNumberPrefix: res.data.countryCode,
+          phone: res.data.phoneNo,
+          address: res.data.address?.address,
+          state: res.data.address?.state,
+          stateOfOrigin: res.data.address?.stateOfOrigin,
+          lga: res.data.address?.lga,
+          dateOfBirth: res.data.dob ? moment(res.data.dob).toDate() : null,
+          gender: res.data.gender
+        })
+      });
   }
 
   onSwitchClick(index: any): void {
@@ -260,6 +298,29 @@ export class SettingsComponent implements OnInit {
       })
   }
 
+  submitSocialForm(): void {
+    const params = {
+      socials: {
+        "linkedin": this.socialMedialForm.value.linkedIn,
+        "youtube": this.socialMedialForm.value.youtube,
+        "instagram": this.socialMedialForm.value.instagram,
+        "facebook": this.socialMedialForm.value.facebook,
+        "twitter": this.socialMedialForm.value.twitter,
+        "pinterest": this.socialMedialForm.value.pinterest
+      }
+    };
+
+    this.dataService.updateProfile(params)
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          this.message.create('success', res.message);
+          this.handleSocialEdit();
+          this.getSocialInfo();
+        } else if (res.status === "error") {
+          this.message.create('error', res.message);
+        }
+      })
+  }
 
   handleEdit(): void {
     this.isEdit = !this.isEdit;
@@ -286,7 +347,6 @@ export class SettingsComponent implements OnInit {
       this.profileForm.controls['dateOfBirth'].disable();
       this.profileForm.controls['gender'].disable();
     }
-
   }
 
   handleBusinessEdit(): void {
@@ -316,6 +376,25 @@ export class SettingsComponent implements OnInit {
       this.businessInfoForm.controls['lga'].disable();
       this.businessInfoForm.controls['industry'].disable();
       this.businessInfoForm.controls['numberOfStaff'].disable();
+    }
+  }
+
+  handleSocialEdit(): void {
+    this.isSocialEdit = !this.isSocialEdit;
+    if (!this.isSocialEdit) {
+      this.socialMedialForm.controls['linkedIn'].enable();
+      this.socialMedialForm.controls['youtube'].enable();
+      this.socialMedialForm.controls['instagram'].enable();
+      this.socialMedialForm.controls['facebook'].enable();
+      this.socialMedialForm.controls['twitter'].enable();
+      this.socialMedialForm.controls['pinterest'].enable();
+    } else {
+      this.socialMedialForm.controls['linkedIn'].disable();
+      this.socialMedialForm.controls['youtube'].disable();
+      this.socialMedialForm.controls['instagram'].disable();
+      this.socialMedialForm.controls['facebook'].disable();
+      this.socialMedialForm.controls['twitter'].disable();
+      this.socialMedialForm.controls['pinterest'].disable();
     }
   }
 }
