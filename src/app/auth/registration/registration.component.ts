@@ -43,7 +43,6 @@ export class RegistrationComponent implements OnInit {
       password: [null, [Validators.required, Validators.minLength(6)]],
       phoneNumberPrefix: [null, [Validators.required]],
       phone: [null, [Validators.required]],
-      regAck: [null, [Validators.required]]
     });
 
     this.organizationForm = this.fb.group({
@@ -52,7 +51,23 @@ export class RegistrationComponent implements OnInit {
       companySize: [null, [Validators.required]],
       industry: [null, [Validators.required]],
       orgAck: [null, [Validators.required]]
-    })
+    });
+
+    let locale:String = Intl.DateTimeFormat().resolvedOptions().locale;
+    if(locale){
+      let countryCode = locale.split("-")[1];
+      let country = this.countryList.find(function(item){
+        return item.code==countryCode;
+      })
+
+      if(country){
+        this.registrationForm.patchValue({
+          phoneNumberPrefix:country.dial_code
+        });
+      }
+
+    }
+
   }
 
   pre(): void {

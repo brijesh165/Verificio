@@ -9,10 +9,10 @@
 
     <div class="title">Create Report</div>
 
-    <div class="formContainer">
+    <div class="formContainer" *ngIf="!showPreview">
 
         <form nz-form nzLayout="vertical" [formGroup]="reportForm" style="width: 100%; padding: 10px; text-align: left"
-            *ngIf="!showPreview">
+            >
             <!-- Email -->
             <!-- <nz-form-item>
             <nz-form-label [nzSpan]="null" nzFor="email">Email Address of Employee</nz-form-label>
