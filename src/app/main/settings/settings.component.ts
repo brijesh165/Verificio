@@ -110,12 +110,12 @@ export class SettingsComponent implements OnInit {
     })
 
     this.socialMedialForm = this.fb.group({
-      linkedIn: [{ value: null, disabled: this.isSocialEdit }],
-      youtube: [{ value: null, disabled: this.isSocialEdit }],
-      instagram: [{ value: null, disabled: this.isSocialEdit }],
-      facebook: [{ value: null, disabled: this.isSocialEdit }],
-      twitter: [{ value: null, disabled: this.isSocialEdit }],
-      pinterest: [{ value: null, disabled: this.isSocialEdit }]
+      linkedIn: [{ value: null, disabled: this.isSocialEdit }, [Validators.pattern(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi)]],
+      youtube: [{ value: null, disabled: this.isSocialEdit }, [Validators.pattern(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi)]],
+      instagram: [{ value: null, disabled: this.isSocialEdit }, [Validators.pattern(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi)]],
+      facebook: [{ value: null, disabled: this.isSocialEdit }, [Validators.pattern(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi)]],
+      twitter: [{ value: null, disabled: this.isSocialEdit }, [Validators.pattern(/[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi)]],
+      // pinterest: [{ value: null, disabled: this.isSocialEdit }]
     })
 
     this.getEmployeeDetails();
@@ -126,6 +126,7 @@ export class SettingsComponent implements OnInit {
     let userInfo = JSON.parse(localStorage.getItem("user") || '{}');
     this.authService.me()
       .subscribe((res: any) => {
+        console.log("Response: ", res);
         if (res.data.changedData != null) {
           this.isChangesPending = true;
         }
@@ -143,6 +144,14 @@ export class SettingsComponent implements OnInit {
           lga: res.data.address?.lga,
           dateOfBirth: res.data.dob ? moment(res.data.dob).toDate() : null,
           gender: res.data.gender
+        })
+
+        this.socialMedialForm.patchValue({
+          linkedIn: res.data?.socials?.linkedin,
+          youtube: res.data?.socials?.youtube,
+          instagram: res.data?.socials?.instagram,
+          facebook: res.data?.socials?.facebook,
+          twitter: res.data?.socials?.twitter,
         })
 
         this.profileImagePath = res.data.profilePicture && `${environment.apiUrl}/${res.data.profilePicture}`
@@ -166,25 +175,6 @@ export class SettingsComponent implements OnInit {
           numberOfStaff: res.data?.employees
         })
       })
-  }
-
-  getSocialInfo() {
-    this.dataService.getCompanyById(this.authenticatedUser.companyId)
-      .subscribe((res: any) => {
-        this.profileForm.patchValue({
-          firstName: res.data.firstName,
-          lastName: res.data.lastName,
-          email: res.data.email,
-          phoneNumberPrefix: res.data.countryCode,
-          phone: res.data.phoneNo,
-          address: res.data.address?.address,
-          state: res.data.address?.state,
-          stateOfOrigin: res.data.address?.stateOfOrigin,
-          lga: res.data.address?.lga,
-          dateOfBirth: res.data.dob ? moment(res.data.dob).toDate() : null,
-          gender: res.data.gender
-        })
-      });
   }
 
   onSwitchClick(index: any): void {
@@ -315,7 +305,7 @@ export class SettingsComponent implements OnInit {
         if (res.status === "success") {
           this.message.create('success', res.message);
           this.handleSocialEdit();
-          this.getSocialInfo();
+          this.getEmployeeDetails();
         } else if (res.status === "error") {
           this.message.create('error', res.message);
         }
@@ -387,14 +377,14 @@ export class SettingsComponent implements OnInit {
       this.socialMedialForm.controls['instagram'].enable();
       this.socialMedialForm.controls['facebook'].enable();
       this.socialMedialForm.controls['twitter'].enable();
-      this.socialMedialForm.controls['pinterest'].enable();
+      // this.socialMedialForm.controls['pinterest'].enable();
     } else {
       this.socialMedialForm.controls['linkedIn'].disable();
       this.socialMedialForm.controls['youtube'].disable();
       this.socialMedialForm.controls['instagram'].disable();
       this.socialMedialForm.controls['facebook'].disable();
       this.socialMedialForm.controls['twitter'].disable();
-      this.socialMedialForm.controls['pinterest'].disable();
+      // this.socialMedialForm.controls['pinterest'].disable();
     }
   }
 }
