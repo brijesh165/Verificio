@@ -3,9 +3,9 @@
         <div class="logo">
             <span class="title"
                 style="padding-left:25px; padding-right: 25px; padding-top: 15px; padding-bottom: 50px;">
-              
-                    <img [src]="isCollapsed? 'assets/logo-small.svg' :'assets/logo.svg'"  alt="">
-                  
+
+                <img [src]="isCollapsed? 'assets/logo-small.svg' :'assets/logo.svg'" alt="">
+
             </span>
         </div>
         <ul nz-menu nzTheme="light" nzMode="inline" style="background: #132574; border: 1px solid #132574; ">
@@ -23,11 +23,12 @@
                 <i nz-icon nzType="book" style="color: #AEB9DE"></i>
                 <span class="menuItem">Report</span>
             </li>
-            <!-- <li  routerLink="/app/subscriptions" *ngIf="authenticatedUser.hasCompanyPermission('manage_subscription')" nz-menu-item [nzMatchRouter]>
+            <li routerLink="/app/subscriptions" *ngIf="authenticatedUser.hasCompanyPermission('manage_subscription')"
+                nz-menu-item [nzMatchRouter]>
                 <i nz-icon nzType="check-square" style="color: #AEB9DE"></i>
                 <span class="menuItem">Subscriptions</span>
             </li>
-            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_survey')" nz-menu-item [nzMatchRouter]>
+            <!-- <li *ngIf="authenticatedUser.hasCompanyPermission('manage_survey')" nz-menu-item [nzMatchRouter]>
                 <i nz-icon nzType="file-zip" style="color: #AEB9DE"></i>
                 <span class="menuItem">Survey</span>
             </li> -->

@@ -105,4 +105,16 @@ export class DataService {
   searchDetails(params: any) {
     return this.http.get(this.baseUrl + `search/${params.id}`)
   }
+
+  getSubscriptionPlan() {
+    return this.http.get(this.baseUrl + "subscription/plan/list/active");
+  }
+
+  createSubscribe(params: any) {
+    return this.http.post(this.baseUrl + "subscription/subscribe", params);
+  }
+
+  validateSubsctiption(params: any) {
+    return this.http.post(this.baseUrl + "subscription/validate", params);
+  }
 }

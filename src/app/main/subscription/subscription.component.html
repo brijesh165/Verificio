@@ -1,0 +1,75 @@
+<div class="subscriptionsContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/app/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">Subscription</div>
+
+    <div class="planInfo" *ngIf="isNotificationVisible">
+        <span>Your plan wll expire soon : {{subscriptionExpiryDate | date: 'dd/MM/yyyy'}}</span>
+        <a nz-button nzType="link" class="btn" (click)="onProceed()">Proceed to payment</a>
+        <button nz-button nzType="text" (click)="onClose()">X</button>
+    </div>
+
+    <div class="subscriptionCardContainer">
+        <div nz-row [nzGutter]="8">
+            <div nz-col nzSpan="12" nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="8"
+                *ngFor="let item of subscriptionList">
+                <nz-card class="card" [nzTitle]="titleTemplate" [nzActions]="[upgradeSetting]">
+                    <div *ngFor="let it of item.benefits">
+                        <p>
+                            <i nz-icon nzType="check-circle" nzTheme="twotone" [nzTwotoneColor]="'#29B475'"></i>
+                            <span style="margin-left: 5px">{{it}}</span>
+                        </p>
+                    </div>
+                </nz-card>
+                <ng-template #titleTemplate>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>{{item.title}}</span>
+                        <a nz-button nzType="link" class="btn" *ngIf="item.isCurrent" style="cursor: default;">Current
+                            Plan</a>
+                    </div>
+                    <div>
+                        <span class="cardSubtitle">{{item.subTitle}}</span>
+                    </div>
+                    <div>
+                        <span class="cardAmount">{{item.price}}</span>
+                        <sup class="cardAmountCurr">{{item.currency}} / {{item.unit}}</sup>
+                    </div>
+                </ng-template>
+                <ng-template #upgradeSetting>
+                    <div *ngIf="!item.isCurrent">
+                        <button nz-button nzType="primary" (click)="onUpgrade(item.plan_id)">Upgrade to
+                            {{item.title}}</button>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modaltitle" [nzClosable]="true" [nzFooter]="null">
+        <ng-container *nzModalContent>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span>Amount</span>
+                <span>{{currency}} {{selectedPlanAmount}}</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-weight: 600;">Total</span>
+                <span style="font-weight: 600;">{{currency}} {{selectedPlanAmount}}</span>
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px;">
+                <button nz-button nzType="primary" angular4-paystack [paystackOptions]="options"
+                    (paymentInit)="paymentInit()" (onClose)="paymentCancel()" (callback)="paymentDone($event)">
+                    Pay with
+                    <img [src]="paymentMethodUrl" alt="payment" style="margin-left: 3px;width: 85px; height: 15px;" />
+                </button>
+            </div>
+        </ng-container>
+    </nz-modal>
+
+</div>

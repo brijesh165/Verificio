@@ -11,6 +11,7 @@ import { SearchComponent } from './search/search.component';
 import { UserProfileComponent } from './search/user-profile/user-profile.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StaffComponent } from './staff/staff.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'reports', component: ListReportComponent, canActivate: [AuthGuard] },
       { path: 'search', component: SearchComponent, canActivate: [AuthGuard] },
       { path: 'user-profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+      { path: 'subscriptions', component: SubscriptionComponent, canActivate: [AuthGuard] },
       { path: 'setting', component: SettingsComponent, canActivate: [AuthGuard] },
       { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] }
     ]

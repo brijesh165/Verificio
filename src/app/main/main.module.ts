@@ -18,6 +18,10 @@ import { FilterDatePipe } from './pipes/filter-date.pipe';
 import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change-modal/approve-reject-change-modal.component';
 import { SearchComponent } from './search/search.component';
 import { UserProfileComponent } from './search/user-profile/user-profile.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+
+import { Angular4PaystackModule } from 'angular4-paystack';
+import { environment } from 'src/environments/environment';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -46,6 +50,7 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzNotificationModule } from 'ng-zorro-antd/notification';
 
 
 
@@ -64,12 +69,16 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
     FilterDatePipe,
     ApproveRejectChangeModalComponent,
     SearchComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    SubscriptionComponent
   ],
   imports: [
     CommonModule,
     MainRoutingModule,
     FormsModule,
+
+    Angular4PaystackModule.forRoot(environment.payStack),
+
 
     NzTypographyModule,
     ReactiveFormsModule,
@@ -99,6 +108,7 @@ import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
     NzMessageModule,
     NzResultModule,
     NzDescriptionsModule,
+    NzNotificationModule,
   ]
 })
 export class MainModule { }
