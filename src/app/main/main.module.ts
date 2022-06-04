@@ -20,6 +20,7 @@ import { SearchComponent } from './search/search.component';
 import { UserProfileComponent } from './search/user-profile/user-profile.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { Angular4PaystackModule } from 'angular4-paystack';
 import { environment } from 'src/environments/environment';
 
@@ -76,7 +77,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     CommonModule,
     MainRoutingModule,
     FormsModule,
-
+    NgApexchartsModule,
     Angular4PaystackModule.forRoot(environment.payStack),
 
 

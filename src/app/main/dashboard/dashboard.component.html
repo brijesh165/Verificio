@@ -80,4 +80,19 @@
             </div>
         </div>
     </div>
+
+    <div class="charts">
+        <div class="chartInfo">
+            <div>
+                <span class="title">Employee Report Analytics for April 2022</span>
+                <span class="subTitle">See how all report performed in April 2022 </span>
+            </div>
+        </div>
+        <div id="chart" *ngIf="loaded">
+            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+                [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [dataLabels]="chartOptions.dataLabels">
+            </apx-chart>
+        </div>
+
+    </div>
 </div>

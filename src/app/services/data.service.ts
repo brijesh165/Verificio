@@ -117,4 +117,8 @@ export class DataService {
   validateSubsctiption(params: any) {
     return this.http.post(this.baseUrl + "subscription/validate", params);
   }
+
+  reportData() {
+    return this.http.get(this.baseUrl + "report/company/graph");
+  }
 }
