@@ -11,19 +11,8 @@
 
     <div class="formContainer" *ngIf="!showPreview">
 
-        <form nz-form nzLayout="vertical" [formGroup]="reportForm" style="width: 100%; padding: 10px; text-align: left"
-            >
-            <!-- Email -->
-            <!-- <nz-form-item>
-            <nz-form-label [nzSpan]="null" nzFor="email">Email Address of Employee</nz-form-label>
-            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email address.">
-                <nz-input-group nzSize="large">
-                    <input type="text" nz-input nzSize="large" formControlName="email"
-                        placeholder="Enter employee's email address" />
-                </nz-input-group>
-            </nz-form-control>
-        </nz-form-item> -->
-
+        <form nz-form nzLayout="vertical" [formGroup]="reportForm" style="width: 100%; padding: 10px; text-align: left">
+    
             <nz-form-item>
                 <nz-form-label [nzSpan]="null" nzFor="staff">Select from staff List</nz-form-label>
                 <nz-select nzShowSearch nzSize="large" nzPlaceHolder="Select" formControlName="staff">

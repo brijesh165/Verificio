@@ -24,7 +24,7 @@
                 <span class="menuItem">Report</span>
             </li>
             <li routerLink="/app/subscriptions" *ngIf="authenticatedUser.hasCompanyPermission('manage_subscription')"
-                nz-menu-item [nzMatchRouter]>
+                nz-menu-item [nzMatchRouter]="true">
                 <i nz-icon nzType="check-square" style="color: #AEB9DE"></i>
                 <span class="menuItem">Subscriptions</span>
             </li>

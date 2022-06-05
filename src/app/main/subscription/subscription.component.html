@@ -10,16 +10,16 @@
     <div class="title">Subscription</div>
 
     <div class="planInfo" *ngIf="isNotificationVisible">
-        <span>Your plan wll expire soon : {{subscriptionExpiryDate | date: 'dd/MM/yyyy'}}</span>
+        <span>Your plan wll expire on : {{subscriptionExpiryDate | date: 'dd/MM/yyyy'}}</span>
         <a nz-button nzType="link" class="btn" (click)="onProceed()">Proceed to payment</a>
         <button nz-button nzType="text" (click)="onClose()">X</button>
     </div>
 
     <div class="subscriptionCardContainer">
-        <div nz-row [nzGutter]="8">
-            <div nz-col nzSpan="12" nzXs="24" nzSm="24" nzMd="8" nzLg="8" nzXl="8"
+        <div nz-row [nzGutter]="8" style="width: 100%">
+            <div nz-col  nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="6"
                 *ngFor="let item of subscriptionList">
-                <nz-card class="card" [nzTitle]="titleTemplate" [nzActions]="[upgradeSetting]">
+                <nz-card  [nzTitle]="titleTemplate" [nzActions]="[upgradeSetting]">
                     <div *ngFor="let it of item.benefits">
                         <p>
                             <i nz-icon nzType="check-circle" nzTheme="twotone" [nzTwotoneColor]="'#29B475'"></i>
@@ -30,20 +30,21 @@
                 <ng-template #titleTemplate>
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         <span>{{item.title}}</span>
-                        <a nz-button nzType="link" class="btn" *ngIf="item.isCurrent" style="cursor: default;">Current
-                            Plan</a>
+                        <span style="font-size: 14px; 
+                        font-weight: 300;"  nz-typography nzType="success" *ngIf="item.isCurrent" >Current
+                            Plan</span>
                     </div>
                     <div>
                         <span class="cardSubtitle">{{item.subTitle}}</span>
                     </div>
                     <div>
                         <span class="cardAmount">{{item.price}}</span>
-                        <sup class="cardAmountCurr">{{item.currency}} / {{item.unit}}</sup>
+                        <sup class="cardAmountCurr">{{item.currency.toUpperCase()}} / {{item.unit}}</sup>
                     </div>
                 </ng-template>
                 <ng-template #upgradeSetting>
-                    <div *ngIf="!item.isCurrent">
-                        <button nz-button nzType="primary" (click)="onUpgrade(item.plan_id)">Upgrade to
+                    <div style="padding-left:10px; padding-right:10px">
+                        <button style="width: 100%" [disabled]="item.isCurrent" nz-button nzType="primary" nzSize="large"  (click)="onUpgrade(item.plan_id)">Upgrade to
                             {{item.title}}</button>
                     </div>
                 </ng-template>
@@ -55,15 +56,15 @@
         <ng-container *nzModalContent>
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <span>Amount</span>
-                <span>{{currency}} {{selectedPlanAmount}}</span>
+                <span>{{currency.toUpperCase()}} {{selectedPlanAmount}}</span>
             </div>
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <span style="font-weight: 600;">Total</span>
-                <span style="font-weight: 600;">{{currency}} {{selectedPlanAmount}}</span>
+                <span style="font-weight: 600;">{{currency.toUpperCase()}} {{selectedPlanAmount}}</span>
             </div>
 
             <div style="display: flex; align-items: center; justify-content: center; margin-top: 10px;">
-                <button nz-button nzType="primary" angular4-paystack [paystackOptions]="options"
+                <button nz-button nzType="primary" nzSize="large" angular4-paystack [paystackOptions]="options"
                     (paymentInit)="paymentInit()" (onClose)="paymentCancel()" (callback)="paymentDone($event)">
                     Pay with
                     <img [src]="paymentMethodUrl" alt="payment" style="margin-left: 3px;width: 85px; height: 15px;" />
