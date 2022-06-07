@@ -51,6 +51,7 @@ export class SubscriptionComponent implements OnInit {
   }
 
   getSubscriptionPlan() {
+    this.subscriptionList = [];
     this.dataService.getSubscriptionPlan()
       .subscribe((res: any) => {
         let planList = res.data.planList;
@@ -120,6 +121,10 @@ export class SubscriptionComponent implements OnInit {
       })
   }
 
+  handleCancel() {
+    this.isVisible = false;
+  }
+
   paymentDone(event: any) {
     console.log("Payment Done: ", event);
     this.dataService.validateSubsctiption({
@@ -133,7 +138,7 @@ export class SubscriptionComponent implements OnInit {
             res.data,
             ''
           );
-          this.getSubscriptionPlan();
+          this.ngOnInit();
         } else if (res.status === "error") {
           this.isVisible = false;
           this.notification.create(

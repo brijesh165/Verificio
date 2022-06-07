@@ -17,9 +17,8 @@
 
     <div class="subscriptionCardContainer">
         <div nz-row [nzGutter]="8" style="width: 100%">
-            <div nz-col  nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="6"
-                *ngFor="let item of subscriptionList">
-                <nz-card  [nzTitle]="titleTemplate" [nzActions]="[upgradeSetting]">
+            <div nz-col nzXs="24" nzSm="24" nzMd="6" nzLg="6" nzXl="6" *ngFor="let item of subscriptionList">
+                <nz-card [nzTitle]="titleTemplate" [nzActions]="[upgradeSetting]">
                     <div *ngFor="let it of item.benefits">
                         <p>
                             <i nz-icon nzType="check-circle" nzTheme="twotone" [nzTwotoneColor]="'#29B475'"></i>
@@ -31,7 +30,7 @@
                     <div style="display: flex; align-items: center; justify-content: space-between;">
                         <span>{{item.title}}</span>
                         <span style="font-size: 14px; 
-                        font-weight: 300;"  nz-typography nzType="success" *ngIf="item.isCurrent" >Current
+                        font-weight: 300;" nz-typography nzType="success" *ngIf="item.isCurrent">Current
                             Plan</span>
                     </div>
                     <div>
@@ -44,7 +43,8 @@
                 </ng-template>
                 <ng-template #upgradeSetting>
                     <div style="padding-left:10px; padding-right:10px">
-                        <button style="width: 100%" [disabled]="item.isCurrent" nz-button nzType="primary" nzSize="large"  (click)="onUpgrade(item.plan_id)">Upgrade to
+                        <button style="width: 100%" [disabled]="item.isCurrent" nz-button nzType="primary"
+                            nzSize="large" (click)="onUpgrade(item.plan_id)">Upgrade to
                             {{item.title}}</button>
                     </div>
                 </ng-template>
@@ -52,7 +52,7 @@
         </div>
     </div>
 
-    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modaltitle" [nzClosable]="true" [nzFooter]="null">
+    <nz-modal [(nzVisible)]="isVisible" [nzTitle]="modaltitle" (nzOnCancel)="handleCancel()" [nzFooter]="null">
         <ng-container *nzModalContent>
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <span>Amount</span>
