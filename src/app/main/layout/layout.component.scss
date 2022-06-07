@@ -59,16 +59,10 @@ ul {
     justify-content: space-between;
     align-items: center;
 
-//     position: fixed;
-//     width: calc(100vw - 250px);
-//     z-index: 1000;
+    //     position: fixed;
+    //     width: calc(100vw - 250px);
+    //     z-index: 1000;
 
- }
-
-@media screen and (max-width: 500px) {
-    // .page-header {
-    //     width: calc(100vw - 80px);
-    // }
 }
 
 nz-header {
@@ -116,4 +110,19 @@ nz-footer {
 .notification-container:hover {
     background-color: #f9f9f9;
     cursor: pointer;
+}
+
+@media screen and (max-width: 550px) {
+    .username {
+        font-size: 13px;
+        margin-left: 0px;
+    }
+
+    .notification-btn {
+        margin-right: 7px;
+    }
+
+    // .page-header {
+    //     width: calc(100vw - 80px);
+    // }
 }
