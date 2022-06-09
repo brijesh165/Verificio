@@ -1,5 +1,5 @@
 .registration {
-    background-color: #29B475;
+    background-color: #EFF3FB;
     min-height: calc(100vh);
     min-width: calc(100vw - 10px);
     display: flex;
@@ -7,6 +7,15 @@
     align-items: center;
     justify-content: center;
 
+    .cardParentDiv {
+        background-color: white;
+        margin-top: 15px;
+    }
+
+    .cardStyle {
+        background-color: white;
+        width: 100%;
+    }
 
     .cardMeta {
         display: flex;
@@ -103,6 +112,16 @@
         justify-content: space-between;
         margin-top: 24px;
 
+    }
+
+    @media screen and (max-width: 550px) {
+        .cardParentDiv {
+            background: transparent;
+        }
+
+        .cardStyle {
+            background: transparent;
+        }
     }
 }
 

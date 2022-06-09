@@ -16,6 +16,7 @@ export class CreateReportComponent implements OnInit {
   reportTypeList: any = [];
   userList: any = [];
   showPreview: any = false;
+  otherCategory: any = false;
   authenticatedUser: User;
   company: any;
 
@@ -29,6 +30,7 @@ export class CreateReportComponent implements OnInit {
     this.reportForm = this.fb.group({
       staff: [null, [Validators.required]],
       category: [null, [Validators.required]],
+      other: [null],
       reportMsg: [null, [Validators.required]]
     });
 
@@ -53,8 +55,20 @@ export class CreateReportComponent implements OnInit {
     this.dataService.reportTypeList()
       .subscribe((res: any) => {
         const list = res.data.map((item: any) => { return { "label": item.name, "value": item._id } });
+        list.push({ "label": "others", "value": "others" });
         this.reportTypeList = list;
       })
+  }
+
+  onReportCategory(event: any) {
+    console.log("Report: ", event);
+    if (event === "others") {
+      this.otherCategory = true;
+      this.reportForm.controls['other'].setValidators([Validators.required]);
+    } else {
+      this.otherCategory = false;
+      this.reportForm.controls['other'].clearValidators();
+    }
   }
 
   onReportSubmit() {
@@ -80,6 +94,7 @@ export class CreateReportComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.status === "success") {
           this.message.create('success', res.message);
+          this.otherCategory = false;
           this.router.navigateByUrl('/app/reports');
         } else if (res.status === "error") {
           this.message.create('error', res.message);

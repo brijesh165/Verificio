@@ -21,7 +21,7 @@ export class RegistrationComponent implements OnInit {
   organizationForm: any = FormGroup;
   otp_id: any = "";
   otp: any = "";
-  countryList:any[] = [];
+  countryList: any[] = [];
 
   isModalVisible: any = false;
   passwordVisible = false;
@@ -29,7 +29,7 @@ export class RegistrationComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router,
     private messageService: NzMessageService,
     private authService: AuthService, private notification: NzNotificationService,
-    private countryService:CountryService,
+    private countryService: CountryService,
     private modalService: NzModalService) { }
 
   ngOnInit(): void {
@@ -53,16 +53,16 @@ export class RegistrationComponent implements OnInit {
       orgAck: [null, [Validators.required]]
     });
 
-    let locale:String = Intl.DateTimeFormat().resolvedOptions().locale;
-    if(locale){
+    let locale: String = Intl.DateTimeFormat().resolvedOptions().locale;
+    if (locale) {
       let countryCode = locale.split("-")[1];
-      let country = this.countryList.find(function(item){
-        return item.code==countryCode;
+      let country = this.countryList.find(function (item) {
+        return item.code == countryCode;
       })
 
-      if(country){
+      if (country) {
         this.registrationForm.patchValue({
-          phoneNumberPrefix:country.dial_code
+          phoneNumberPrefix: country.dial_code
         });
       }
 
@@ -124,6 +124,10 @@ export class RegistrationComponent implements OnInit {
 
   onLogin(): void {
     this.router.navigateByUrl("/auth")
+  }
+
+  handleCancel() {
+    this.isModalVisible = false;
   }
 
   onOtpDone(): void {

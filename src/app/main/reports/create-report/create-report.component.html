@@ -12,7 +12,7 @@
     <div class="formContainer" *ngIf="!showPreview">
 
         <form nz-form nzLayout="vertical" [formGroup]="reportForm" style="width: 100%; padding: 10px; text-align: left">
-    
+
             <nz-form-item>
                 <nz-form-label [nzSpan]="null" nzFor="staff">Select from staff List</nz-form-label>
                 <nz-select nzShowSearch nzSize="large" nzPlaceHolder="Select" formControlName="staff">
@@ -23,9 +23,20 @@
 
             <nz-form-item>
                 <nz-form-label [nzSpan]="null" nzFor="category">Report Category</nz-form-label>
-                <nz-select nzShowSearch nzSize="large" nzPlaceHolder="Select" formControlName="category">
+                <nz-select nzShowSearch nzSize="large" nzPlaceHolder="Select" formControlName="category"
+                    (ngModelChange)="onReportCategory($event)">
                     <nz-option *ngFor="let o of reportTypeList" [nzValue]="o.value" [nzLabel]="o.label"></nz-option>
                 </nz-select>
+            </nz-form-item>
+
+            <nz-form-item *ngIf="otherCategory">
+                <nz-form-label [nzSpan]="null" nzFor="other">Please enter the cateogry name here
+                </nz-form-label>
+                <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid category.">
+                    <nz-input-group nzSize="large">
+                        <input type="text" nz-input formControlName="other" placeholder="Enter your category name" />
+                    </nz-input-group>
+                </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>
