@@ -89,6 +89,7 @@ export class SettingsComponent implements OnInit {
       phone: [{ value: null, disabled: this.isEdit }, [Validators.required, Validators.maxLength(10)]],
       address: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       state: [{ value: null, disabled: this.isEdit }, [Validators.required]],
+      country: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       stateOfOrigin: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       lga: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       dateOfBirth: [{ value: null, disabled: this.isEdit }, [Validators.required]],
@@ -103,6 +104,7 @@ export class SettingsComponent implements OnInit {
       phone: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required, Validators.maxLength(10)]],
       address: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
       state: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
+      country: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       stateOfOrigin: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
       lga: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
       industry: [{ value: null, disabled: this.isBusinessEdit }, [Validators.required]],
@@ -140,6 +142,7 @@ export class SettingsComponent implements OnInit {
           phone: res.data.phoneNo,
           address: res.data.address?.address,
           state: res.data.address?.state,
+          country: res.data.address?.country,
           stateOfOrigin: res.data.address?.stateOfOrigin,
           lga: res.data.address?.lga,
           dateOfBirth: res.data.dob ? moment(res.data.dob).toDate() : null,
@@ -169,6 +172,7 @@ export class SettingsComponent implements OnInit {
           phone: res.data?.phoneNo,
           address: res.data.address?.address,
           state: res.data.address?.state,
+          country: res.data.address?.country,
           stateOfOrigin: res.data.address?.stateOfOrigin,
           lga: res.data.address?.lga,
           industry: res.data?.industry,
@@ -321,6 +325,7 @@ export class SettingsComponent implements OnInit {
       this.profileForm.controls['phone'].enable();
       this.profileForm.controls['address'].enable();
       this.profileForm.controls['state'].enable();
+      this.profileForm.controls['country'].enable();
       this.profileForm.controls['stateOfOrigin'].enable();
       this.profileForm.controls['lga'].enable();
       this.profileForm.controls['dateOfBirth'].enable();
@@ -332,6 +337,7 @@ export class SettingsComponent implements OnInit {
       this.profileForm.controls['phone'].disable();
       this.profileForm.controls['address'].disable();
       this.profileForm.controls['state'].disable();
+      this.profileForm.controls['country'].disable();
       this.profileForm.controls['stateOfOrigin'].disable();
       this.profileForm.controls['lga'].disable();
       this.profileForm.controls['dateOfBirth'].disable();
@@ -350,6 +356,7 @@ export class SettingsComponent implements OnInit {
       this.businessInfoForm.controls['phone'].enable();
       this.businessInfoForm.controls['address'].enable();
       this.businessInfoForm.controls['state'].enable();
+      this.businessInfoForm.controls['country'].enable();
       this.businessInfoForm.controls['stateOfOrigin'].enable();
       this.businessInfoForm.controls['lga'].enable();
       this.businessInfoForm.controls['industry'].enable();
@@ -362,6 +369,7 @@ export class SettingsComponent implements OnInit {
       this.businessInfoForm.controls['phone'].disable();
       this.businessInfoForm.controls['address'].disable();
       this.businessInfoForm.controls['state'].disable();
+      this.businessInfoForm.controls['country'].disable();
       this.businessInfoForm.controls['stateOfOrigin'].disable();
       this.businessInfoForm.controls['lga'].disable();
       this.businessInfoForm.controls['industry'].disable();

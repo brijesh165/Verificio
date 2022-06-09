@@ -28,8 +28,7 @@
     <div class="staffList dashboardTable">
         <nz-tabset>
             <nz-tab nzTitle="All">
-                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allReportsTable"
-                   >
+                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allReportsTable">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -43,7 +42,7 @@
                         <tr *ngFor="let data of rowSelectionTable.data">
                             <td>{{ data.description }}</td>
                             <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
-                            <td>{{ data.reportType.name }}</td>
+                            <td>{{ data.category }}</td>
                             <td>{{ data.getFormattedStatus()}}</td>
                             <td>
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
@@ -64,8 +63,7 @@
                 </nz-table>
             </nz-tab>
             <nz-tab nzTitle="Approved">
-                <nz-table #approvedTable nzShowPagination nzShowSizeChanger [nzData]="allApprovedReportsTable"
-                 >
+                <nz-table #approvedTable nzShowPagination nzShowSizeChanger [nzData]="allApprovedReportsTable">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -79,7 +77,7 @@
                         <tr *ngFor="let data of approvedTable.data">
                             <td>{{ data.description }}</td>
                             <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
-                            <td>{{ data.reportType.name }}</td>
+                            <td>{{ data.category }}</td>
                             <td>{{ data.getFormattedStatus()}}</td>
                             <td>{{ data.approvedByUser.firstName}} {{data.approvedByUser.lastName}}</td>
                         </tr>
@@ -87,8 +85,7 @@
                 </nz-table>
             </nz-tab>
             <nz-tab nzTitle="Rejected">
-                <nz-table #rejectedTable nzShowPagination nzShowSizeChanger [nzData]="allRejectedReportsTable"
-                   >
+                <nz-table #rejectedTable nzShowPagination nzShowSizeChanger [nzData]="allRejectedReportsTable">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -102,7 +99,7 @@
                         <tr *ngFor="let data of rejectedTable.data">
                             <td>{{ data.description }}</td>
                             <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
-                            <td>{{ data.reportType.name }}</td>
+                            <td>{{ data.category }}</td>
                             <td>{{ data.getFormattedStatus()}}</td>
                             <td>{{ data.approvedByUser.firstName}} {{data.approvedByUser.lastName}}</td>
                         </tr>
@@ -110,8 +107,7 @@
                 </nz-table>
             </nz-tab>
             <nz-tab nzTitle="Pending">
-                <nz-table #pendingTable nzShowPagination nzShowSizeChanger [nzData]="allPendingReportsTable"
-                    >
+                <nz-table #pendingTable nzShowPagination nzShowSizeChanger [nzData]="allPendingReportsTable">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -125,7 +121,7 @@
                         <tr *ngFor="let data of pendingTable.data">
                             <td>{{ data.description }}</td>
                             <td>{{ data.user.firstName }} {{ data.user.lastName }}</td>
-                            <td>{{ data.reportType.name }}</td>
+                            <td>{{ data.category }}</td>
                             <td>{{ data.getFormattedStatus()}}</td>
                             <td>
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">

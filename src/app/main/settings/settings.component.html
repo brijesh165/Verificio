@@ -29,75 +29,6 @@
             </div>
         </nz-tab> -->
 
-        <nz-tab nzTitle="Password">
-            <div class="passwordContainer">
-                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Change Password</h3>
-
-                <form nz-form nzLayout="vertical" [formGroup]="changePasswordForm" (ngSubmit)="submitForm()">
-
-                    <!-- Current Password -->
-                    <nz-form-item>
-                        <nz-form-label nzFor="currPassword">Current Password</nz-form-label>
-                        <nz-form-control nzErrorTip="Enter valid password.">
-                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
-                                <input nzSize="large" [type]="passwordVisible ? 'text' : 'password'" nz-input
-                                    placeholder="Enter your current password" formControlName="currPassword" />
-                            </nz-input-group>
-                            <ng-template #suffixTemplate>
-                                <i nzSize="large" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-                                    (click)="passwordVisible = !passwordVisible"></i>
-                            </ng-template>
-                        </nz-form-control>
-                    </nz-form-item>
-
-                    <!-- New Password -->
-                    <nz-form-item>
-                        <nz-form-label nzFor="newPassword">New Password</nz-form-label>
-                        <nz-form-control nzErrorTip="Enter valid password.">
-                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
-                                <input nzSize="large" [type]="passwordVisible ? 'text' : 'password'" nz-input
-                                    placeholder="Enter a new password" formControlName="newPassword" />
-                            </nz-input-group>
-                            <ng-template #suffixTemplate>
-                                <i nzSize="large" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-                                    (click)="passwordVisible = !passwordVisible"></i>
-                            </ng-template>
-                        </nz-form-control>
-                    </nz-form-item>
-
-                    <div style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 10px;">
-                        <span>* Make sure it's at least 8 characters long.</span>
-                        <span>* Make sure to include Alphanumeric values.</span>
-                        <span>* Make sure to include uppercases.</span>
-                        <span>* Make sure to include lowercases.</span>
-                        <span>* Make sure to include special characters.</span>
-                    </div>
-
-                    <!-- Re enter Password -->
-                    <nz-form-item>
-                        <nz-form-label nzFor="reNewPassword">Re-enter Password</nz-form-label>
-                        <nz-form-control nzErrorTip="Enter valid password.">
-                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
-                                <input [type]="passwordVisible ? 'text' : 'password'" nzSize="large" nz-input
-                                    placeholder="Enter a new password" formControlName="reNewPassword" />
-                            </nz-input-group>
-                            <ng-template #suffixTemplate>
-                                <i nz-icon nzSize="large" [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
-                                    (click)="passwordVisible = !passwordVisible"></i>
-                            </ng-template>
-                        </nz-form-control>
-                    </nz-form-item>
-
-                    <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
-                        <nz-form-control>
-                            <button nz-button nzType="primary" nzSize="large"
-                                [disabled]="!changePasswordForm.valid">Save</button>
-                        </nz-form-control>
-                    </nz-form-item>
-                </form>
-            </div>
-        </nz-tab>
-
         <!-- Personal Info -->
         <nz-tab nzTitle="Personal Info">
             <div class="pInfoContainer">
@@ -166,7 +97,6 @@
                             </div>
                         </div>
 
-
                         <!-- Email & Phone-->
                         <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
                             <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
@@ -203,10 +133,9 @@
                             </div>
                         </div>
 
-
                         <!-- address -->
                         <div nz-row style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                            <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: left;">
                                 <nz-form-item style="margin: 0 0 2px">
                                     <nz-form-label [nzSpan]="null" nzFor="address" style="padding: 0px;">House Address
                                     </nz-form-label>
@@ -218,7 +147,10 @@
                                     </nz-form-control>
                                 </nz-form-item>
                             </div>
+                        </div>
 
+                        <!-- State & country -->
+                        <div nz-row style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
                             <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                                 <nz-form-item style="margin: 0 0 2px">
                                     <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">State
@@ -231,8 +163,22 @@
                                     </nz-form-control>
                                 </nz-form-item>
                             </div>
-                        </div>
 
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">Country
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state.">
+                                        <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Select Country"
+                                            formControlName="country" nzBorderless>
+                                            <nz-option *ngFor="let country of countryList" [nzLabel]="country.name"
+                                                [nzValue]="country.name"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                        </div>
 
                         <!-- State Of Origin & LGA -->
                         <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
@@ -264,7 +210,6 @@
                                 </nz-form-item>
                             </div>
                         </div>
-
 
                         <!-- Dob & Gender-->
                         <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
@@ -314,6 +259,114 @@
                     </form>
                 </div>
             </div>
+        </nz-tab>
+
+        <!-- Social Media Info-->
+        <nz-tab nzTitle="Social Media Info">
+            <div class="pInfoContainer">
+                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Social Media Information</h3>
+                <span class="subTitle">Manage your Social Media information All changes in your account
+                    will be applied to all of your workspace.</span>
+
+                <div style="width: 100%;">
+                    <div nz-row class="rowStyle">
+                        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: right;">
+                            <button nz-button nzType="link" class="editBtn" style="color: #29B475;"
+                                (click)="handleSocialEdit()">
+                                <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; "></i> Edit
+                                Profile</button>
+                            <!-- <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; margin-right: 7px;"></i>
+                                <span class="editBtn">Edit Profile</span> -->
+                        </div>
+                    </div>
+                    <form nz-form nzLayout="vertical" [formGroup]="socialMedialForm" (ngSubmit)="submitSocialForm()"
+                        style="margin-top: 10px;">
+                        <!-- LinkedIn -->
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="null" nzFor="linkedIn" style="padding: 0px;">LinkedIn
+                            </nz-form-label>
+                            <nz-form-control [nzSpan]="null">
+                                <nz-input-group nzSize="large" nzPrefixIcon="linkedin">
+                                    <input type="text" nz-input [nzBorderless] formControlName="linkedIn"
+                                        placeholder="Enter your LinkedIn URL" style="padding: 6.5px 0px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+
+
+                        <!-- YouTube -->
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="null" nzFor="youtube" style=" padding: 0px;">YouTube
+                            </nz-form-label>
+                            <nz-form-control [nzSpan]="null">
+                                <nz-input-group nzSize="large" nzPrefixIcon="youtube">
+                                    <input type="text" nz-input nzBorderless formControlName="youtube"
+                                        placeholder="Enter your LinkedIn URL" style="padding: 6.5px 0px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <!-- Instagram -->
+                        <nz-form-item>
+                            <nz-form-label nzFor="instagram" style=" padding: 0px;">Instagram
+                            </nz-form-label>
+                            <nz-form-control>
+                                <nz-input-group nzSize="large" nzPrefixIcon="instagram">
+                                    <input type="text" nz-input nzBorderless formControlName="instagram"
+                                        placeholder="Enter your Instagram URL" style="padding: 6.5px 0px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <!-- Facebook -->
+                        <nz-form-item>
+                            <nz-form-label nzFor="facebook" style=" padding: 0px;">Facebook
+                            </nz-form-label>
+                            <nz-form-control>
+                                <nz-input-group nzSize="large" nzPrefixIcon="facebook">
+                                    <input type="text" nz-input nzBorderless formControlName="facebook"
+                                        placeholder="Enter your Facebook URL" style="padding: 6.5px 0px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <!-- Twitter -->
+                        <nz-form-item>
+                            <nz-form-label nzFor="twitter" style=" padding: 0px;">Twitter
+                            </nz-form-label>
+                            <nz-form-control>
+                                <nz-input-group nzSize="large" nzPrefixIcon="twitter">
+                                    <input type="text" nz-input nzBorderless formControlName="twitter"
+                                        placeholder="Enter your Twitter URL" style="padding: 6.5px 0px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <!-- Pinterest -->
+                        <!-- <nz-form-item>
+                                    <nz-form-label nzFor="pinterest" style=" padding: 0px;">Pinterest
+                                    </nz-form-label>
+                                    <nz-form-control>
+                                        <nz-input-group nzSize="large" nzPrefixIcon="twitter">
+                                            <input type="text" nz-input nzBorderless formControlName="pinterest"
+                                                placeholder="Enter your Pinterest URL" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item> -->
+
+                        <div nz-row>
+                            <nz-form-item *ngIf="!isSocialEdit">
+                                <nz-form-control>
+                                    <button type="submit" nz-button nzType="primary" nzSize="large"
+                                        [disabled]="!socialMedialForm.valid">Save
+                                        Changes</button>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </nz-tab>
 
         <!-- Business Info -->
@@ -434,7 +487,7 @@
 
                         <!-- address -->
                         <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                            <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: left;">
                                 <nz-form-item style="margin: 0 0 2px">
                                     <nz-form-label [nzSpan]="null" nzFor="address" style="padding: 0px;">Business
                                         Address
@@ -447,7 +500,10 @@
                                     </nz-form-control>
                                 </nz-form-item>
                             </div>
+                        </div>
 
+                        <!-- State & country -->
+                        <div nz-row style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
                             <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                                 <nz-form-item style="margin: 0 0 2px">
                                     <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">State
@@ -460,10 +516,24 @@
                                     </nz-form-control>
                                 </nz-form-item>
                             </div>
+
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">Country
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state.">
+                                        <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Select Country"
+                                            formControlName="country" nzBorderless>
+                                            <nz-option *ngFor="let country of countryList" [nzLabel]="country.name"
+                                                [nzValue]="country.name"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
                         </div>
 
-
-                        <!-- State Of Origin & LGA-->
+                        <!-- State Of Origin & LGA -->
                         <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
                             <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                                 <nz-form-item style="margin: 0 0 2px">
@@ -493,7 +563,6 @@
                                 </nz-form-item>
                             </div>
                         </div>
-
 
                         <!-- Dob & Gender-->
                         <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
@@ -570,118 +639,79 @@
                                 </nz-form-control>
                             </nz-form-item>
                         </div>
-
                     </form>
                 </div>
             </div>
         </nz-tab>
 
-        <!-- Social Media Info-->
-        <nz-tab nzTitle="Social Media Info">
-            <div class="pInfoContainer">
-                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Social Media Information</h3>
-                <span class="subTitle">Manage your Social Media information All changes in your account
-                    will be applied to all of your workspace.</span>
+        <!-- Password -->
+        <nz-tab nzTitle="Password">
+            <div class="passwordContainer">
+                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Change Password</h3>
 
-                <div style="width: 100%;">
-                    <div nz-row class="rowStyle">
-                        <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: right;">
-                            <button nz-button nzType="link" class="editBtn" style="color: #29B475;"
-                                (click)="handleSocialEdit()">
-                                <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; "></i> Edit
-                                Profile</button>
-                            <!-- <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; margin-right: 7px;"></i>
-                        <span class="editBtn">Edit Profile</span> -->
-                        </div>
+                <form nz-form nzLayout="vertical" [formGroup]="changePasswordForm" (ngSubmit)="submitForm()">
+
+                    <!-- Current Password -->
+                    <nz-form-item>
+                        <nz-form-label nzFor="currPassword">Current Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Enter valid password.">
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input nzSize="large" [type]="passwordVisible ? 'text' : 'password'" nz-input
+                                    placeholder="Enter your current password" formControlName="currPassword" />
+                            </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nzSize="large" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <!-- New Password -->
+                    <nz-form-item>
+                        <nz-form-label nzFor="newPassword">New Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Enter valid password.">
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input nzSize="large" [type]="passwordVisible ? 'text' : 'password'" nz-input
+                                    placeholder="Enter a new password" formControlName="newPassword" />
+                            </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nzSize="large" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 10px;">
+                        <span>* Make sure it's at least 8 characters long.</span>
+                        <span>* Make sure to include Alphanumeric values.</span>
+                        <span>* Make sure to include uppercases.</span>
+                        <span>* Make sure to include lowercases.</span>
+                        <span>* Make sure to include special characters.</span>
                     </div>
-                    <form nz-form nzLayout="vertical" [formGroup]="socialMedialForm" (ngSubmit)="submitSocialForm()"
-                        style="margin-top: 10px;">
-                        <!-- LinkedIn -->
-                        <nz-form-item>
-                            <nz-form-label [nzSpan]="null" nzFor="linkedIn" style="padding: 0px;">LinkedIn
-                            </nz-form-label>
-                            <nz-form-control [nzSpan]="null">
-                                <nz-input-group nzSize="large" nzPrefixIcon="linkedin">
-                                    <input type="text" nz-input [nzBorderless] formControlName="linkedIn"
-                                        placeholder="Enter your LinkedIn URL" style="padding: 6.5px 0px" />
-                                </nz-input-group>
-                            </nz-form-control>
-                        </nz-form-item>
 
+                    <!-- Re enter Password -->
+                    <nz-form-item>
+                        <nz-form-label nzFor="reNewPassword">Re-enter Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Enter valid password.">
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input [type]="passwordVisible ? 'text' : 'password'" nzSize="large" nz-input
+                                    placeholder="Enter a new password" formControlName="reNewPassword" />
+                            </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nz-icon nzSize="large" [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
 
-                        <!-- YouTube -->
-                        <nz-form-item>
-                            <nz-form-label [nzSpan]="null" nzFor="youtube" style=" padding: 0px;">YouTube
-                            </nz-form-label>
-                            <nz-form-control [nzSpan]="null">
-                                <nz-input-group nzSize="large" nzPrefixIcon="youtube">
-                                    <input type="text" nz-input nzBorderless formControlName="youtube"
-                                        placeholder="Enter your LinkedIn URL" style="padding: 6.5px 0px" />
-                                </nz-input-group>
-                            </nz-form-control>
-                        </nz-form-item>
-
-                        <!-- Instagram -->
-                        <nz-form-item>
-                            <nz-form-label nzFor="instagram" style=" padding: 0px;">Instagram
-                            </nz-form-label>
-                            <nz-form-control>
-                                <nz-input-group nzSize="large" nzPrefixIcon="instagram">
-                                    <input type="text" nz-input nzBorderless formControlName="instagram"
-                                        placeholder="Enter your Instagram URL" style="padding: 6.5px 0px" />
-                                </nz-input-group>
-                            </nz-form-control>
-                        </nz-form-item>
-
-                        <!-- Facebook -->
-                        <nz-form-item>
-                            <nz-form-label nzFor="facebook" style=" padding: 0px;">Facebook
-                            </nz-form-label>
-                            <nz-form-control>
-                                <nz-input-group nzSize="large" nzPrefixIcon="facebook">
-                                    <input type="text" nz-input nzBorderless formControlName="facebook"
-                                        placeholder="Enter your Facebook URL" style="padding: 6.5px 0px" />
-                                </nz-input-group>
-                            </nz-form-control>
-                        </nz-form-item>
-
-                        <!-- Twitter -->
-                        <nz-form-item>
-                            <nz-form-label nzFor="twitter" style=" padding: 0px;">Twitter
-                            </nz-form-label>
-                            <nz-form-control>
-                                <nz-input-group nzSize="large" nzPrefixIcon="twitter">
-                                    <input type="text" nz-input nzBorderless formControlName="twitter"
-                                        placeholder="Enter your Twitter URL" style="padding: 6.5px 0px" />
-                                </nz-input-group>
-                            </nz-form-control>
-                        </nz-form-item>
-
-                        <!-- Pinterest -->
-                        <!-- <nz-form-item>
-                            <nz-form-label nzFor="pinterest" style=" padding: 0px;">Pinterest
-                            </nz-form-label>
-                            <nz-form-control>
-                                <nz-input-group nzSize="large" nzPrefixIcon="twitter">
-                                    <input type="text" nz-input nzBorderless formControlName="pinterest"
-                                        placeholder="Enter your Pinterest URL" style="padding: 6.5px 0px" />
-                                </nz-input-group>
-                            </nz-form-control>
-                        </nz-form-item> -->
-
-                        <div nz-row>
-                            <nz-form-item *ngIf="!isSocialEdit">
-                                <nz-form-control>
-                                    <button type="submit" nz-button nzType="primary" nzSize="large"
-                                        [disabled]="!socialMedialForm.valid">Save
-                                        Changes</button>
-                                </nz-form-control>
-                            </nz-form-item>
-                        </div>
-                    </form>
-                </div>
+                    <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzSize="large"
+                                [disabled]="!changePasswordForm.valid">Save</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
             </div>
-
         </nz-tab>
     </nz-tabset>
 </div>

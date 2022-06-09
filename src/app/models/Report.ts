@@ -4,7 +4,7 @@ export class Report {
     _id: string = "";
     description: string = "";
     user: User;
-    reportType: any;
+    category: any;
     isApproved: boolean = false;
     approvedBy: string = "";
     approvedByUser: any = "";

@@ -54,7 +54,7 @@ export class CreateReportComponent implements OnInit {
   getReportTypeList() {
     this.dataService.reportTypeList()
       .subscribe((res: any) => {
-        const list = res.data.map((item: any) => { return { "label": item.name, "value": item._id } });
+        const list = res.data.map((item: any) => { return { "label": item.name, "value": item.name } });
         list.push({ "label": "others", "value": "others" });
         this.reportTypeList = list;
       })
@@ -73,7 +73,8 @@ export class CreateReportComponent implements OnInit {
 
   onReportSubmit() {
     this.previewData.companyName = this.company.name;
-    this.previewData.reportCategory = this.reportTypeList.find((item: any) => { return item.value == this.reportForm.value.category }).label;
+    // this.previewData.reportCategory = this.reportTypeList.find((item: any) => { return item.value == this.reportForm.value.category }).label;
+    this.previewData.reportCategory = this.reportForm.value.category === "others" ? this.reportForm.value.other : this.reportForm.value.category;
     this.previewData.reportedUser = this.userList.find((item: any) => { return item.value == this.reportForm.value.staff }).label;
     this.previewData.message = this.reportForm.value.reportMsg;
     this.showPreview = true;
@@ -87,9 +88,10 @@ export class CreateReportComponent implements OnInit {
     const params = {
       userId: this.reportForm.value.staff,
       description: this.reportForm.value.reportMsg,
-      reportTypeId: this.reportForm.value.category,
+      category: this.reportForm.value.category === "others" ? this.reportForm.value.other : this.reportForm.value.category,
     }
 
+    // console.log("Params: ", params);
     this.dataService.createReport(params)
       .subscribe((res: any) => {
         if (res.status === "success") {
