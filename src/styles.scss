@@ -19,6 +19,19 @@
     overflow: auto;
 }
 
+// .ant-steps-dot .ant-steps-item-content,
+// .ant-steps-dot.ant-steps-small .ant-steps-item-content {
+//     width: 155px;
+// }
+
+.ant-steps-item-title {
+    font-size: 14px;
+}
+
+.ant-form-item {
+    margin-bottom: 14px;
+}
+
 .settingContainer {
     .ant-input-group-addon:first-child {
         border: none !important;

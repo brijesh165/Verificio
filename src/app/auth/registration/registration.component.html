@@ -20,7 +20,7 @@
                     </nz-steps>
 
 
-                    <div *ngIf="activedStep === 0">
+                    <div *ngIf=" activedStep===0" style="margin-top: 15px;">
                         <form nz-form nzLayout="vertical" [formGroup]="registrationForm" class="login-form">
 
                             <div nz-row [nzGutter]="12">
@@ -115,7 +115,7 @@
                     </div>
 
 
-                    <div *ngIf="activedStep === 1">
+                    <div *ngIf="activedStep === 1" style="margin-top: 15px;">
                         <form nz-form nzLayout="vertical" [formGroup]="organizationForm" class="login-form">
 
                             <!-- Company Name -->
@@ -180,7 +180,8 @@
                                             </nz-option>
                                             <nz-option nzLabel="Construction" nzValue="Construction"></nz-option>
                                             <nz-option nzLabel="Consumer Goods / Retail"
-                                                nzValue="Consumer Goods / Retail"></nz-option>
+                                                nzValue="Consumer Goods / Retail">
+                                            </nz-option>
                                             <nz-option nzLabel="Education" nzValue="Education"></nz-option>
                                             <nz-option nzLabel="Financial" nzValue="Financial"></nz-option>
                                             <nz-option nzLabel="Fitness / Sports" nzValue="Fitness / Sports">
@@ -190,7 +191,8 @@
                                             <nz-option nzLabel="Government" nzValue="Government"></nz-option>
                                             <nz-option nzLabel="Home Services" nzValue="Home Services"></nz-option>
                                             <nz-option nzLabel="Consumer Goods / Retail"
-                                                nzValue="Consumer Goods / Retail"></nz-option>
+                                                nzValue="Consumer Goods / Retail">
+                                            </nz-option>
                                             <nz-option nzLabel="Legal" nzValue="Legal"></nz-option>
                                             <nz-option nzLabel="Manufacturing" nzValue="Manufacturing"></nz-option>
                                             <nz-option nzLabel="Marketing" nzValue="Marketing"></nz-option>
@@ -220,13 +222,14 @@
 
                     <div class="steps-action-1" *ngIf="activedStep === 0">
                         <button nz-button nzSize="large" nzType="primary" [disabled]="!registrationForm.valid"
-                            (click)="next()" *ngIf="activedStep < 1">
+                            style="min-height: 45px;" (click)="next()" *ngIf="activedStep < 1">
                             <span>Next</span>
                         </button>
                     </div>
 
                     <div class="steps-action-2" *ngIf="activedStep === 1">
-                        <button nz-button nzSize="large" nzType="default" (click)="pre()" *ngIf="activedStep > 0">
+                        <button nz-button nzSize="large" style="min-height: 45px;" nzType="default" (click)="pre()"
+                            *ngIf="activedStep > 0">
                             <span>Previous</span>
                         </button>
                         <button type="submit" nz-button nzSize="large" nzType="primary" (click)="done()"
