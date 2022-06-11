@@ -228,6 +228,35 @@
                     </nz-form-item>
                 </div>
 
+                <nz-form-item nz-row class="register-area">
+                    <nz-form-control [nzSpan]="null">
+                        <label nz-checkbox formControlName="currentlyWorking"
+                            (ngModelChange)="updateCurrentlyWorking()">Currently Working</label>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="startDate">Start Date</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid start date.">
+                        <nz-input-group nzSize="large">
+                            <nz-date-picker [nzSize]="'large'" [nzFormat]="'dd-MMM-yyyy'" formControlName="startDate"
+                                nzPlaceHolder="Select Start Date" style="width: 100%">
+                            </nz-date-picker>
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item *ngIf="!currentlyWorking">
+                    <nz-form-label [nzSpan]="null" nzFor="endDate">End Date</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid end date.">
+                        <nz-input-group nzSize="large">
+                            <nz-date-picker nzSize="large" [nzFormat]="'dd-MMM-yyyy'" formControlName="endDate"
+                                nzPlaceHolder="Select End Date" style="width: 100%">
+                            </nz-date-picker>
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
                 <nz-form-item>
                     <button nz-button nzType="primary" [disabled]="!newEmployeeForm.valid" nzSize="large"
                         (click)="onAddNewUser()">

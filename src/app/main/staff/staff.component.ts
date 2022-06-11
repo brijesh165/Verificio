@@ -32,6 +32,7 @@ export class StaffComponent implements OnInit {
   changeRoleForm: any = FormGroup;
 
   authenticatedUser: User;
+  currentlyWorking: any = false;
 
   permissions: any = [
     { label: 'Manage User', value: 'manage_user' },
@@ -68,7 +69,10 @@ export class StaffComponent implements OnInit {
       designation: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       role: [null, [Validators.required]],
-      permission: [this.permissions, [Validators.required]]
+      permission: [this.permissions, [Validators.required]],
+      currentlyWorking: [false],
+      startDate: [null, [Validators.required]],
+      endDate: [null]
     });
 
     this.listEmployee();
@@ -91,7 +95,7 @@ export class StaffComponent implements OnInit {
   }
 
   onCurrentPageDataChange(event: any) {
-    console.log("Event: ", event);
+    // console.log("Event: ", event);
   }
 
   onAddNew() {
@@ -102,6 +106,12 @@ export class StaffComponent implements OnInit {
     this.isVisible = false;
   }
 
+  updateCurrentlyWorking(): void {
+    // console.log("Checked Value: ", this.currentlyWorking)
+    this.currentlyWorking = !this.currentlyWorking;
+    this.newEmployeeForm.controls['currentlyWorking'].setValidators([Validators.required]);
+  }
+
   onAddNewUser() {
     const permissions = this.newEmployeeForm.value.role === "admin" ? [] : this.newEmployeeForm.value.permission.filter((item: any) => item.checked).map((item: any) => item.value);
     const params = {
@@ -110,7 +120,9 @@ export class StaffComponent implements OnInit {
       designation: this.newEmployeeForm.value.designation,
       email: this.newEmployeeForm.value.email,
       role: this.newEmployeeForm.value.role,
-      permissions: permissions
+      permissions: permissions,
+      startDate: this.newEmployeeForm.value.startDate,
+      endDate: this.currentlyWorking ? null : this.newEmployeeForm.value.endDate
     }
 
     if (this.isEdit) {
@@ -227,7 +239,7 @@ export class StaffComponent implements OnInit {
     this.isEdit = true;
     this.editId = id;
     let employee = this.tableData.filter((item: any) => item._id === id);
-
+    // console.log("Employee: ", employee);
     const permission = this.permissions.map((item: any) => {
       return {
         label: item.label, value: item.value, checked: employee[0].permissions.includes(item.value)
@@ -241,8 +253,13 @@ export class StaffComponent implements OnInit {
       designation: employee[0].designation,
       email: employee[0].email,
       role: employee[0].role,
-      permission: permission
+      permission: permission,
+      currentlyWorking: employee[0].employmentEndDate === null ? true : false,
+      startDate: employee[0].employmentStartDate,
+      endDate: employee[0].employmentEndDate
     })
+
+    this.currentlyWorking = employee[0].employmentEndDate === null ? true : false;
   }
 
   onDelete(id: any): void {

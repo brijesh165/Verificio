@@ -33,14 +33,13 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(): void {
-
     const params = this.loginForm.value;
-
     this.authService.login(params)
       .subscribe((response: any) => {
         if (response.status === "success") {
           localStorage.setItem('token', response.data.token.toString());
           localStorage.setItem('user', JSON.stringify(response.data.user));
+          localStorage.setItem('company', JSON.stringify(response.data.company));
           this.notification.create('success', response.message, '');
           this.router.navigateByUrl('/app/dashboard');
         } else if (response.status === "select-company") {

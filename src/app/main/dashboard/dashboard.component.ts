@@ -76,7 +76,7 @@ export class DashboardComponent implements OnInit {
 
     this.dataService.reportData()
       .subscribe((res: any) => {
-        console.log("Graph Response: ", res);
+        // console.log("Graph Response: ", res);
         const xAxis = res.data.map((item: any) => item.month);
         const xAxisData = res.data.map((item: any) => item.count);
 

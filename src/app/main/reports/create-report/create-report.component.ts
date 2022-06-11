@@ -31,7 +31,8 @@ export class CreateReportComponent implements OnInit {
       staff: [null, [Validators.required]],
       category: [null, [Validators.required]],
       other: [null],
-      reportMsg: [null, [Validators.required]]
+      reportMsg: [null, [Validators.required]],
+      isAnonymous: [false]
     });
 
     this.getEmployeeList();
@@ -61,7 +62,7 @@ export class CreateReportComponent implements OnInit {
   }
 
   onReportCategory(event: any) {
-    console.log("Report: ", event);
+    // console.log("Report: ", event);
     if (event === "others") {
       this.otherCategory = true;
       this.reportForm.controls['other'].setValidators([Validators.required]);
@@ -77,6 +78,7 @@ export class CreateReportComponent implements OnInit {
     this.previewData.reportCategory = this.reportForm.value.category === "others" ? this.reportForm.value.other : this.reportForm.value.category;
     this.previewData.reportedUser = this.userList.find((item: any) => { return item.value == this.reportForm.value.staff }).label;
     this.previewData.message = this.reportForm.value.reportMsg;
+    this.previewData.isAnonymous = this.reportForm.value.isAnonymous;
     this.showPreview = true;
   }
 
@@ -89,6 +91,7 @@ export class CreateReportComponent implements OnInit {
       userId: this.reportForm.value.staff,
       description: this.reportForm.value.reportMsg,
       category: this.reportForm.value.category === "others" ? this.reportForm.value.other : this.reportForm.value.category,
+      isAnonymous: this.reportForm.value.reportAnonymous
     }
 
     // console.log("Params: ", params);

@@ -33,8 +33,21 @@ export class RegistrationComponent implements OnInit {
     private modalService: NzModalService) { }
 
   ngOnInit(): void {
-
     this.countryList = this.countryService.getCountryList();
+
+    this.authService.getUserCurrentCountry()
+      .subscribe((res: any) => {
+        let country = this.countryList.find(function (item) {
+          return item.code == res.data;
+        })
+
+        if (country) {
+          this.registrationForm.patchValue({
+            phoneNumberPrefix: country.dial_code
+          });
+        }
+      })
+
 
     this.registrationForm = this.fb.group({
       firstName: [null, [Validators.required]],
@@ -53,20 +66,20 @@ export class RegistrationComponent implements OnInit {
       orgAck: [null, [Validators.required]]
     });
 
-    let locale: String = Intl.DateTimeFormat().resolvedOptions().locale;
-    if (locale) {
-      let countryCode = locale.split("-")[1];
-      let country = this.countryList.find(function (item) {
-        return item.code == countryCode;
-      })
+    // let locale: String = Intl.DateTimeFormat().resolvedOptions().locale;
+    // if (locale) {
+    //   let countryCode = locale.split("-")[1];
+    //   let country = this.countryList.find(function (item) {
+    //     return item.code == countryCode;
+    //   })
 
-      if (country) {
-        this.registrationForm.patchValue({
-          phoneNumberPrefix: country.dial_code
-        });
-      }
+    //   if (country) {
+    //     this.registrationForm.patchValue({
+    //       phoneNumberPrefix: country.dial_code
+    //     });
+    //   }
 
-    }
+    // }
 
   }
 
@@ -111,7 +124,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   planChange(value: string): void {
-    console.log("Value: ", value);
+    // console.log("Value: ", value);
   }
 
   onOtpChange(event: any): void {

@@ -4,6 +4,7 @@ import { PaystackOptions } from 'angular4-paystack';
 import { environment } from 'src/environments/environment';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { User } from 'src/app/models/User';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 
 @Component({
@@ -32,14 +33,15 @@ export class SubscriptionComponent implements OnInit {
     ref: `${Math.ceil(Math.random() * 10e10)}`
   }
 
-  constructor(private dataService: DataService, private notification: NzNotificationService) { }
+  constructor(private dataService: DataService,
+    private notification: NzNotificationService,
+    private messageService: NzMessageService) { }
 
   ngOnInit(): void {
     this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'))
 
     this.dataService.getCompanyById(this.authenticatedUser.companyId)
       .subscribe((res: any) => {
-        console.log("Company Details: ", res);
         if (res.data) {
           this.isNotificationVisible = res.data.subscriptionExpiry && true;
           this.subscriptionExpiryDate = res.data?.subscriptionExpiry;
@@ -91,21 +93,25 @@ export class SubscriptionComponent implements OnInit {
       paymentMethodId: this.paymentMethodId
     })
       .subscribe((res: any) => {
-        this.isVisible = true;
-        this.modaltitle = `Upgrading to ${selectedPlan[0].title} Plan`;
-        this.selectedPlanAmount = selectedPlan[0].price;
-        this.options.amount = res.data.transaction.amount * 100;
-        this.options.email = userInfo.email;
-        this.options.ref = res.data.transaction._id
+        if (res.status === "success") {
+          this.isVisible = true;
+          this.modaltitle = `Upgrading to ${selectedPlan[0].title} Plan`;
+          this.selectedPlanAmount = selectedPlan[0].price;
+          this.options.amount = res.data.transaction.amount * 100;
+          this.options.email = userInfo.email;
+          this.options.ref = res.data.transaction._id
+        } else {
+          this.messageService.error(res.message);
+        }
+
       })
   }
 
   paymentInit() {
-    console.log("Payment Init");
+    // console.log("Payment Init");
   }
 
   paymentCancel() {
-    console.log("Payment Cancel");
     this.dataService.validateSubsctiption({
       "transactionId": this.options.ref
     })
@@ -114,7 +120,7 @@ export class SubscriptionComponent implements OnInit {
           this.isVisible = false;
           this.notification.create(
             "error",
-            res.data,
+            res.message,
             ''
           );
         }
@@ -126,7 +132,6 @@ export class SubscriptionComponent implements OnInit {
   }
 
   paymentDone(event: any) {
-    console.log("Payment Done: ", event);
     this.dataService.validateSubsctiption({
       "transactionId": event.reference
     })
@@ -138,6 +143,7 @@ export class SubscriptionComponent implements OnInit {
             res.data,
             ''
           );
+          window.location.reload();
           this.ngOnInit();
         } else if (res.status === "error") {
           this.isVisible = false;

@@ -62,4 +62,8 @@ export class AuthService {
   getAllNotifications(params: any) {
     return this.http.get(this.baseUrl + "notification/list");
   }
+
+  getUserCurrentCountry() {
+    return this.http.get(this.baseUrl + "helper/country");
+  }
 }

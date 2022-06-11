@@ -9,17 +9,17 @@
             </span>
         </div>
         <ul nz-menu nzTheme="light" nzMode="inline" style="background: #132574; border: 1px solid #132574; ">
-            <li nz-menu-item routerLink="/app/dashboard" [nzMatchRouter]="true">
+            <li *ngIf="isSubscribed" nz-menu-item routerLink="/app/dashboard" [nzMatchRouter]="true">
                 <i nz-icon nzType="bank" style="color: #AEB9DE"></i>
                 <span class="menuItem">Dashboard</span>
             </li>
-            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_user')" nz-menu-item routerLink="/app/staff"
-                [nzMatchRouter]="true">
+            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_user') && isSubscribed" nz-menu-item
+                routerLink="/app/staff" [nzMatchRouter]="true">
                 <i nz-icon nzType="user" style="color: #AEB9DE"></i>
                 <span class="menuItem">All Staff</span>
             </li>
-            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_report')" nz-menu-item routerLink="/app/reports"
-                [nzMatchRouter]="true">
+            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_report') && isSubscribed" nz-menu-item
+                routerLink="/app/reports" [nzMatchRouter]="true">
                 <i nz-icon nzType="book" style="color: #AEB9DE"></i>
                 <span class="menuItem">Report</span>
             </li>
@@ -32,8 +32,8 @@
                 <i nz-icon nzType="file-zip" style="color: #AEB9DE"></i>
                 <span class="menuItem">Survey</span>
             </li> -->
-            <li routerLink="/app/search" *ngIf="authenticatedUser.hasCompanyPermission('search')" nz-menu-item
-                [nzMatchRouter]="true">
+            <li routerLink="/app/search" *ngIf="authenticatedUser.hasCompanyPermission('search') && isSubscribed"
+                nz-menu-item [nzMatchRouter]="true">
                 <i nz-icon nzType="search" style="color: #AEB9DE"></i>
                 <span class="menuItem">Search</span>
             </li>

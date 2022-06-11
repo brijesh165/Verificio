@@ -34,7 +34,7 @@ export class ListReportComponent implements OnInit {
   getReports() {
     this.dataService.listReport()
       .subscribe((res: any) => {
-        console.log("List Report: ", res.data);
+        // console.log("List Report: ", res.data);
         this.allData = res.data;
         this.allReportsTable = res.data.map((item: any) => Report.fromMap(item));
 
@@ -101,6 +101,6 @@ export class ListReportComponent implements OnInit {
   }
 
   onCurrentPageDataChange(event: any) {
-    console.log("Event: ", event);
+    // console.log("Event: ", event);
   }
 }

@@ -45,6 +45,12 @@
                     [nzAutosize]="{ minRows: 3, maxRows: 5 }"></textarea>
             </nz-form-item>
 
+            <nz-form-item nz-row class="register-area">
+                <nz-form-control [nzSpan]="null">
+                    <label nz-checkbox formControlName="isAnonymous">Report Anonymous</label>
+                </nz-form-control>
+            </nz-form-item>
+
             <nz-form-item style="display: flex; align-items: flex-end;">
                 <button nz-button nzSize="large" nzType="primary" [disabled]="!reportForm.valid"
                     style="width: min-content;" (click)="onReportSubmit()">Submit</button>
@@ -81,6 +87,10 @@
                         {{previewData.message}}
                     </div>
 
+                    <div style="margin-bottom: 15px">
+                        <span class="description-title">Report Anonymous</span> <br>
+                        {{previewData.isAnonymous}}
+                    </div>
 
                 </div>
             </div>

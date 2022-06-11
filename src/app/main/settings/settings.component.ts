@@ -128,7 +128,7 @@ export class SettingsComponent implements OnInit {
     let userInfo = JSON.parse(localStorage.getItem("user") || '{}');
     this.authService.me()
       .subscribe((res: any) => {
-        console.log("Response: ", res);
+        // console.log("Response: ", res);
         if (res.data.changedData != null) {
           this.isChangesPending = true;
         }
