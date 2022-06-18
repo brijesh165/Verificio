@@ -15,7 +15,9 @@ export class User {
     }
 
     hasCompanyPermission(permission: String) {
-        if (this.role == 'company-owner') {
+        if (this.role == 'super-admin') {
+            return 'super-admin';
+        } else if (this.role == 'company-owner') {
             return true;
         } else {
             if (this.permissions.includes(permission)) {

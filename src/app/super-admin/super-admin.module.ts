@@ -1,28 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MainRoutingModule } from './main-routing.module';
-
+import { SuperAdminRoutingModule } from './super-admin-routing.module';
 import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { SettingsComponent } from './settings/settings.component';
-import { StaffComponent } from './staff/staff.component';
-import { ListReportComponent } from './reports/list-report/list-report.component';
-import { CreateReportComponent } from './reports/create-report/create-report.component';
-import { ModelsComponent } from './models/models.component';
-import { ImportCsvComponent } from './staff/import-csv/import-csv.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { FilterDatePipe } from './pipes/filter-date.pipe';
-import { ApproveRejectChangeModalComponent } from './staff/approve-reject-change-modal/approve-reject-change-modal.component';
-import { SearchComponent } from './search/search.component';
-import { UserProfileComponent } from './search/user-profile/user-profile.component';
-import { SubscriptionComponent } from './subscription/subscription.component';
+
 
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { Angular4PaystackModule } from 'angular4-paystack';
-import { environment } from 'src/environments/environment';
-
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzCardModule } from 'ng-zorro-antd/card';
@@ -51,35 +35,21 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    LayoutComponent,
     DashboardComponent,
-    SettingsComponent,
-    StaffComponent,
-    CreateReportComponent,
-    ListReportComponent,
-    ModelsComponent,
-    ImportCsvComponent,
-    NotificationsComponent,
-    FilterDatePipe,
-    ApproveRejectChangeModalComponent,
-    SearchComponent,
-    UserProfileComponent,
-    SubscriptionComponent,
+    LayoutComponent
   ],
   imports: [
     CommonModule,
-    MainRoutingModule,
-    FormsModule,
-    NgApexchartsModule,
-    Angular4PaystackModule.forRoot(environment.payStack),
-
-
-    NzTypographyModule,
+    SuperAdminRoutingModule,
     ReactiveFormsModule,
+
+    NgApexchartsModule,
+    NzTypographyModule,
     NzEmptyModule,
     NgOtpInputModule,
     NzPopoverModule,
@@ -109,4 +79,4 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     NzNotificationModule,
   ]
 })
-export class MainModule { }
+export class SuperAdminModule { }

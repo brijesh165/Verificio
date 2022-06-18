@@ -36,17 +36,29 @@ export class LoginComponent implements OnInit {
     const params = this.loginForm.value;
     this.authService.login(params)
       .subscribe((response: any) => {
-        if (response.status === "success") {
-          localStorage.setItem('token', response.data.token.toString());
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          localStorage.setItem('company', JSON.stringify(response.data.company));
-          this.notification.create('success', response.message, '');
-          this.router.navigateByUrl('/app/dashboard');
-        } else if (response.status === "select-company") {
+        if (response.status === "select-company") {
           this.companyList = response.data;
           this.hideCompany = false;
+          return;
         } else if (response.status === "error") {
           this.notification.create('error', response.message, '');
+          return;
+        }
+
+        if (response.status === "success") {
+          console.log("Response: ", response);
+          if (response.data.user.role === "super-admin" || response.data.user.role === "admin") {
+            localStorage.setItem('token', response.data.token.toString());
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            this.notification.create('success', response.message, '');
+            this.router.navigateByUrl('/admin/dashboard');
+          } else if (response.data.user.role === "company-employee" || response.data.user.role === "company-owner") {
+            localStorage.setItem('token', response.data.token.toString());
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            localStorage.setItem('company', JSON.stringify(response.data.company));
+            this.notification.create('success', response.message, '');
+            this.router.navigateByUrl('/app/dashboard');
+          }
         }
       })
   }

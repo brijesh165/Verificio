@@ -1,0 +1,128 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .title {
+        font-size: 18.712px;
+        font-weight: 700;
+        line-height: 28px;
+        color: #FFFFFF;
+    }
+}
+
+nz-layout {
+    min-height: calc(100vh);
+    background-color: #EFF3FB;
+}
+
+.menuItem {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    color: #AEB9DE;
+}
+
+.ant-menu-item-selected {
+    background: #4A6998 !important;
+    border-radius: 0px 25px 25px 0px;
+    border-left: 7px solid #29B475;
+    padding-left: 17px !important;
+    background: #4a699852 !important;
+    font-weight: 600;
+    color: #AEB9DE;
+
+    .anticon {
+        color: #29B475 !important;
+    }
+}
+
+.layout {
+    min-height: 100vh;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+.username {
+    font-size: 19.95px;
+    font-weight: 500;
+    margin-left: 10px;
+    line-height: 24px;
+    color: #343A40 !important;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    //     position: fixed;
+    //     width: calc(100vw - 250px);
+    //     z-index: 1000;
+
+}
+
+nz-header {
+    background: #fff;
+    padding: 0;
+}
+
+nz-content {
+    margin: 24px 16px 0;
+    overflow: initial;
+}
+
+.inner-content {
+    padding: 24px;
+    // text-align: center;
+}
+
+nz-footer {
+    text-align: center;
+}
+
+.trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.trigger:hover {
+    color: #1890ff;
+}
+
+.notification-btn {
+    font-size: 22px;
+    margin-right: 20px;
+    color: #343a40,  !important;
+}
+
+.notification-container {
+    padding: 10px;
+    border-bottom: 1px solid #efefef;
+}
+
+.notification-container:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 550px) {
+    .username {
+        font-size: 13px;
+        margin-left: 0px;
+    }
+
+    .notification-btn {
+        margin-right: 7px;
+    }
+
+    // .page-header {
+    //     width: calc(100vw - 80px);
+    // }
+}

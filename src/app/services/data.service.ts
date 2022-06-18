@@ -9,7 +9,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   baseUrl: string = `${environment.apiUrl}/`;
-  // baseUrl: string = 'http://192.168.75.137:3000';
+  // baseUrl: string = 'http://192.168.0.164:3000';
 
   headers = new HttpHeaders({
     'Content-Type': 'application/json',

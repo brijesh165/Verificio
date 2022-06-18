@@ -7,41 +7,33 @@
             </span>
         </div>
         <ul nz-menu nzTheme="light" nzMode="inline" style="background: #132574; border: 1px solid #132574; ">
-            <li *ngIf="isSubscribed" nz-menu-item routerLink="/app/dashboard" [nzMatchRouter]="true">
+            <li nz-menu-item routerLink="/admin/dashboard" [nzMatchRouter]="true">
                 <i nz-icon nzType="bank" style="color: #AEB9DE"></i>
                 <span class="menuItem">Dashboard</span>
             </li>
 
-            <li *ngIf="isSubscribed" nz-menu-item routerLink="/app/superadmin/companies" [nzMatchRouter]="true">
-                <i nz-icon nzType="bank" style="color: #AEB9DE"></i>
+            <li nz-menu-item routerLink="/admin/companies" [nzMatchRouter]="true">
+                <!-- <i nz-icon nzType="bank" style="color: #AEB9DE"></i> -->
+                <i nz-icon nzType="reconciliation" style="color: #AEB9DE"></i>
                 <span class="menuItem">Companies</span>
             </li>
             
-            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_user') && isSubscribed" nz-menu-item
-                routerLink="/app/staff" [nzMatchRouter]="true">
+            <li nz-menu-item
+                routerLink="/admin/users" [nzMatchRouter]="true">
                 <i nz-icon nzType="user" style="color: #AEB9DE"></i>
-                <span class="menuItem">All Staff</span>
+                <span class="menuItem">Users</span>
             </li>
-            <li *ngIf="authenticatedUser.hasCompanyPermission('manage_report') && isSubscribed" nz-menu-item
-                routerLink="/app/reports" [nzMatchRouter]="true">
+            <li nz-menu-item
+                routerLink="/admin/reports" [nzMatchRouter]="true">
                 <i nz-icon nzType="book" style="color: #AEB9DE"></i>
-                <span class="menuItem">Report</span>
+                <span class="menuItem">Report Category</span>
             </li>
-            <li routerLink="/app/subscriptions" *ngIf="authenticatedUser.hasCompanyPermission('manage_subscription')"
+            <li routerLink="/admin/subscriptions"
                 nz-menu-item [nzMatchRouter]="true">
                 <i nz-icon nzType="check-square" style="color: #AEB9DE"></i>
                 <span class="menuItem">Subscriptions</span>
             </li>
-            <!-- <li *ngIf="authenticatedUser.hasCompanyPermission('manage_survey')" nz-menu-item [nzMatchRouter]>
-                <i nz-icon nzType="file-zip" style="color: #AEB9DE"></i>
-                <span class="menuItem">Survey</span>
-            </li> -->
-            <li routerLink="/app/search" *ngIf="authenticatedUser.hasCompanyPermission('search') && isSubscribed"
-                nz-menu-item [nzMatchRouter]="true">
-                <i nz-icon nzType="search" style="color: #AEB9DE"></i>
-                <span class="menuItem">Search</span>
-            </li>
-            <li nz-menu-item routerLink="/app/setting" [nzMatchRouter]="true">
+            <li nz-menu-item routerLink="/admin/setting" [nzMatchRouter]="true">
                 <i nz-icon nzType="setting" style="color: #AEB9DE"></i>
                 <span class="menuItem">Settings</span>
             </li>
