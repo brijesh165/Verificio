@@ -1,0 +1,84 @@
+<div class="companyEmailContainer">
+    <div class="title">Suspension Email</div>
+
+    <div class="formContainer" *ngIf="!showPreview">
+
+        <form nz-form nzLayout="vertical" [formGroup]="emailForm" style="width: 100%; padding: 10px; text-align: left">
+            <nz-form-item>
+                <!-- <nz-form-label [nzSpan]="null" nzFor="firstName">First Name</nz-form-label> -->
+                <nz-form-control [nzSpan]="null">
+                    <nz-input-group nzSize="large">
+                        <input type="text" nz-input formControlName="email" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="null" nzFor="reasons">Reason for suspension</nz-form-label>
+                <nz-form-control [nzSpan]="null">
+                    <nz-input-group nzSize="large">
+                        <input type="text" nz-input formControlName="reasons" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSpan]="null" nzFor="liftSuspension">What to do to lift the suspension</nz-form-label>
+                <textarea nzSize="large" nz-input formControlName="liftSuspension" placeholder="Start typing"
+                    [nzAutosize]="{ minRows: 3, maxRows: 10 }"></textarea>
+            </nz-form-item>
+
+            <nz-form-item style="display: flex; align-items: flex-end;">
+                <nz-form-item
+                    style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-top: 10px;">
+                    <button nz-button nzDanger nzType="default" style="margin-right: 10px;"
+                        (click)="handelEmailCancel()">
+                        <span>Cancel</span>
+                    </button>
+                    <button nz-button class="modalDoneBtn" nzType="primary" (click)="handleEmailSubmit()">
+                        <span>Save</span>
+                    </button>
+                </nz-form-item>
+            </nz-form-item>
+        </form>
+    </div>
+
+    <div class="preview" *ngIf="showPreview">
+        <p class="title">Suspention Email</p>
+        <div nz-row>
+
+            <div nz-col class="previewContainer" [nzSm]="24" [nzLg]="12" [nzMd]="15">
+                <div class="previewItem">
+                    <p class="previewTitle">Preview</p>
+
+                    <div style="margin-bottom: 15px">
+                        <span class="description-title">Orelan Industry Limited</span> <br>
+                        {{previewData.email}}
+                    </div>
+
+                    <div style="margin-bottom: 15px">
+                        <span class="description-title">Reason for suspension</span> <br>
+                        {{previewData.reasons}}
+                    </div>
+
+                    <div style="margin-bottom: 15px">
+                        <span class="description-title">What to do to lift the suspension</span> <br>
+                        {{previewData.liftSuspension}}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div nz-row>
+            <div nz-col style="display: flex; align-items: center; justify-content: end; margin-top: 20px" [nzSm]="24"
+                [nzLg]="12" [nzMd]="15">
+                <button nz-button nzType="default" class="backBtn" style="width: min-content;"
+                    (click)="onPreviewReportBack()">Cancel</button>
+                <button nz-button nzType="primary" class="btn" style="width: min-content;"
+                    (click)="onPreviewReportSubmit()">Send</button>
+            </div>
+        </div>
+
+
+    </div>
+</div>

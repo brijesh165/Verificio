@@ -1,0 +1,85 @@
+<div class="companyContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/admin/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">Companies</div>
+
+    <div class="companyList dashboardTable">
+        <nz-tabset>
+            <nz-tab nzTitle="Active">
+                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allActiveCompaniesTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subscribed Plan</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td>{{ data.name }}</td>
+                            <td>{{ data.email }} {{ data.user.lastName }}</td>
+                            <td>{{ data.subscribedPlan }}</td>
+                            <td>{{ data.status}}</td>
+                            <td>
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
+                                        <li nz-menu-item (click)="onBulkAction('sendMail', data._id)">Send Mail</li>
+                                        <li nz-menu-item (click)="onBulkAction('suspend', data._id)">Suspend</li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Suspended">
+                <nz-table #approvedTable nzShowPagination nzShowSizeChanger [nzData]="allSuspendedCompaniesTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subscribed Plan</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td>{{ data.name }}</td>
+                            <td>{{ data.email }} {{ data.user.lastName }}</td>
+                            <td>{{ data.subscribedPlan }}</td>
+                            <td>{{ data.status}}</td>
+                            <td>
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
+                                        <li nz-menu-item (click)="onBulkAction('sendMail', data._id)">Send Mail</li>
+                                        <li nz-menu-item (click)="onBulkAction('unsuspend', data._id)">Unsuspend</li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+        </nz-tabset>
+
+    </div>
+</div>

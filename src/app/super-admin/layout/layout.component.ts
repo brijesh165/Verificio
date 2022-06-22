@@ -17,7 +17,7 @@ export class LayoutComponent implements OnInit {
   authenticatedUser: User;
   isSubscribed: any = false;
 
-  isCollapsed = false;
+  isCollapsed = true;
   notificationList: any[] = [];
   constructor(private router: Router, private dataService: DataService, private modalService: NzModalService) { }
 
@@ -25,7 +25,6 @@ export class LayoutComponent implements OnInit {
     this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'));
 
     const companyInfo = JSON.parse(localStorage.getItem("company") || '{}');
-
 
     this.dataService.getCompanyById(companyInfo._id)
       .subscribe((res: any) => {

@@ -1,0 +1,105 @@
+<div class="reportsContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/admin/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">All Category</div>
+
+    <div class="btnDiv">
+        <nz-button-group nzSize="large">
+            <button nzType="primary" nz-button (click)="onCreateNew()">Create New</button>
+        </nz-button-group>
+    </div>
+
+    <div style="width: 100%; display: flex; align-items: center; justify-content: end;">
+        <div>
+            <nz-input-group [nzPrefix]="suffixIconSearch" nzSize="large" class="searchInput">
+                <input type="text" nzSize="large" nz-input placeholder="Search" [(ngModel)]="searchText"
+                    (ngModelChange)="onSearch($event)" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+                <i nz-icon nzSize="large" nzType="search"></i>
+            </ng-template>
+        </div>
+    </div>
+
+
+    <div class="dashboardTable">
+        <nz-tabset>
+            <nz-tab nzTitle="All Category">
+                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allReportCategoryTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Count</th>
+                            <th>Category ID</th>
+                            <th>Date Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td>{{ data.name }}</td>
+                            <td>{{ data.count }}</td>
+                            <td>{{ data.categoryId }}</td>
+                            <td>{{ data.dateCreated}}</td>
+                            <td>
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
+                                        <li nz-menu-item (click)="onBulkAction('edit', data._id)">Send Mail</li>
+                                        <li nz-menu-item (click)="onBulkAction('deactivate', data._id)">Suspend</li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+        </nz-tabset>
+
+    </div>
+
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Add New Category" (nzOnCancel)="handleCancel()" [nzFooter]="null">
+        <ng-container *nzModalContent>
+            <form nz-form nzLayout="vertical" [formGroup]="newCategoryForm">
+                <nz-form-item style="margin: 0 0 2px">
+                    <nz-form-label [nzSpan]="null" nzFor="name" style="padding: 0px;">Name
+                    </nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid category name.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input formControlName="name" placeholder="Enter name"
+                                style="padding: 6.5px 5px" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <div style="margin: 20px 0px;">
+                    <button nz-button nzType="default" style="border: 1px solid #29B475; color: #29B475;">
+                        <i nz-icon nzType="plus-circle" nzTheme="fill" nzTwotoneColor="#29B475"></i>
+                        Add New
+                    </button>
+                </div>
+
+                <nz-form-item
+                    style="display: flex; flex-direction: row; align-items: center; justify-content: space-between; margin-top: 10px;">
+                    <button nz-button nzDanger nzType="default" (click)="handleCancel()">
+                        <span>Cancel</span>
+                    </button>
+                    <button nz-button class="modalDoneBtn" nzType="primary" [disabled]="!newCategoryForm.valid"
+                        (click)="handleSaveCategory()">
+                        <span>Save</span>
+                    </button>
+                </nz-form-item>
+            </form>
+        </ng-container>
+    </nz-modal>
+</div>

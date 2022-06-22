@@ -1,0 +1,126 @@
+.ant-input-group-addon:first-child {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+.companyProfileContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    margin-top: 30px;
+
+    .title {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 22px;
+        color: #333333;
+
+        margin: 10px 0px;
+    }
+
+    .pInfoContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        border-top: 10px solid #3BE5BF;
+        background: #FFFFFF;
+        border-radius: 5px;
+        padding: 20px;
+        width: 640px;
+
+        .subTitle {
+            text-align: left !important;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 20px;
+            color: rgba(52, 58, 64, 0.4)
+        }
+
+        .rowStyle {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+
+
+            .profileImg {
+                height: 80px;
+                width: 80px;
+
+                border-radius: 50%;
+            }
+
+            .editBtn {
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 20px;
+                color: #29B475;
+
+                cursor: pointer;
+            }
+        }
+
+        .btn {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 20px;
+            color: #fff;
+            background-color: #29B475;
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+    }
+
+    .modalContainer {
+        .modalBody {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+
+            .login-form {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                gap: 30px;
+
+                border-radius: 5px;
+            }
+
+            .modalBtns {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                margin-top: 10px;
+
+                .modalDoneBtn {
+                    color: #29B475;
+                    background: transparent;
+                    border: 1px solid #29B475;
+                }
+            }
+        }
+    }
+
+}
+
+@media screen and (max-width: 550px) {
+    .companyProfileContainer {
+        margin-top: 30px;
+
+        .pInfoContainer {
+            width: inherit;
+        }
+
+        .rowStyle {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}

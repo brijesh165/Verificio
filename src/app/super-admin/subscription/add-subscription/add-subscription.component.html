@@ -1,0 +1,103 @@
+<div class="addSubscriptionContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/app/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">All New Plan</div>
+
+    <div class="pInfoContainer">
+        <div style="width: 100%;">
+            <form nz-form nzLayout="vertical" [formGroup]="subscriptionForm">
+                <!-- Plan Name & Sub Header -->
+                <div nz-row [nzGutter]="12" style="margin-top: 15px;">
+                    <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                        <nz-form-item style="margin: 0 0 2px">
+                            <nz-form-label [nzSpan]="null" nzFor="name" style="padding: 0px;">Plan Name
+                            </nz-form-label>
+                            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid plan name.">
+                                <nz-input-group nzSize="large">
+                                    <input type="text" nz-input formControlName="name" placeholder="Enter plan name"
+                                        style="padding: 6.5px 5px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
+                        <nz-form-item style="margin: 0 0 2px">
+                            <nz-form-label [nzSpan]="null" nzFor="subHeader" style=" padding: 0px;">Sub Header
+                            </nz-form-label>
+                            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                                <nz-input-group nzSize="large">
+                                    <input type="text" nz-input formControlName="subHeader"
+                                        placeholder="Add a sub header" style="padding: 6.5px 5px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+
+                <!-- Plan Price & Number Of Users -->
+                <div nz-row [nzGutter]="12" style="margin-top: 15px;">
+                    <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                        <nz-form-item style="margin: 0 0 2px">
+                            <nz-form-label [nzSpan]="null" nzFor="planPrice" style="padding: 0px;">Plan Price
+                            </nz-form-label>
+                            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid plan price.">
+                                <nz-input-group nzSize="large">
+                                    <input type="text" nz-input formControlName="planPrice"
+                                        placeholder="Enter plan price" style="padding: 6.5px 5px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+
+                    <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
+                        <nz-form-item style="margin: 0 0 2px">
+                            <nz-form-label [nzSpan]="null" nzFor="noOfUser" style=" padding: 0px;">Number of User
+                            </nz-form-label>
+                            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                                <nz-input-group nzSize="large">
+                                    <input type="text" nz-input formControlName="noOfUser"
+                                        placeholder="Add a sub header" style="padding: 6.5px 5px" />
+                                </nz-input-group>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+                </div>
+
+                <div nz-row [nzGutter]="12" style="margin-top: 15px;">
+                    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: left;">
+                        <!-- Features -->
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="null" nzFor="features">Select Permission</nz-form-label>
+                            <nz-checkbox-group formControlName="features">
+                            </nz-checkbox-group>
+                        </nz-form-item>
+                    </div>
+                </div>
+
+                <div nz-row style="margin-top: 15px;">
+                    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: left;">
+                        <nz-form-item>
+                            <nz-form-label [nzSpan]="null" nzFor="aboutThePlan">About the plan</nz-form-label>
+                            <textarea nzSize="large" nz-input formControlName="aboutThePlan"
+                                placeholder="Describe briefly about the plan"
+                                [nzAutosize]="{ minRows: 3, maxRows: 10 }"></textarea>
+                        </nz-form-item>
+                    </div>
+                </div>
+
+                <nz-form-item>
+                    <button nz-button nzType="primary" [disabled]="!subscriptionForm.valid" nzSize="large"
+                        (click)="onAddNewPlan()">
+                        Create Plan</button>
+                </nz-form-item>
+            </form>
+        </div>
+    </div>
+</div>

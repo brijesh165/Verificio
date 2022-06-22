@@ -35,17 +35,32 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NgOtpInputModule } from 'ng-otp-input';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzNotificationModule } from 'ng-zorro-antd/notification';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CompanyComponent } from './company/company.component';
+import { CompanyProfileComponent } from './company/company-profile/company-profile.component';
+import { ModelsComponent } from './models/models.component';
+import { CompanyEmailComponent } from './company/company-email/company-email.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { AddSubscriptionComponent } from './subscription/add-subscription/add-subscription.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    LayoutComponent
+    LayoutComponent,
+    CompanyComponent,
+    CompanyProfileComponent,
+    ModelsComponent,
+    CompanyEmailComponent,
+    SubscriptionComponent,
+    AddSubscriptionComponent,
+    ReportsComponent
   ],
   imports: [
     CommonModule,
     SuperAdminRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
 
     NgApexchartsModule,
