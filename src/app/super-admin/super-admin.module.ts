@@ -43,6 +43,8 @@ import { CompanyEmailComponent } from './company/company-email/company-email.com
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { AddSubscriptionComponent } from './subscription/add-subscription/add-subscription.component';
 import { ReportsComponent } from './reports/reports.component';
+import { UsersComponent } from './users/users.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 @NgModule({
@@ -55,7 +57,9 @@ import { ReportsComponent } from './reports/reports.component';
     CompanyEmailComponent,
     SubscriptionComponent,
     AddSubscriptionComponent,
-    ReportsComponent
+    ReportsComponent,
+    UsersComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

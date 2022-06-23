@@ -1,0 +1,356 @@
+<div class="settingContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/admin/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">Account Settings</div>
+
+    <nz-tabset style="width: 90%;">
+        <!-- Modules Settings -->
+        <nz-tab nzTitle="Modules Settings">
+            <div class="listContainer">
+                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Manage Modules</h3>
+                <nz-list nzSize="large">
+                    <nz-list-item class="listItem" *ngFor="let notification of notificationList; let i = index">
+
+                        <span class="notificationType">{{ notification.item }}</span>
+
+                        <div>
+                            <span class="notificationStatus" *ngIf="notification.status">On</span>
+                            <span class="notificationStatus" *ngIf="!notification.status">Off</span>
+                            <nz-switch [ngModel]="notification.status" [nzControl]="true" (click)="onSwitchClick(i)">
+                            </nz-switch>
+                        </div>
+                    </nz-list-item>
+                </nz-list>
+            </div>
+        </nz-tab>
+
+        <!-- Personal Info -->
+        <nz-tab nzTitle="Personal Info">
+            <div class="pInfoContainer">
+                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Profile Account</h3>
+                <span class="subTitle">Manage your Verificio account. All changes in your account
+                    will be applied to all of your workspace.</span>
+                <br>
+                <div style="width: 100%;">
+                    <div nz-row class="rowStyle">
+                        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                            <!-- <button nz-button nzType="text">Change image</button> -->
+                            <div style="display: flex; flex-direction: column">
+
+                                <!-- <img [src]="profileImagePath" alt="profile" class="profileImg" /> -->
+                                <nz-upload [nzCustomRequest]="handleUpload" [nzShowUploadList]="false"
+                                    [nzBeforeUpload]="beforeUpload">
+                                    <nz-avatar nzIcon="user" [nzSize]="90" [nzSrc]="profileImagePath"></nz-avatar>
+                                    <!-- <button nz-button nzType="link">Click to Upload</button> -->
+                                </nz-upload>
+                            </div>
+                        </div>
+                        <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: right;">
+                            <button nz-button nzType="link" class="editBtn" style="color: #29B475;"
+                                (click)="handlePersonalEdit()">
+                                <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; "></i> Edit
+                                Profile</button>
+                            <!-- <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; margin-right: 7px;"></i>
+                            <span class="editBtn">Edit Profile</span> -->
+                        </div>
+                    </div>
+
+                    <form nz-form nzLayout="vertical" [formGroup]="profileForm" (ngSubmit)="submitProfileForm()"
+                        style="margin-top: 10px;">
+
+                        <!-- First Name & Last Name-->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8">
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="firstName" style="padding: 0px;">First Name
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="firstName"
+                                                placeholder="Enter your first name" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="lastName" style=" padding: 0px;">Last Name
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="lastName"
+                                                placeholder="Enter your last name" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+
+                        <!-- Email & Phone-->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="email" style="padding: 0px;">Email Address
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="email"
+                                                placeholder="Enter your email address" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: right;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="phone" style="padding: 0px;">Phone Number
+                                    </nz-form-label>
+                                    <nz-form-control nzErrorTip="Please enter your phone number!">
+                                        <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" nzSize="large">
+                                            <input formControlName="phone" placeholder="Enter phone number" nzBorderless
+                                                id="phoneNumber" nz-input nzSize="large" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                                <ng-template #addOnBeforeTemplate>
+                                    <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Dial Code"
+                                        formControlName="phoneNumberPrefix" nzBorderless>
+                                        <nz-option *ngFor="let country of countryList" [nzLabel]="country.dial_code"
+                                            [nzValue]="country.dial_code"></nz-option>
+                                    </nz-select>
+                                </ng-template>
+                            </div>
+                        </div>
+
+                        <!-- address -->
+                        <div nz-row style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="address" style="padding: 0px;">House Address
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid address.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="address"
+                                                placeholder="Enter your house address" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+
+                        <!-- State & country -->
+                        <div nz-row style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">State
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="state"
+                                                placeholder="State" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="state" style="padding: 0px;">Country
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state.">
+                                        <nz-select nzShowSearch style="min-width: 75px" nzPlaceHolder="Select Country"
+                                            formControlName="country" nzBorderless>
+                                            <nz-option *ngFor="let country of countryList" [nzLabel]="country.name"
+                                                [nzValue]="country.name"></nz-option>
+                                        </nz-select>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                        </div>
+
+                        <!-- State Of Origin & LGA -->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="stateOfOrigin"
+                                        style="text-align: left; padding: 0px;">State of Origin
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state of origin.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="stateOfOrigin"
+                                                placeholder="State of origin" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="lga" style="text-align: left; padding: 0px;">
+                                        LGA
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
+                                        <nz-input-group nzSize="large">
+                                            <input type="text" nz-input nzBorderless formControlName="lga"
+                                                placeholder="LGA" style="padding: 6.5px 0px" />
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+
+                        <!-- Dob & Gender-->
+                        <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="dateOfBirth" style="padding: 0px;">Date of
+                                        Birth</nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid date.">
+                                        <nz-input-group nzSize="large">
+                                            <nz-date-picker nzSize="large" [nzFormat]="'dd-MMM-yyyy'"
+                                                formControlName="dateOfBirth" nzBorderless></nz-date-picker>
+                                            <!-- <input type="text" nz-input nzBorderless formControlName="dateOfBirth"
+                                                placeholder="Enter your email address" style="padding: 6.5px 0px" /> -->
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+
+                            <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
+                                <nz-form-item style="margin: 0 0 2px">
+                                    <nz-form-label [nzSpan]="null" nzFor="gender" style="padding: 0px;">Gender
+                                    </nz-form-label>
+                                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid gender.">
+                                        <nz-input-group nzSize="large">
+                                            <nz-select nzSize="large" formControlName="gender" nzPlaceHolder="Gender"
+                                                nzBorderless>
+
+                                                <nz-option nzLabel="Male" nzValue="Male"></nz-option>
+                                                <nz-option nzLabel="Female" nzValue="Female"></nz-option>
+                                            </nz-select>
+                                        </nz-input-group>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+
+                        <div nz-row class="rowStyle" style="margin-top: 20px; justify-content: flex-start;">
+                            <nz-form-item *ngIf="!isEdit">
+                                <nz-form-control>
+                                    <button type="submit" nz-button nzType="primary" nzSize="large"
+                                        [disabled]="!profileForm.valid">Save
+                                        Changes</button>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </nz-tab>
+
+        <!-- Password -->
+        <nz-tab nzTitle="Password">
+            <div class="passwordContainer">
+                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Change Password</h3>
+
+                <form nz-form nzLayout="vertical" [formGroup]="changePasswordForm" (ngSubmit)="submitForm()">
+
+                    <!-- Current Password -->
+                    <nz-form-item>
+                        <nz-form-label nzFor="currPassword">Current Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Enter valid password.">
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input nzSize="large" [type]="passwordVisible ? 'text' : 'password'" nz-input
+                                    placeholder="Enter your current password" formControlName="currPassword" />
+                            </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nzSize="large" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <!-- New Password -->
+                    <nz-form-item>
+                        <nz-form-label nzFor="newPassword">New Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Enter valid password.">
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input nzSize="large" [type]="passwordVisible ? 'text' : 'password'" nz-input
+                                    placeholder="Enter a new password" formControlName="newPassword" />
+                            </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nzSize="large" nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <div style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 10px;">
+                        <span>* Make sure it's at least 8 characters long.</span>
+                        <span>* Make sure to include Alphanumeric values.</span>
+                        <span>* Make sure to include uppercases.</span>
+                        <span>* Make sure to include lowercases.</span>
+                        <span>* Make sure to include special characters.</span>
+                    </div>
+
+                    <!-- Re enter Password -->
+                    <nz-form-item>
+                        <nz-form-label nzFor="reNewPassword">Re-enter Password</nz-form-label>
+                        <nz-form-control nzErrorTip="Enter valid password.">
+                            <nz-input-group nzSize="large" [nzSuffix]="suffixTemplate">
+                                <input [type]="passwordVisible ? 'text' : 'password'" nzSize="large" nz-input
+                                    placeholder="Enter a new password" formControlName="reNewPassword" />
+                            </nz-input-group>
+                            <ng-template #suffixTemplate>
+                                <i nz-icon nzSize="large" [nzType]="passwordVisible ? 'eye-invisible' : 'eye'"
+                                    (click)="passwordVisible = !passwordVisible"></i>
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzSize="large"
+                                [disabled]="!changePasswordForm.valid">Save</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+        </nz-tab>
+
+        <!-- Terms Of Use -->
+        <nz-tab nzTitle="Terms Of Use">
+            <div class="listContainer">
+                <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Terms of Use</h3>
+
+                <form nz-form nzLayout="vertical" [formGroup]="changePasswordForm" (ngSubmit)="submitForm()">
+
+                    <!-- Terms of Use -->
+                    <nz-form-item>
+                        <nz-form-label nzFor="currPassword">Terms Of Use</nz-form-label>
+                        <nz-form-control nzErrorTip="Please write something here!">
+                            <textarea formControlName="comment" nz-input rows="15"
+                                placeholder="write any thing"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                    <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
+                        <nz-form-control>
+                            <button nz-button nzType="primary" nzSize="large"
+                                [disabled]="!changePasswordForm.valid">Change Terms of Use</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </form>
+            </div>
+        </nz-tab>
+    </nz-tabset>
+</div>

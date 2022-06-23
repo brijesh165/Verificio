@@ -83,10 +83,30 @@
                 </nz-form-item>
 
                 <div style="margin: 20px 0px;">
-                    <button nz-button nzType="default" style="border: 1px solid #29B475; color: #29B475;">
+                    <button nz-button nzType="default" style="border: 1px solid #29B475; color: #29B475;"
+                        (click)="onAddNew()">
                         <i nz-icon nzType="plus-circle" nzTheme="fill" nzTwotoneColor="#29B475"></i>
                         Add New
                     </button>
+                </div>
+
+                <div formArrayName="name_Bulk">
+                    <nz-form-item style="margin: 2px 2px"
+                        *ngFor="let item of categoryBulk.controls; let descIndex = index">
+                        <nz-form-label [nzSpan]="null" nzFor="name" style="padding: 0px; width: 100%;">
+                            <div
+                                style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                                <span>Name</span>
+                                <i nz-icon nzType="delete" nzTheme="outline" (click)="onDeleteRow(descIndex)"></i>
+                            </div>
+                        </nz-form-label>
+                        <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid category name.">
+                            <nz-input-group nzSize="large">
+                                <input type="text" nz-input formControlName="name" placeholder="Enter name"
+                                    style="padding: 6.5px 5px" />
+                            </nz-input-group>
+                        </nz-form-control>
+                    </nz-form-item>
                 </div>
 
                 <nz-form-item

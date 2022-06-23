@@ -8,8 +8,10 @@ import { CompanyComponent } from './company/company.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ReportsComponent } from './reports/reports.component';
+import { SettingsComponent } from './settings/settings.component';
 import { AddSubscriptionComponent } from './subscription/add-subscription/add-subscription.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
@@ -18,9 +20,11 @@ const routes: Routes = [
       { path: 'companies', component: CompanyComponent, canActivate: [AuthGuard] },
       { path: 'companies/view', component: CompanyProfileComponent, canActivate: [AuthGuard] },
       { path: 'companies/sendEmail', component: CompanyEmailComponent, canActivate: [AuthGuard] },
+      { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+      { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
       { path: 'subscriptions', component: SubscriptionComponent, canActivate: [AuthGuard] },
       { path: 'subscriptions/add', component: AddSubscriptionComponent, canActivate: [AuthGuard] },
-      { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] }
+      { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] }
     ],
   }
 ];

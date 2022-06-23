@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Reports } from 'src/app/models/admin/Reports';
 import { ModelsComponent } from '../models/models.component';
@@ -23,7 +23,8 @@ export class ReportsComponent implements OnInit {
   ngOnInit(): void {
 
     this.newCategoryForm = this.fb.group({
-      name: [null, [Validators.required]]
+      name: [null, [Validators.required]],
+      name_Bulk: this.fb.array([])
     })
   }
 
@@ -34,6 +35,18 @@ export class ReportsComponent implements OnInit {
 
   handleCancel() {
     this.isVisible = false;
+  }
+
+  get categoryBulk() {
+    return this.newCategoryForm.get("name_Bulk") as FormArray;
+  }
+
+  onAddNew() {
+    this.categoryBulk.push(this.fb.group({ name: [null, [Validators.required]] }))
+  }
+
+  onDeleteRow(index: any) {
+    this.categoryBulk.removeAt(index);
   }
 
   handleSaveCategory() {

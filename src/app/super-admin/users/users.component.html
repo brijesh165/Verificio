@@ -1,0 +1,143 @@
+<div class="usersContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/admin/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">All Users</div>
+
+    <div class="btnDiv">
+        <nz-button-group nzSize="large">
+            <button nzType="primary" nz-button (click)="onCreateNew()">Add New Users</button>
+        </nz-button-group>
+    </div>
+
+    <div style="width: 100%; display: flex; align-items: center; justify-content: end;">
+        <div>
+            <nz-input-group [nzPrefix]="suffixIconSearch" nzSize="large" class="searchInput">
+                <input type="text" nzSize="large" nz-input placeholder="Search" [(ngModel)]="searchText"
+                    (ngModelChange)="onSearch($event)" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+                <i nz-icon nzSize="large" nzType="search"></i>
+            </ng-template>
+        </div>
+    </div>
+
+
+    <div class="dashboardTable">
+        <nz-tabset>
+            <nz-tab nzTitle="Admin">
+                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allAdminUsersTable">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>User ID</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td>{{ data.firstName }} {{data.lastName}}</td>
+                            <td>{{ data.email }}</td>
+                            <td>{{ data.role }}</td>
+                            <td>{{ data.userId}}</td>
+                            <td>
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
+                                        <li nz-menu-item (click)="onBulkAction('edit', data._id)">Edit</li>
+                                        <li nz-menu-item (click)="onBulkAction('deactivate', data._id)">Deactivate</li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+
+            <nz-tab nzTitle="Super Admin">
+                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allSuperAdminUsersTable">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>User ID</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of rowSelectionTable.data">
+                            <td>{{ data.firstName }} {{data.lastName}}</td>
+                            <td>{{ data.email }}</td>
+                            <td>{{ data.role }}</td>
+                            <td>{{ data.userId}}</td>
+                            <td>
+                                <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
+                                    Actions
+                                    <i nz-icon nzType="down"></i>
+                                </button>
+                                <nz-dropdown-menu #menu4="nzDropdownMenu">
+                                    <ul nz-menu>
+                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
+                                        <li nz-menu-item (click)="onBulkAction('edit', data._id)">Edit</li>
+                                        <li nz-menu-item (click)="onBulkAction('deactivate', data._id)">Deactivate</li>
+                                    </ul>
+                                </nz-dropdown-menu>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            </nz-tab>
+        </nz-tabset>
+    </div>
+
+
+    <nz-modal [(nzVisible)]="isModalVisible" (nzOnCancel)="handleCancel()" [nzFooter]=null>
+        <ng-container *nzModalContent>
+            <form nz-form nzLayout="vertical" [formGroup]="newUserForm">
+                <!-- Email -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="email">User Email Address</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input nzSize="large" formControlName="email"
+                                placeholder="Enter your email" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Role -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="role">Select Role</nz-form-label>
+                    <nz-select formControlName="role" nzSize="large" nzPlaceHolder="Select role">
+                        <nz-option nzValue="company-owner" nzLabel="Admin"></nz-option>
+                        <nz-option nzValue="company-employee" nzLabel="Employee"></nz-option>
+                    </nz-select>
+                </nz-form-item>
+
+                <!-- Permission -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="permission">Select Permission</nz-form-label>
+                    <nz-checkbox-group formControlName="permission"></nz-checkbox-group>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <button nz-button nzType="primary" [disabled]="!newUserForm.valid" nzSize="large"
+                        (click)="onAddNewUser()">
+                        Save</button>
+                </nz-form-item>
+            </form>
+        </ng-container>
+    </nz-modal>
+</div>
