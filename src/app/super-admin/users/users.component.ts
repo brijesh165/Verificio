@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Users } from 'src/app/models/admin/Users';
+import { AdminService } from 'src/app/services/admin.service';
 import { ModelsComponent } from '../models/models.component';
 
 @Component({
@@ -19,6 +20,8 @@ export class UsersComponent implements OnInit {
 
   isModalVisible: any = false;
   searchText: any = "";
+  isEdit: any = false;
+  editId: any = "";
 
   permissions: any = [
     { label: 'Manage User', value: 'manage_user' },
@@ -36,14 +39,33 @@ export class UsersComponent implements OnInit {
     { label: 'Manage Subscription', value: 'manage_subcription' },
   ];
 
-  constructor(private fb: FormBuilder, private modalService: NzModalService) { }
+  constructor(private fb: FormBuilder, private adminService: AdminService, private modalService: NzModalService) { }
 
   ngOnInit(): void {
+
     this.newUserForm = this.fb.group({
+      firstName: [null, [Validators.required]],
+      lastName: [null, [Validators.required]],
+      designation: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
       role: [null, [Validators.required]],
       permission: [this.permissions, [Validators.required]],
     });
+
+    this.getAllUsers();
+  }
+
+  getAllUsers() {
+    this.adminService.getAllUsers()
+      .subscribe((res: any) => {
+        this.tableData = res.data.map((item: any) => Users.fromMap(item));
+        this.allAdminUsersTable = res.data.filter(function (item: any) {
+          return item.role == 'admin'
+        }).map((item: any) => Users.fromMap(item));
+        this.allSuperAdminUsersTable = res.data.filter(function (item: any) {
+          return item.role == 'super-admin'
+        }).map((item: any) => Users.fromMap(item));
+      })
   }
 
   onCreateNew() {
@@ -55,7 +77,61 @@ export class UsersComponent implements OnInit {
   }
 
   onAddNewUser() {
-    console.log("Add New User");
+    const permissions = this.newUserForm.value.role === "super-admin" ? [] : this.newUserForm.value.permission.filter((item: any) => item.checked).map((item: any) => item.value);
+
+    const params = {
+      firstName: this.newUserForm.value.firstName,
+      lastName: this.newUserForm.value.lastName,
+      designation: this.newUserForm.value.designation,
+      email: this.newUserForm.value.email,
+      role: this.newUserForm.value.role,
+      permissions: permissions,
+    }
+
+    if (this.isEdit) {
+      this.adminService.updateUser({
+        id: this.editId,
+        params: params
+      })
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: res.message,
+                modelSubTitle: ""
+              }
+            });
+
+            this.isModalVisible = false;
+            this.getAllUsers();
+          }
+        })
+    } else {
+      this.adminService.createUser(params)
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: "User account has been created",
+                modelSubTitle: "A mail has been sent to the user email address"
+              }
+            });
+
+            this.isModalVisible = false;
+            this.getAllUsers();
+          }
+        })
+    }
   }
 
   onSearch(searchTxt: any): void {
@@ -79,12 +155,50 @@ export class UsersComponent implements OnInit {
   }
 
   onBulkAction(status: any, id: any) {
-    console.log("Status: ", status);
+    if (status === "edit") {
+      this.isEdit = true;
+      this.editId = id;
+      let employee = this.tableData.filter((item: any) => item._id === id);
 
-    if (status === "view") {
-      console.log("Status: ", status);
-    } else if (status === "edit") {
-      console.log("Status: ", status);
+      const permission = this.permissions.map((item: any) => {
+        return {
+          label: item.label, value: item.value, checked: employee[0].permissions.includes(item.value)
+        }
+      });
+
+      this.isModalVisible = true;
+      this.newUserForm.patchValue({
+        firstName: employee[0].firstName,
+        lastName: employee[0].lastName,
+        designation: employee[0].designation,
+        email: employee[0].email,
+        role: employee[0].role,
+        permission: permission
+      })
+    } else if (status === "active") {
+      this.adminService.deleteUser({
+        id: id,
+        params: {
+          archived: false
+        }
+      })
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: "User account has been activated successfully.",
+                modelSubTitle: ""
+              }
+            });
+          }
+
+          this.getAllUsers();
+        })
     } else if (status === "deactivate") {
       const drawerRef = this.modalService.create<ModelsComponent>({
         nzTitle: '',
@@ -100,17 +214,29 @@ export class UsersComponent implements OnInit {
 
       drawerRef.afterClose.subscribe((data: any) => {
         if (data === true) {
-          this.modalService.create<ModelsComponent>({
-            nzTitle: '',
-            nzContent: ModelsComponent,
-            nzWidth: 444,
-            nzFooter: null,
-            nzComponentParams: {
-              modelType: "success",
-              modelTitle: "User account has been deactivated successfully.",
-              modelSubTitle: ""
+          this.adminService.deleteUser({
+            id: id,
+            params: {
+              archived: true
             }
-          });
+          })
+            .subscribe((res: any) => {
+              if (res.status === "success") {
+                this.modalService.create<ModelsComponent>({
+                  nzTitle: '',
+                  nzContent: ModelsComponent,
+                  nzWidth: 444,
+                  nzFooter: null,
+                  nzComponentParams: {
+                    modelType: "success",
+                    modelTitle: "User account has been deactivated successfully.",
+                    modelSubTitle: ""
+                  }
+                });
+              }
+
+              this.getAllUsers();
+            })
         }
       })
     }

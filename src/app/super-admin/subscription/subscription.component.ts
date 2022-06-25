@@ -16,6 +16,7 @@ export class SubscriptionComponent implements OnInit {
   tableData: any = [];
   allSubscriptionPlansTable: any = [];
   searchTetx: any = "";
+  isLoading: any = false;
 
   constructor(private adminService: AdminService, private modalService: NzModalService,
     private router: Router) { }
@@ -28,18 +29,15 @@ export class SubscriptionComponent implements OnInit {
   getSubscriptionPlanList() {
     this.adminService.getSubscribtionPlans()
       .subscribe((res: any) => {
-        console.log("Subscription Plan list: ", res);
-
         this.tableData = res.data.planList.map((item: any) => Subscription.fromMap(item));
-        this.allSubscriptionPlansTable = res.data.planList.filter(function (item: any) {
-          return item
-        }).map((item: any) => Subscription.fromMap(item));
+        this.allSubscriptionPlansTable = res.data.planList.map((item: any) => Subscription.fromMap(item));
+        this.isLoading = false;
       })
 
   }
 
   onCreateNew() {
-    this.router.navigate(["admin/subscriptions/add", { state: { isEdit: false } }])
+    this.router.navigate(["admin/subscriptions/add"], { state: { isEdit: false } })
   }
 
   onSearch(searchTxt: any): void {
@@ -60,12 +58,8 @@ export class SubscriptionComponent implements OnInit {
   }
 
   onBulkAction(status: any, id: any): void {
-    console.log("Status: ", status);
-
-    if (status === "view") {
-      console.log("View");
-    } else if (status === "edit") {
-      this.router.navigate(["admin/subscriptions/add", { state: { id: id, isEdit: true } }])
+    if (status === "edit") {
+      this.router.navigate(["admin/subscriptions/add"], { state: { id: id, isEdit: true } })
     } else if (status === "deactivate") {
       const drawerRef = this.modalService.create<ModelsComponent>({
         nzTitle: '',
@@ -81,17 +75,24 @@ export class SubscriptionComponent implements OnInit {
 
       drawerRef.afterClose.subscribe((data: any) => {
         if (data === true) {
-          this.modalService.create<ModelsComponent>({
-            nzTitle: '',
-            nzContent: ModelsComponent,
-            nzWidth: 444,
-            nzFooter: null,
-            nzComponentParams: {
-              modelType: "success",
-              modelTitle: "Plan has been deleted",
-              modelSubTitle: ""
-            }
-          });
+          this.adminService.deleteSubscriptionPlan(id)
+            .subscribe((res: any) => {
+              if (res.status === "success") {
+                this.modalService.create<ModelsComponent>({
+                  nzTitle: '',
+                  nzContent: ModelsComponent,
+                  nzWidth: 444,
+                  nzFooter: null,
+                  nzComponentParams: {
+                    modelType: "success",
+                    modelTitle: "Plan has been deleted",
+                    modelSubTitle: ""
+                  }
+                });
+              }
+            })
+
+          this.getSubscriptionPlanList();
         }
       })
     }

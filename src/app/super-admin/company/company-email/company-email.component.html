@@ -1,17 +1,17 @@
 <div class="companyEmailContainer">
-    <div class="title">Suspension Email</div>
+    <div class="title">Email</div>
 
     <div class="formContainer" *ngIf="!showPreview">
 
         <form nz-form nzLayout="vertical" [formGroup]="emailForm" style="width: 100%; padding: 10px; text-align: left">
-            <nz-form-item>
-                <!-- <nz-form-label [nzSpan]="null" nzFor="firstName">First Name</nz-form-label> -->
+            <!-- <nz-form-item>
+                <nz-form-label [nzSpan]="null" nzFor="firstName">First Name</nz-form-label>
                 <nz-form-control [nzSpan]="null">
                     <nz-input-group nzSize="large">
                         <input type="text" nz-input formControlName="email" />
                     </nz-input-group>
                 </nz-form-control>
-            </nz-form-item>
+            </nz-form-item> -->
             <nz-form-item>
                 <nz-form-label [nzSpan]="null" nzFor="reasons">Reason for suspension</nz-form-label>
                 <nz-form-control [nzSpan]="null">
@@ -42,9 +42,7 @@
     </div>
 
     <div class="preview" *ngIf="showPreview">
-        <p class="title">Suspention Email</p>
         <div nz-row>
-
             <div nz-col class="previewContainer" [nzSm]="24" [nzLg]="12" [nzMd]="15">
                 <div class="previewItem">
                     <p class="previewTitle">Preview</p>

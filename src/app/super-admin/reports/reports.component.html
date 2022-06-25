@@ -36,7 +36,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Count</th>
-                            <th>Category ID</th>
+                            <th>Status</th>
                             <th>Date Created</th>
                             <th>Actions</th>
                         </tr>
@@ -44,9 +44,9 @@
                     <tbody>
                         <tr *ngFor="let data of rowSelectionTable.data">
                             <td>{{ data.name }}</td>
-                            <td>{{ data.count }}</td>
-                            <td>{{ data.categoryId }}</td>
-                            <td>{{ data.dateCreated}}</td>
+                            <td>{{ data.totalIncidents }}</td>
+                            <td>{{ data.isActive ? "Avtive" : "Inactive" }}</td>
+                            <td>{{ data.createdAt | date: 'dd/MM/yyyy'}}</td>
                             <td>
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
@@ -54,9 +54,12 @@
                                 </button>
                                 <nz-dropdown-menu #menu4="nzDropdownMenu">
                                     <ul nz-menu>
-                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
-                                        <li nz-menu-item (click)="onBulkAction('edit', data._id)">Send Mail</li>
-                                        <li nz-menu-item (click)="onBulkAction('deactivate', data._id)">Suspend</li>
+                                        <!-- <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li> -->
+                                        <li nz-menu-item (click)="onBulkAction('edit', data._id, data.name)">Edit</li>
+                                        <li nz-menu-item *ngIf="!data.isActive"
+                                            (click)="onBulkAction('activate', data._id, data.name)">Activate</li>
+                                        <li nz-menu-item *ngIf="data.isActive"
+                                            (click)="onBulkAction('deactivate', data._id, data.name)">Deactivate</li>
                                     </ul>
                                 </nz-dropdown-menu>
                             </td>
@@ -82,13 +85,13 @@
                     </nz-form-control>
                 </nz-form-item>
 
-                <div style="margin: 20px 0px;">
+                <!-- <div style="margin: 20px 0px;">
                     <button nz-button nzType="default" style="border: 1px solid #29B475; color: #29B475;"
                         (click)="onAddNew()">
                         <i nz-icon nzType="plus-circle" nzTheme="fill" nzTwotoneColor="#29B475"></i>
                         Add New
                     </button>
-                </div>
+                </div> -->
 
                 <div formArrayName="name_Bulk">
                     <nz-form-item style="margin: 2px 2px"

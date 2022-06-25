@@ -31,22 +31,22 @@
     <div class="dashboardTable">
         <nz-tabset>
             <nz-tab nzTitle="Admin">
-                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allAdminUsersTable">
+                <nz-table #adminTable nzShowPagination nzShowSizeChanger [nzData]="allAdminUsersTable">
                     <thead>
                         <tr>
                             <th>Full Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>User ID</th>
                             <th>Actions</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of rowSelectionTable.data">
+                        <tr *ngFor="let data of adminTable.data">
                             <td>{{ data.firstName }} {{data.lastName}}</td>
                             <td>{{ data.email }}</td>
                             <td>{{ data.role }}</td>
-                            <td>{{ data.userId}}</td>
+                            <td>{{ data.archived ? "Inactive": "Active"}}</td>
                             <td>
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
@@ -54,9 +54,11 @@
                                 </button>
                                 <nz-dropdown-menu #menu4="nzDropdownMenu">
                                     <ul nz-menu>
-                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
                                         <li nz-menu-item (click)="onBulkAction('edit', data._id)">Edit</li>
-                                        <li nz-menu-item (click)="onBulkAction('deactivate', data._id)">Deactivate</li>
+                                        <li nz-menu-item *ngIf="data.archived"
+                                            (click)="onBulkAction('active', data._id)">Activate</li>
+                                        <li nz-menu-item *ngIf="!data.archived"
+                                            (click)="onBulkAction('deactivate', data._id)">Deactivate</li>
                                     </ul>
                                 </nz-dropdown-menu>
                             </td>
@@ -66,22 +68,22 @@
             </nz-tab>
 
             <nz-tab nzTitle="Super Admin">
-                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allSuperAdminUsersTable">
+                <nz-table #superAdminTable nzShowPagination nzShowSizeChanger [nzData]="allSuperAdminUsersTable">
                     <thead>
                         <tr>
                             <th>Full Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>User ID</th>
+                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of rowSelectionTable.data">
+                        <tr *ngFor="let data of superAdminTable.data">
                             <td>{{ data.firstName }} {{data.lastName}}</td>
                             <td>{{ data.email }}</td>
                             <td>{{ data.role }}</td>
-                            <td>{{ data.userId}}</td>
+                            <td>{{ data.archived ? "Inactive": "Active"}}</td>
                             <td>
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
@@ -89,9 +91,11 @@
                                 </button>
                                 <nz-dropdown-menu #menu4="nzDropdownMenu">
                                     <ul nz-menu>
-                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
                                         <li nz-menu-item (click)="onBulkAction('edit', data._id)">Edit</li>
-                                        <li nz-menu-item (click)="onBulkAction('deactivate', data._id)">Deactivate</li>
+                                        <li nz-menu-item *ngIf="data.archived"
+                                            (click)="onBulkAction('active', data._id)">Activate</li>
+                                        <li nz-menu-item *ngIf="!data.archived"
+                                            (click)="onBulkAction('deactivate', data._id)">Deactivate</li>
                                     </ul>
                                 </nz-dropdown-menu>
                             </td>
@@ -106,9 +110,42 @@
     <nz-modal [(nzVisible)]="isModalVisible" (nzOnCancel)="handleCancel()" [nzFooter]=null>
         <ng-container *nzModalContent>
             <form nz-form nzLayout="vertical" [formGroup]="newUserForm">
+                <!-- First Name -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="firstName">First Name</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid first name.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input nzSize="large" formControlName="firstName"
+                                placeholder="Enter your first name" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Last Name -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="lastName">Last Name</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid last name.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input nzSize="large" formControlName="lastName"
+                                placeholder="Enter your last name" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <!-- Designation -->
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="designation">Designation</nz-form-label>
+                    <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid designation.">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input nzSize="large" formControlName="designation"
+                                placeholder="Enter your designation" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+
                 <!-- Email -->
                 <nz-form-item>
-                    <nz-form-label [nzSpan]="null" nzFor="email">User Email Address</nz-form-label>
+                    <nz-form-label [nzSpan]="null" nzFor="email">Email Address</nz-form-label>
                     <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email.">
                         <nz-input-group nzSize="large">
                             <input type="text" nz-input nzSize="large" formControlName="email"
@@ -121,13 +158,13 @@
                 <nz-form-item>
                     <nz-form-label [nzSpan]="null" nzFor="role">Select Role</nz-form-label>
                     <nz-select formControlName="role" nzSize="large" nzPlaceHolder="Select role">
-                        <nz-option nzValue="company-owner" nzLabel="Admin"></nz-option>
-                        <nz-option nzValue="company-employee" nzLabel="Employee"></nz-option>
+                        <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
+                        <nz-option nzValue="super-admin" nzLabel="Super Admin"></nz-option>
                     </nz-select>
                 </nz-form-item>
 
                 <!-- Permission -->
-                <nz-form-item>
+                <nz-form-item *ngIf="newUserForm.value.role == 'admin'">
                     <nz-form-label [nzSpan]="null" nzFor="permission">Select Permission</nz-form-label>
                     <nz-checkbox-group formControlName="permission"></nz-checkbox-group>
                 </nz-form-item>

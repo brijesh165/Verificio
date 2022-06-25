@@ -1,7 +1,7 @@
 <div class="subscriptionContainer">
     <nz-breadcrumb>
         <nz-breadcrumb-item>
-            <a [routerLink]="['/admin/dashboard']">
+            <a [routerLink]="['/admin/subscriptions']">
                 <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
             </a>
         </nz-breadcrumb-item>
@@ -30,7 +30,8 @@
     <div class="subscriptionList dashboardTable">
         <nz-tabset>
             <nz-tab nzTitle="All Plans">
-                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allSubscriptionPlansTable">
+                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzLoading]="isLoading"
+                    [nzData]="allSubscriptionPlansTable">
                     <thead>
                         <tr>
                             <th>Plan Name</th>
@@ -43,9 +44,15 @@
                     <tbody>
                         <tr *ngFor="let data of rowSelectionTable.data">
                             <td>{{ data.name }}</td>
-                            <td>{{ data.email }} {{ data.user.lastName }}</td>
-                            <td>{{ data.subscribedPlan }}</td>
-                            <td>{{ data.status}}</td>
+                            <td>
+                                <div>
+                                    <span>NGN: {{data.prices.NGN}}</span>
+                                    <br />
+                                    <span>USD: {{data.prices.USD}}</span>
+                                </div>
+                            </td>
+                            <td>{{ data.totalSubscribers }}</td>
+                            <td>{{ data.isActive ? "Active" : "Inactive"}}</td>
                             <td>
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
@@ -53,7 +60,7 @@
                                 </button>
                                 <nz-dropdown-menu #menu4="nzDropdownMenu">
                                     <ul nz-menu>
-                                        <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li>
+                                        <!-- <li nz-menu-item (click)="onBulkAction('view', data._id)">View</li> -->
                                         <li nz-menu-item (click)="onBulkAction('edit', data._id)">Edit</li>
                                         <li nz-menu-item (click)="onBulkAction('deactivate', data._id)">Deactivate</li>
                                     </ul>

@@ -14,6 +14,10 @@ export class AddSubscriptionComponent implements OnInit {
 
   subscriptionForm: any = FormGroup;
 
+  listOfOption: string[] = [];
+  listOfTagOptions = [];
+
+  isEdit: any = false;
   paramsFromParent: any;
   planFeatures: any = [
     { label: "Allow messages from companies", value: "allow_message" },
@@ -35,46 +39,102 @@ export class AddSubscriptionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.subscriptionForm = this.fb.group({
       name: [null, [Validators.required]],
       subHeader: [null, [Validators.required]],
-      planPrice: [null, [Validators.required]],
+      basicPlanPriceNGN: [null, [Validators.required]],
+      sellingPlanPriceNGN: [null, [Validators.required]],
+      basicPlanPriceUSA: [null, [Validators.required]],
+      sellingPlanPriceUSA: [null, [Validators.required]],
       noOfUser: [null, [Validators.required]],
-      features: [this.planFeatures, [Validators.required]],
-      aboutThePlan: [null, [Validators.required]]
+      features: [this.listOfOption, [Validators.required]],
     })
 
     if (this.paramsFromParent.isEdit) {
       this.getInfoForPlan(this.paramsFromParent.id)
+      this.isEdit = true;
     }
   }
 
   getInfoForPlan(id: any) {
-    console.log("Id: ", id);
+    this.adminService.getPlanInfo(id)
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+
+          this.listOfOption = res.data?.benefits;
+          this.subscriptionForm.patchValue({
+            name: res.data?.name,
+            subHeader: res.data?.subtitle,
+            basicPlanPriceNGN: res.data?.basePrices?.NGN,
+            sellingPlanPriceNGN: res.data?.basePrices?.USD,
+            basicPlanPriceUSA: res.data?.prices?.NGN,
+            sellingPlanPriceUSA: res.data?.prices?.USD,
+            noOfUser: res.data?.maxEmployees,
+            features: this.listOfOption,
+          })
+        }
+      })
   }
 
   onAddNewPlan() {
     const params = {
-      name: this.subscriptionForm.control.value
+      name: this.subscriptionForm.value.name,
+      subtitle: this.subscriptionForm.value.subHeader,
+      basePrices: {
+        NGN: this.subscriptionForm.value.basicPlanPriceNGN,
+        USD: this.subscriptionForm.value.basicPlanPriceUSA
+      },
+      prices: {
+        NGN: this.subscriptionForm.value.sellingPlanPriceNGN,
+        USD: this.subscriptionForm.value.sellingPlanPriceUSA
+      },
+      benefits: this.subscriptionForm.value.features,
+      maxEmployees: this.subscriptionForm.value.noOfUser,
     }
 
-    this.modalService.create<ModelsComponent>({
-      nzTitle: '',
-      nzContent: ModelsComponent,
-      nzWidth: 444,
-      nzFooter: null,
-      nzComponentParams: {
-        modelType: "success",
-        modelTitle: "Plan has been created",
-        modelSubTitle: ""
-      }
-    });
+    if (this.isEdit) {
+      this.adminService.updateSubscriptionPlan({
+        "planId": this.paramsFromParent.id,
+        "params": params
+      })
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: res.message,
+                modelSubTitle: ""
+              }
+            });
 
-    // this.adminService.createSubscriptionPlan(params)
-    //   .subscribe((res: any) => {
-    //     console.log("Response: ", res);
-    //   })
+            this.router.navigate(["/admin/subscriptions"])
+          }
+        })
+
+    } else {
+      this.adminService.createSubscriptionPlan(params)
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: "Plan has been created",
+                modelSubTitle: ""
+              }
+            });
+
+            this.router.navigate(["/admin/subscriptions"])
+          }
+        })
+    }
   }
 
 }

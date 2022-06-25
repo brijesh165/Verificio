@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { Reports } from 'src/app/models/admin/Reports';
+import { AdminService } from 'src/app/services/admin.service';
 import { ModelsComponent } from '../models/models.component';
 
 @Component({
@@ -15,10 +16,13 @@ export class ReportsComponent implements OnInit {
   tableData: any = [];
   searchText: any = "";
   isVisible: any = false;
+  isEdit: any = false;
+  isEditId: any = "";
 
   newCategoryForm: any = FormGroup;
 
-  constructor(private fb: FormBuilder, private modalService: NzModalService) { }
+  constructor(private fb: FormBuilder, private adminService: AdminService,
+    private modalService: NzModalService) { }
 
   ngOnInit(): void {
 
@@ -26,10 +30,19 @@ export class ReportsComponent implements OnInit {
       name: [null, [Validators.required]],
       name_Bulk: this.fb.array([])
     })
+
+    this.getAllReports();
+  }
+
+  getAllReports() {
+    this.adminService.getAllReportType()
+      .subscribe((res: any) => {
+        this.tableData = res.data.map((item: any) => Reports.fromMap(item));
+        this.allReportCategoryTable = res.data.map((item: any) => Reports.fromMap(item));
+      })
   }
 
   onCreateNew() {
-    console.log("Create New");
     this.isVisible = true;
   }
 
@@ -50,7 +63,59 @@ export class ReportsComponent implements OnInit {
   }
 
   handleSaveCategory() {
-    console.log("Save Category");
+    const params = {
+      name: this.newCategoryForm.value.name
+    }
+
+    if (this.isEdit) {
+      const params = {
+        "reportId": this.isEditId,
+        "name": this.newCategoryForm.value.name
+      };
+
+      this.adminService.updateReportType(params)
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: "Changes has been saved",
+                modelSubTitle: ""
+              }
+            });
+
+            this.isEdit = false;
+            this.isEditId = "";
+            this.isVisible = false;
+            this.getAllReports();
+          }
+        })
+    } else {
+      this.adminService.createReportType(params)
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: "Category has been created",
+                modelSubTitle: ""
+              }
+            });
+
+            this.isVisible = false;
+            this.getAllReports();
+          }
+        })
+    }
+
   }
 
   onSearch(searchTxt: any): void {
@@ -70,9 +135,36 @@ export class ReportsComponent implements OnInit {
     }).map((item: any) => Reports.fromMap(item));
   }
 
-  onBulkAction(status: any, id: any) {
-    console.log("Status: ", status);
-    if (status === "deactivate") {
+  onBulkAction(status: any, id: any, name: any) {
+    if (status === "edit") {
+      this.newCategoryForm.patchValue({
+        name: name
+      })
+      this.isEditId = id;
+      this.isEdit = true;
+      this.isVisible = true;
+    } else if (status === "active") {
+      this.adminService.activateReportType({
+        "reportIds": [id]
+      })
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: res.message,
+                modelSubTitle: ""
+              }
+            });
+
+            this.getAllReports();
+          }
+        })
+    } else if (status === "deactivate") {
       const drawerRef = this.modalService.create<ModelsComponent>({
         nzTitle: '',
         nzContent: ModelsComponent,
@@ -87,17 +179,26 @@ export class ReportsComponent implements OnInit {
 
       drawerRef.afterClose.subscribe((data: any) => {
         if (data === true) {
-          this.modalService.create<ModelsComponent>({
-            nzTitle: '',
-            nzContent: ModelsComponent,
-            nzWidth: 444,
-            nzFooter: null,
-            nzComponentParams: {
-              modelType: "success",
-              modelTitle: "Category has been deleted ",
-              modelSubTitle: ""
-            }
-          });
+          this.adminService.deleteReportType({
+            "reportIds": [id]
+          })
+            .subscribe((res: any) => {
+              if (res.status === "success") {
+                this.modalService.create<ModelsComponent>({
+                  nzTitle: '',
+                  nzContent: ModelsComponent,
+                  nzWidth: 444,
+                  nzFooter: null,
+                  nzComponentParams: {
+                    modelType: "success",
+                    modelTitle: "Category has been deleted ",
+                    modelSubTitle: ""
+                  }
+                });
+
+                this.getAllReports();
+              }
+            })
         }
       })
     }

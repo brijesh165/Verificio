@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalTypes, NzModalService } from 'ng-zorro-antd/modal';
+import { AdminService } from 'src/app/services/admin.service';
 import { ModelsComponent } from '../../models/models.component';
 
 @Component({
@@ -18,31 +19,24 @@ export class CompanyEmailComponent implements OnInit {
   paramsFromParent: any;
 
   constructor(private fb: FormBuilder, private router: Router,
-    private modalService: NzModalService) {
+    private modalService: NzModalService, private adminService: AdminService) {
     const routeParams: any = this.router.getCurrentNavigation();
     this.paramsFromParent = routeParams.extras.state;
   }
 
   ngOnInit(): void {
     this.emailForm = this.fb.group({
-      email: [{ value: null, disabled: true }, [Validators.required]],
+      // email: [{ value: null, disabled: true }, [Validators.required]],
       reasons: [{ value: null, disabled: false }, [Validators.required]],
       liftSuspension: [{ value: null, disabled: false }, [Validators.required]]
     })
-
-    this.getEmployeeInfo(this.paramsFromParent)
-  }
-
-  getEmployeeInfo(id: any) {
-    console.log("Id for Email: ", id);
   }
 
   handelEmailCancel() {
-    this.router.navigate(["admin/dashboard"]);
+    this.router.navigate(["admin/companies"]);
   }
 
   handleEmailSubmit() {
-    this.previewData.email = this.emailForm.value.email;
     this.previewData.reasons = this.emailForm.value.reasons;
     this.previewData.liftSuspension = this.emailForm.value.liftSuspension;
     this.showPreview = true;
@@ -53,17 +47,42 @@ export class CompanyEmailComponent implements OnInit {
   }
 
   onPreviewReportSubmit() {
-    this.modalService.create<ModelsComponent>({
-      nzTitle: '',
-      nzContent: ModelsComponent,
-      nzWidth: 444,
-      nzFooter: null,
-      nzComponentParams: {
-        modelType: "success",
-        modelTitle: "Thank you. Email has been sent successfully",
-        modelSubTitle: ""
-      }
-    });
+    const params = {
+      "companyId": this.paramsFromParent.id,
+      "subject": this.previewData.reasons,
+      "message": this.previewData.liftSuspension
+    }
+
+    this.adminService.suspenstionEmail(params)
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          this.modalService.create<ModelsComponent>({
+            nzTitle: '',
+            nzContent: ModelsComponent,
+            nzWidth: 444,
+            nzFooter: null,
+            nzComponentParams: {
+              modelType: "success",
+              modelTitle: res.message,
+              modelSubTitle: ""
+            }
+          });
+        } else if (res.status === "error") {
+          this.modalService.create<ModelsComponent>({
+            nzTitle: '',
+            nzContent: ModelsComponent,
+            nzWidth: 444,
+            nzFooter: null,
+            nzComponentParams: {
+              modelType: "error",
+              modelTitle: res.message,
+              modelSubTitle: ""
+            }
+          });
+        }
+      })
+
+
   }
 
 }

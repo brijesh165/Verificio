@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { Company } from 'src/app/models/admin/Company';
 import { AdminService } from 'src/app/services/admin.service';
 import { ModelsComponent } from '../models/models.component';
 
@@ -14,46 +16,103 @@ export class CompanyComponent implements OnInit {
   allActiveCompaniesTable: any = [];
   allSuspendedCompaniesTable: any = [];
 
+  suspenstionForm: any = FormGroup;
+
+  isVisible: any = false;
+  suspendId: any = "";
+
   constructor(
-    private adminService: AdminService,
+    private adminService: AdminService, private fb: FormBuilder,
     private modalService: NzModalService, private router: Router
   ) { }
 
   ngOnInit(): void {
-    this.getCompanies();
+
+    this.suspenstionForm = this.fb.group({
+      reasons: [{ value: null, disabled: false }, [Validators.required]],
+      liftSuspension: [{ value: null, disabled: false }, [Validators.required]]
+    })
+
+    this.getActiveCompanies();
+    this.getSuspendedCompanies();
   }
 
-  getCompanies() {
-    this.adminService.getCompanyList()
+  getActiveCompanies() {
+    const params = {
+      page: 1,
+      pageSize: 10,
+      archived: false
+    }
+    this.adminService.getCompanyList(params)
       .subscribe((res: any) => {
-        console.log("Response: ", res.data);
+        this.allActiveCompaniesTable = res.data.companyList.map((item: any) => Company.fromMap(item));
+      })
+  }
+
+  getSuspendedCompanies() {
+    const params = {
+      page: 1,
+      pageSize: 10,
+      archived: true
+    }
+    this.adminService.getCompanyList(params)
+      .subscribe((res: any) => {
+        this.allSuspendedCompaniesTable = res.data.companyList.map((item: any) => Company.fromMap(item));
       })
   }
 
   onBulkAction(status: any, id: any): void {
     if (status === "view") {
-      this.router.navigate(["admin/companies/view",
+      this.router.navigate(["admin/companies/view"],
         { state: { id: id } }
-      ])
+      )
     } else if (status === "sendMail") {
-      this.router.navigate(["admin/companies/sendEmail",
+      this.router.navigate(["admin/companies/sendEmail"],
         { state: { id: id } }
-      ])
+      )
     } else if (status === "suspend") {
-      const drawerRef = this.modalService.create<ModelsComponent>({
-        nzTitle: '',
-        nzContent: ModelsComponent,
-        nzWidth: 444,
-        nzFooter: null,
-        nzComponentParams: {
-          modelType: "deactivate",
-          modelTitle: "Are you sure you want to suspend this user?",
-          modelSubTitle: "You are about to take a serious action. Be careful before you suspend this account"
-        }
-      });
+      this.suspendId = id;
+      this.isVisible = true;
+    } else if (status === "unsuspend") {
 
-      drawerRef.afterClose.subscribe((data: any) => {
-        if (data === true) {
+      this.adminService.unSuspendCompany({ companyId: id })
+        .subscribe((res: any) => {
+          if (res.status === "success") {
+            this.suspendId = "";
+            this.modalService.create<ModelsComponent>({
+              nzTitle: '',
+              nzContent: ModelsComponent,
+              nzWidth: 444,
+              nzFooter: null,
+              nzComponentParams: {
+                modelType: "success",
+                modelTitle: res.message,
+                modelSubTitle: ""
+              }
+            });
+          }
+
+          this.getActiveCompanies();
+          this.getSuspendedCompanies();
+        });
+    }
+  }
+
+  handleCancel() {
+    this.isVisible = false;
+  }
+
+  handleSuspend() {
+    const params = {
+      "companyId": this.suspendId,
+      "reason": this.suspenstionForm.value.reasons,
+      "nextSteps": this.suspenstionForm.value.liftSuspension
+    };
+
+    this.adminService.suspendCompany(params)
+      .subscribe((res: any) => {
+        if (res.status === "success") {
+          this.suspendId = "";
           this.modalService.create<ModelsComponent>({
             nzTitle: '',
             nzContent: ModelsComponent,
@@ -61,14 +120,14 @@ export class CompanyComponent implements OnInit {
             nzFooter: null,
             nzComponentParams: {
               modelType: "success",
-              modelTitle: "User has been suspended. You mayb send a suspension email now",
+              modelTitle: res.message,
               modelSubTitle: ""
             }
           });
         }
+
+        this.getActiveCompanies();
+        this.getSuspendedCompanies();
       })
-    } else if (status === "unsuspend") {
-      console.log("Unsuspend");
-    }
   }
 }

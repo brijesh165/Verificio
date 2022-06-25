@@ -23,7 +23,8 @@ export class CompanyProfileComponent implements OnInit {
   disableSaveBtn: any = false;
   paramsFromParent: any;
 
-  constructor(private fb: FormBuilder, private router: Router, private countryService: CountryService) {
+  constructor(private fb: FormBuilder, private router: Router,
+    private dataService: DataService, private countryService: CountryService) {
     const routeParams: any = this.router.getCurrentNavigation();
     this.paramsFromParent = routeParams.extras.state;
   }
@@ -32,8 +33,7 @@ export class CompanyProfileComponent implements OnInit {
     this.countryList = this.countryService.getCountryList();
 
     this.companyProfileForm = this.fb.group({
-      firstName: [{ value: null, disabled: true }, [Validators.required]],
-      lastName: [{ value: null, disabled: true }, [Validators.required]],
+      name: [{ value: null, disabled: true }, [Validators.required]],
       email: [{ value: null, disabled: true }, [Validators.required]],
       phoneNumberPrefix: [{ value: null, disabled: true }, [Validators.required]],
       phone: [{ value: null, disabled: true }, [Validators.required, Validators.maxLength(10)]],
@@ -51,11 +51,26 @@ export class CompanyProfileComponent implements OnInit {
       confirmPassword: [{ value: null, disabled: true }, [Validators.required]],
     });
 
-    this.getEmployeeInfo(this.paramsFromParent);
+    this.getEmployeeInfo(this.paramsFromParent.id);
   }
 
   getEmployeeInfo(id: any) {
-    console.log("Empolyee Id: ", id);
+    this.dataService.getCompanyById(id)
+      .subscribe((res: any) => {
+        this.companyProfileForm.patchValue({
+          name: res.data?.name,
+          email: res.data?.email,
+          phoneNumberPrefix: res.data?.countryCode,
+          phone: res.data?.phoneNo,
+          plan: res.data?.plan,
+          status: res.data?.status,
+          registrationDate: res.data?.registrationDate,
+          address: res.data.address?.address,
+          state: res.data.address?.state,
+          lga: res.data.address?.lga,
+        })
+      });
+
   }
 
   beforeUpload = (file: NzUploadFile): any => {
@@ -78,7 +93,6 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   handleResetPassword() {
-    console.log("Reset Password");
     this.isModalVisible = true;
   }
 
@@ -87,8 +101,6 @@ export class CompanyProfileComponent implements OnInit {
   }
 
   handleGeneratePassword() {
-    console.log("Generate Password");
-
     this.disableSaveBtn = !this.disableSaveBtn;
   }
 

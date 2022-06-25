@@ -1,5 +1,5 @@
 export class Company {
-    _id: string = "",
+    _id: string = "";
     name: string = "";
     email: string = "";
     subscribedPlan: string = "";

@@ -1,7 +1,7 @@
 <div class="companyProfileContainer">
     <nz-breadcrumb>
         <nz-breadcrumb-item>
-            <a [routerLink]="['/admin/dashboard']">
+            <a [routerLink]="['/admin/companies']">
                 <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
             </a>
         </nz-breadcrumb-item>
@@ -14,7 +14,7 @@
         <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Orelan Industrie Limited</h3>
 
         <div style="width: 100%;">
-            <div nz-row class="rowStyle">
+            <div nz-row class="rowStyle" style="justify-content: flex-start;">
                 <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
                     <!-- <button nz-button nzType="text">Change image</button> -->
                     <div style="display: flex; flex-direction: column">
@@ -27,39 +27,26 @@
                         </nz-upload>
                     </div>
                 </div>
-                <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: right;">
+                <!-- <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: right;">
                     <button nz-button nzType="link" class="editBtn" style="color: #29B475;"
                         (click)="handleResetPassword()">
                         <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; "></i> Reset Password
                     </button>
-                </div>
+                </div> -->
             </div>
 
-            <form nz-form nzLayout="vertical" [formGroup]="companyProfileForm" style="margin-top: 10px;">
+            <form nz-form nzLayout="vertical" [formGroup]="companyProfileForm" style="margin-top: 25px;">
 
                 <!-- First Name & Last Name-->
                 <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8">
-                    <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: left;">
                         <nz-form-item style="margin: 0 0 2px">
-                            <nz-form-label [nzSpan]="null" nzFor="firstName" style="padding: 0px;">First Name
+                            <nz-form-label [nzSpan]="null" nzFor="name" style="padding: 0px;">First Name
                             </nz-form-label>
                             <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
                                 <nz-input-group nzSize="large">
-                                    <input type="text" nz-input nzBorderless formControlName="firstName"
-                                        placeholder="Enter your first name" style="padding: 6.5px 0px" />
-                                </nz-input-group>
-                            </nz-form-control>
-                        </nz-form-item>
-                    </div>
-
-                    <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12">
-                        <nz-form-item style="margin: 0 0 2px">
-                            <nz-form-label [nzSpan]="null" nzFor="lastName" style=" padding: 0px;">Last Name
-                            </nz-form-label>
-                            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
-                                <nz-input-group nzSize="large">
-                                    <input type="text" nz-input nzBorderless formControlName="lastName"
-                                        placeholder="Enter your last name" style="padding: 6.5px 0px" />
+                                    <input type="text" nz-input nzBorderless formControlName="name"
+                                        style="padding: 6.5px 0px" />
                                 </nz-input-group>
                             </nz-form-control>
                         </nz-form-item>
@@ -75,7 +62,7 @@
                             <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid email.">
                                 <nz-input-group nzSize="large">
                                     <input type="text" nz-input nzBorderless formControlName="email"
-                                        placeholder="Enter your email address" style="padding: 6.5px 0px" />
+                                        style="padding: 6.5px 0px" />
                                 </nz-input-group>
                             </nz-form-control>
                         </nz-form-item>
@@ -87,8 +74,8 @@
                             </nz-form-label>
                             <nz-form-control nzErrorTip="Please enter your phone number!">
                                 <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate" nzSize="large">
-                                    <input formControlName="phone" placeholder="Enter phone number" nzBorderless
-                                        id="phoneNumber" nz-input nzSize="large" />
+                                    <input formControlName="phone" nzBorderless id="phoneNumber" nz-input
+                                        nzSize="large" />
                                 </nz-input-group>
                             </nz-form-control>
                         </nz-form-item>
@@ -111,7 +98,7 @@
                             <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
                                 <nz-input-group nzSize="large">
                                     <input type="text" nz-input nzBorderless formControlName="plan"
-                                        placeholder="Enter your first name" style="padding: 6.5px 0px" />
+                                        style="padding: 6.5px 0px" />
                                 </nz-input-group>
                             </nz-form-control>
                         </nz-form-item>
@@ -121,10 +108,10 @@
                         <nz-form-item style="margin: 0 0 2px">
                             <nz-form-label [nzSpan]="null" nzFor="status" style=" padding: 0px;">Status
                             </nz-form-label>
-                            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
+                            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid status.">
                                 <nz-input-group nzSize="large">
                                     <input type="text" nz-input nzBorderless formControlName="status"
-                                        placeholder="Enter your last name" style="padding: 6.5px 0px" />
+                                        style="padding: 6.5px 0px" />
                                 </nz-input-group>
                             </nz-form-control>
                         </nz-form-item>
@@ -133,20 +120,7 @@
 
                 <!-- staff & registration date -->
                 <div nz-row class="rowStyle" style="border-bottom: 1px solid #D4E1E8; margin-top: 20px;">
-                    <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
-                        <nz-form-item style="margin: 0 0 2px">
-                            <nz-form-label [nzSpan]="null" nzFor="staff" style="padding: 0px;">Staff
-                            </nz-form-label>
-                            <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid name.">
-                                <nz-input-group nzSize="large">
-                                    <input type="text" nz-input nzBorderless formControlName="staff"
-                                        placeholder="Enter your first name" style="padding: 6.5px 0px" />
-                                </nz-input-group>
-                            </nz-form-control>
-                        </nz-form-item>
-                    </div>
-
-                    <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
+                    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="24" nzXl="24" style="text-align: left;">
                         <nz-form-item style="margin: 0 0 2px">
                             <nz-form-label [nzSpan]="null" nzFor="registrationDate" style="padding: 0px;">Registration
                                 Date</nz-form-label>
@@ -170,7 +144,7 @@
                             <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid address.">
                                 <nz-input-group nzSize="large">
                                     <input type="text" nz-input nzBorderless formControlName="address"
-                                        placeholder="Enter your house address" style="padding: 6.5px 0px" />
+                                        style="padding: 6.5px 0px" />
                                 </nz-input-group>
                             </nz-form-control>
                         </nz-form-item>
@@ -185,7 +159,7 @@
                             </nz-form-label>
                             <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid state of origin.">
                                 <nz-input-group nzSize="large">
-                                    <input type="text" nz-input nzBorderless formControlName="state" placeholder="State"
+                                    <input type="text" nz-input nzBorderless formControlName="state"
                                         style="padding: 6.5px 0px" />
                                 </nz-input-group>
                             </nz-form-control>
@@ -199,7 +173,7 @@
                             </nz-form-label>
                             <nz-form-control [nzSpan]="null" nzErrorTip="Enter valid lgs.">
                                 <nz-input-group nzSize="large">
-                                    <input type="text" nz-input nzBorderless formControlName="lga" placeholder="LGA"
+                                    <input type="text" nz-input nzBorderless formControlName="lga"
                                         style="padding: 6.5px 0px" />
                                 </nz-input-group>
                             </nz-form-control>

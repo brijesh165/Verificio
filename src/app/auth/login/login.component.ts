@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
         }
 
         if (response.status === "success") {
-          console.log("Response: ", response);
           if (response.data.user.role === "super-admin" || response.data.user.role === "admin") {
             localStorage.setItem('token', response.data.token.toString());
             localStorage.setItem('user', JSON.stringify(response.data.user));

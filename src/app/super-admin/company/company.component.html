@@ -25,9 +25,9 @@
                     <tbody>
                         <tr *ngFor="let data of rowSelectionTable.data">
                             <td>{{ data.name }}</td>
-                            <td>{{ data.email }} {{ data.user.lastName }}</td>
-                            <td>{{ data.subscribedPlan }}</td>
-                            <td>{{ data.status}}</td>
+                            <td>{{ data.email || "-" }}</td>
+                            <td>{{ data.subscribedPlan || "-" }}</td>
+                            <td>{{ data.status || "-"}}</td>
                             <td>
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
@@ -46,7 +46,7 @@
                 </nz-table>
             </nz-tab>
             <nz-tab nzTitle="Suspended">
-                <nz-table #approvedTable nzShowPagination nzShowSizeChanger [nzData]="allSuspendedCompaniesTable">
+                <nz-table #suspendedTable nzShowPagination nzShowSizeChanger [nzData]="allSuspendedCompaniesTable">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -57,11 +57,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let data of rowSelectionTable.data">
+                        <tr *ngFor="let data of suspendedTable.data">
                             <td>{{ data.name }}</td>
-                            <td>{{ data.email }} {{ data.user.lastName }}</td>
-                            <td>{{ data.subscribedPlan }}</td>
-                            <td>{{ data.status}}</td>
+                            <td>{{ data.email || '-' }}</td>
+                            <td>{{ data.subscribedPlan || '-' }}</td>
+                            <td>{{ data.status || '-' }}</td>
                             <td>
                                 <button nz-button nzSize="large" nz-dropdown [nzDropdownMenu]="menu4">
                                     Actions
@@ -80,6 +80,33 @@
                 </nz-table>
             </nz-tab>
         </nz-tabset>
-
     </div>
+
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Suspend Company" (nzOnCancel)="handleCancel()" [nzFooter]="null">
+        <ng-container *nzModalContent>
+            <form nz-form nzLayout="vertical" [formGroup]="suspenstionForm">
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="reasons">Reason for suspension</nz-form-label>
+                    <nz-form-control [nzSpan]="null">
+                        <nz-input-group nzSize="large">
+                            <input type="text" nz-input formControlName="reasons" />
+                        </nz-input-group>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label [nzSpan]="null" nzFor="liftSuspension">What to do to lift the suspension
+                    </nz-form-label>
+                    <textarea nzSize="large" nz-input formControlName="liftSuspension" placeholder="Start typing"
+                        [nzAutosize]="{ minRows: 3, maxRows: 10 }"></textarea>
+                </nz-form-item>
+                <nz-form-item style="display: flex; align-items: flex-end;">
+                    <nz-form-item>
+                        <button nz-button class="modalDoneBtn" nzType="primary" (click)="handleSuspend()">
+                            <span>Submit</span>
+                        </button>
+                    </nz-form-item>
+                </nz-form-item>
+            </form>
+        </ng-container>
+    </nz-modal>
 </div>
