@@ -11,6 +11,7 @@ import {
   ApexTooltip,
   ApexStroke
 } from "ng-apexcharts";
+import { DataService } from 'src/app/services/data.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -36,7 +37,11 @@ export class DashboardComponent implements OnInit {
 
   authenticatedUser: User;
 
-  constructor(private router: Router) {
+  totalRevenue: any;
+  totalSales: any;
+  totalCompanies: any;
+
+  constructor(private router: Router, private dataService: DataService) {
     this.chartOptions = {
       series: [
         {
@@ -64,10 +69,19 @@ export class DashboardComponent implements OnInit {
         }
       }
     };
-   }
+  }
 
   ngOnInit(): void {
     this.authenticatedUser = User.fromMap(JSON.parse(localStorage.getItem("user") || '{}'))
+
+    this.dataService.getDashboardData()
+      .subscribe((response: any) => {
+        if (response.status == 'success') {
+          this.totalRevenue = response.data.totalRevenueNBN[0].totalRevenueNGN;
+          this.totalSales = response.data.totalSales;
+          this.totalCompanies = response.data.totalCompanies;
+        }
+      })
   }
 
   onAddNew(): void {

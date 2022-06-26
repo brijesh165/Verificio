@@ -45,7 +45,9 @@ import { AddSubscriptionComponent } from './subscription/add-subscription/add-su
 import { ReportsComponent } from './reports/reports.component';
 import { UsersComponent } from './users/users.component';
 import { SettingsComponent } from './settings/settings.component';
-
+import { NotificationsComponent } from './notifications/notifications.component';
+import { MainModule } from '../main/main.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 @NgModule({
   declarations: [
@@ -59,13 +61,17 @@ import { SettingsComponent } from './settings/settings.component';
     AddSubscriptionComponent,
     ReportsComponent,
     UsersComponent,
-    SettingsComponent
+    SettingsComponent,
+    NotificationsComponent,
   ],
   imports: [
     CommonModule,
     SuperAdminRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MainModule,
+
+    CKEditorModule,
 
     NgApexchartsModule,
     NzTypographyModule,

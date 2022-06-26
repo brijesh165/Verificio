@@ -107,6 +107,9 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification';
     NzResultModule,
     NzDescriptionsModule,
     NzNotificationModule,
+  ],
+  exports: [
+    FilterDatePipe,
   ]
 })
 export class MainModule { }

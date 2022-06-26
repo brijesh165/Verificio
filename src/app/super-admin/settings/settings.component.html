@@ -11,7 +11,7 @@
 
     <nz-tabset style="width: 90%;">
         <!-- Modules Settings -->
-        <nz-tab nzTitle="Modules Settings">
+        <!-- <nz-tab nzTitle="Modules Settings">
             <div class="listContainer">
                 <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Manage Modules</h3>
                 <nz-list nzSize="large">
@@ -28,7 +28,7 @@
                     </nz-list-item>
                 </nz-list>
             </div>
-        </nz-tab>
+        </nz-tab> -->
 
         <!-- Personal Info -->
         <nz-tab nzTitle="Personal Info">
@@ -40,14 +40,11 @@
                 <div style="width: 100%;">
                     <div nz-row class="rowStyle">
                         <div nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="12" nzXl="12" style="text-align: left;">
-                            <!-- <button nz-button nzType="text">Change image</button> -->
                             <div style="display: flex; flex-direction: column">
 
-                                <!-- <img [src]="profileImagePath" alt="profile" class="profileImg" /> -->
                                 <nz-upload [nzCustomRequest]="handleUpload" [nzShowUploadList]="false"
                                     [nzBeforeUpload]="beforeUpload">
                                     <nz-avatar nzIcon="user" [nzSize]="90" [nzSrc]="profileImagePath"></nz-avatar>
-                                    <!-- <button nz-button nzType="link">Click to Upload</button> -->
                                 </nz-upload>
                             </div>
                         </div>
@@ -56,8 +53,6 @@
                                 (click)="handlePersonalEdit()">
                                 <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; "></i> Edit
                                 Profile</button>
-                            <!-- <i nz-icon nzType="edit" nzTheme="outline" style="color: #29B475; margin-right: 7px;"></i>
-                            <span class="editBtn">Edit Profile</span> -->
                         </div>
                     </div>
 
@@ -329,24 +324,21 @@
 
         <!-- Terms Of Use -->
         <nz-tab nzTitle="Terms Of Use">
-            <div class="listContainer">
+            <div class="termsOfUseContainer">
                 <h3 [ngStyle]="{ 'text-align': 'left','margin-bottom.px': 16 }">Terms of Use</h3>
 
-                <form nz-form nzLayout="vertical" [formGroup]="changePasswordForm" (ngSubmit)="submitForm()">
+                <form nz-form nzLayout="vertical" class="termsForm" [formGroup]="termOfUseForm">
 
                     <!-- Terms of Use -->
-                    <nz-form-item>
-                        <nz-form-label nzFor="currPassword">Terms Of Use</nz-form-label>
-                        <nz-form-control nzErrorTip="Please write something here!">
-                            <textarea formControlName="comment" nz-input rows="15"
-                                placeholder="write any thing"></textarea>
-                        </nz-form-control>
+                    <nz-form-item nz-row style="margin-bottom:20px" [nzGutter]="8">
+                        <ckeditor [editor]="Editor" [config]="config" formControlName="editorContent"></ckeditor>
                     </nz-form-item>
 
                     <nz-form-item nz-row style="margin-bottom:5px" [nzGutter]="8">
                         <nz-form-control>
-                            <button nz-button nzType="primary" nzSize="large"
-                                [disabled]="!changePasswordForm.valid">Change Terms of Use</button>
+                            <button nz-button class="termBtn" nzType="primary" nzSize="large"
+                                [disabled]="!termOfUseForm.valid" (click)="handleTermOfUse()">Change Terms of
+                                Use</button>
                         </nz-form-control>
                     </nz-form-item>
                 </form>

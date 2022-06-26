@@ -12,7 +12,9 @@
     <div class="companyList dashboardTable">
         <nz-tabset>
             <nz-tab nzTitle="Active">
-                <nz-table #rowSelectionTable nzShowPagination nzShowSizeChanger [nzData]="allActiveCompaniesTable">
+                <nz-table #rowSelectionTable nzShowSizeChanger [nzFrontPagination]="false" [nzLoading]="isActiveLoading"
+                    [nzTotal]="totalActiveCompanies" [nzData]="allActiveCompaniesTable"
+                    (nzPageIndexChange)="onPageIndexChange($event)" (nzPageSizeChange)="pageSizeChanged($event)">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -46,7 +48,9 @@
                 </nz-table>
             </nz-tab>
             <nz-tab nzTitle="Suspended">
-                <nz-table #suspendedTable nzShowPagination nzShowSizeChanger [nzData]="allSuspendedCompaniesTable">
+                <nz-table #suspendedTable nzShowPagination nzShowSizeChanger [nzData]="allSuspendedCompaniesTable"
+                    (nzPageIndexChange)="onPageIndexChangeForSuper($event)"
+                    (nzPageSizeChange)="pageSizeChangedForSuper($event)">
                     <thead>
                         <tr>
                             <th>Name</th>

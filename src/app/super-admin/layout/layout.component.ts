@@ -17,7 +17,7 @@ export class LayoutComponent implements OnInit {
   authenticatedUser: User;
   isSubscribed: any = false;
 
-  isCollapsed = true;
+  isCollapsed = false;
   notificationList: any[] = [];
   constructor(private router: Router, private dataService: DataService, private modalService: NzModalService) { }
 
@@ -53,7 +53,7 @@ export class LayoutComponent implements OnInit {
   }
 
   onNotificationClick() {
-    this.router.navigate(["app/notifications"])
+    this.router.navigate(["admin/notifications"])
   }
 
   handleNotificationClick(data: any) {

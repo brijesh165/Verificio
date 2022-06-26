@@ -1,0 +1,28 @@
+<div class="notificationsContainer">
+    <nz-breadcrumb>
+        <nz-breadcrumb-item>
+            <a [routerLink]="['/admin/dashboard']">
+                <i nz-icon nzType="arrow-left" nzTheme="outline"></i> Go back
+            </a>
+        </nz-breadcrumb-item>
+    </nz-breadcrumb>
+
+    <div class="title">Notification</div>
+
+    <div class="notificationList">
+        <nz-list nzItemLayout="vertical">
+            <nz-list-item *ngFor="let item of notificationsList" (click)="handleNotificationClick(item)"
+                style="cursor: pointer;">
+                <nz-list-item-meta>
+                    <nz-list-item-meta-title>
+                        {{ item.message }}
+                    </nz-list-item-meta-title>
+                </nz-list-item-meta>
+                <nz-list-item-extra>
+                    {{ item.createdAt | filterDate}}
+                </nz-list-item-extra>
+            </nz-list-item>
+            <nz-list-empty *ngIf="notificationsList.length === 0"></nz-list-empty>
+        </nz-list>
+    </div>
+</div>

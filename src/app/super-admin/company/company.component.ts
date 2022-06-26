@@ -14,7 +14,10 @@ import { ModelsComponent } from '../models/models.component';
 export class CompanyComponent implements OnInit {
 
   allActiveCompaniesTable: any = [];
+  totalActiveCompanies: any;
   allSuspendedCompaniesTable: any = [];
+  totalSuspendedCompanies: any;
+  isActiveLoading: any = false;
 
   suspenstionForm: any = FormGroup;
 
@@ -33,32 +36,51 @@ export class CompanyComponent implements OnInit {
       liftSuspension: [{ value: null, disabled: false }, [Validators.required]]
     })
 
-    this.getActiveCompanies();
-    this.getSuspendedCompanies();
+    this.getActiveCompanies(1, 10);
+    this.getSuspendedCompanies(1, 10);
   }
 
-  getActiveCompanies() {
+  getActiveCompanies(page: any, pageSize: any) {
+    this.isActiveLoading = true;
     const params = {
-      page: 1,
-      pageSize: 10,
+      page: page,
+      pageSize: pageSize,
       archived: false
     }
     this.adminService.getCompanyList(params)
       .subscribe((res: any) => {
+        this.totalActiveCompanies = res.data.totalItems;
         this.allActiveCompaniesTable = res.data.companyList.map((item: any) => Company.fromMap(item));
+        this.isActiveLoading = false;
       })
   }
 
-  getSuspendedCompanies() {
+  getSuspendedCompanies(page: any, pageSize: any) {
     const params = {
-      page: 1,
-      pageSize: 10,
+      page: page,
+      pageSize: pageSize,
       archived: true
     }
     this.adminService.getCompanyList(params)
       .subscribe((res: any) => {
         this.allSuspendedCompaniesTable = res.data.companyList.map((item: any) => Company.fromMap(item));
       })
+  }
+
+  onPageIndexChange(event: any) {
+    this.getActiveCompanies(event, 10);
+  }
+
+  pageSizeChanged(event: any) {
+    this.getActiveCompanies(1, event);
+  }
+
+  onPageIndexChangeForSuper(event: any) {
+    this.getSuspendedCompanies(event, 10);
+  }
+
+  pageSizeChangedForSuper(event: any) {
+    this.getSuspendedCompanies(1, event);
   }
 
   onBulkAction(status: any, id: any): void {
@@ -92,8 +114,8 @@ export class CompanyComponent implements OnInit {
             });
           }
 
-          this.getActiveCompanies();
-          this.getSuspendedCompanies();
+          this.getActiveCompanies(1, 10);
+          this.getSuspendedCompanies(1, 10);
         });
     }
   }
@@ -126,8 +148,8 @@ export class CompanyComponent implements OnInit {
           });
         }
 
-        this.getActiveCompanies();
-        this.getSuspendedCompanies();
+        this.getActiveCompanies(1, 10);
+        this.getSuspendedCompanies(1, 10);
       })
   }
 }

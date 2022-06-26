@@ -7,16 +7,20 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DataService } from 'src/app/services/data.service';
 import { environment } from 'src/environments/environment';
+import { AdminService } from 'src/app/services/admin.service';
+
+import * as ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
 
   changePasswordForm: any = FormGroup;
   profileForm: any = FormGroup;
+  termOfUseForm: any = FormGroup;
 
   passwordVisible = false;
   isEdit: any = true;
@@ -37,8 +41,50 @@ export class SettingsComponent implements OnInit {
     { item: "Allow all Subscribers approve profile update", status: false },
     { item: "Activate custom survey form", status: false }
   ];
+
+  public Editor = ClassicEditorBuild;
+  config = {
+    placeholder: 'Write your terms and condition',
+    toolbar: {
+      shouldNotGroupWhenFull: true
+    },
+    image: {
+      toolbar: [
+        'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight',
+        '|',
+        'imageStyle:full',
+        'imageStyle:side',
+        '|',
+        'imageTextAlternative'
+      ],
+      styles: [
+        'full',
+        'side',
+        'alignLeft', 'alignCenter', 'alignRight'
+      ],
+      resizeOptions: [
+        {
+          name: 'imageResize:original',
+          label: 'Original',
+          value: null
+        },
+        {
+          name: 'imageResize:50',
+          label: '50%',
+          value: '50'
+        },
+        {
+          name: 'imageResize:75',
+          label: '75%',
+          value: '75'
+        }
+      ],
+    }
+  }
+
   constructor(private fb: FormBuilder, private authService: AuthService,
     private countryService: CountryService, private dataService: DataService,
+    private adminService: AdminService,
     private message: NzMessageService) { }
 
   ngOnInit(): void {
@@ -63,16 +109,20 @@ export class SettingsComponent implements OnInit {
       lga: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       dateOfBirth: [{ value: null, disabled: this.isEdit }, [Validators.required]],
       gender: [{ value: null, disabled: this.isEdit }, [Validators.required]]
+    });
+
+    this.termOfUseForm = this.fb.group({
+      editorContent: [null, [Validators.required]]
     })
 
+
     this.getEmployeeDetails();
+    this.getTermsOfUse();
   }
 
   getEmployeeDetails() {
     this.authService.me()
       .subscribe((res: any) => {
-        res.data = { ...res.data, ...res.data.changedData };
-
         this.profileForm.patchValue({
           firstName: res.data.firstName,
           lastName: res.data.lastName,
@@ -89,6 +139,17 @@ export class SettingsComponent implements OnInit {
         })
 
         this.profileImagePath = res.data.profilePicture && `${environment.apiUrl}/${res.data.profilePicture}`
+      })
+  }
+
+  getTermsOfUse() {
+    this.adminService.getTerms()
+      .subscribe((res: any) => {
+        console.log("Response: ", res);
+
+        this.termOfUseForm.patchValue({
+          editorContent: res.data.content
+        })
       })
   }
 
@@ -124,6 +185,7 @@ export class SettingsComponent implements OnInit {
       "address": {
         "address": this.profileForm.value.address,
         "state": this.profileForm.value.state,
+        "country": this.profileForm.value.country,
         "stateOfOrigin": this.profileForm.value.stateOfOrigin,
         "lga": this.profileForm.value.lga
       },
@@ -148,6 +210,7 @@ export class SettingsComponent implements OnInit {
     if (!this.isEdit) {
       this.profileForm.controls['firstName'].enable();
       this.profileForm.controls['lastName'].enable();
+      this.profileForm.controls['email'].enable();
       this.profileForm.controls['phoneNumberPrefix'].enable();
       this.profileForm.controls['phone'].enable();
       this.profileForm.controls['address'].enable();
@@ -160,6 +223,7 @@ export class SettingsComponent implements OnInit {
     } else {
       this.profileForm.controls['firstName'].disable();
       this.profileForm.controls['lastName'].disable();
+      this.profileForm.controls['email'].disable();
       this.profileForm.controls['phoneNumberPrefix'].disable();
       this.profileForm.controls['phone'].disable();
       this.profileForm.controls['address'].disable();
@@ -171,8 +235,6 @@ export class SettingsComponent implements OnInit {
       this.profileForm.controls['gender'].disable();
     }
   }
-
-
   // Password Form
   submitForm() {
     if (this.changePasswordForm.value.newPassword === this.changePasswordForm.value.reNewPassword) {
@@ -190,5 +252,22 @@ export class SettingsComponent implements OnInit {
           }
         })
     }
+  }
+
+  handleTermOfUse() {
+    console.log("Terms: ", this.termOfUseForm.value.editorContent)
+    const params = {
+      "content": this.termOfUseForm.value.editorContent
+    }
+    this.adminService.updateTerms(params)
+      .subscribe((res: any) => {
+        console.log("Update Terms res: ", res);
+
+        if (res.status === "success") {
+          this.message.create('success', res.message);
+
+          this.getTermsOfUse();
+        }
+      })
   }
 }

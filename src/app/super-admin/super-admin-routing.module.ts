@@ -7,6 +7,7 @@ import { CompanyComponent } from './company/company.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 import { ReportsComponent } from './reports/reports.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AddSubscriptionComponent } from './subscription/add-subscription/add-subscription.component';
@@ -24,7 +25,8 @@ const routes: Routes = [
       { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
       { path: 'subscriptions', component: SubscriptionComponent, canActivate: [AuthGuard] },
       { path: 'subscriptions/add', component: AddSubscriptionComponent, canActivate: [AuthGuard] },
-      { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] }
+      { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+      { path: 'notifications', component: NotificationsComponent, canActivate: [AuthGuard] }
     ],
   }
 ];

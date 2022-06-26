@@ -106,4 +106,13 @@ export class AdminService {
     const { id, params } = payload;
     return this.http.post(this.baseUrl + `user/admin/archive/${id}`, params);
   }
+
+  // Terms of Use
+  getTerms() {
+    return this.http.get(this.baseUrl + 'page/terms');
+  }
+
+  updateTerms(params: any) {
+    return this.http.post(this.baseUrl + 'page/update/terms', params);
+  }
 }
